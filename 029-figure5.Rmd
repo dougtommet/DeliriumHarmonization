@@ -1,0 +1,137 @@
+
+
+
+```{r}
+
+testscore <- drs.info.poly %>%
+  select(theta, testscore) %>%
+  rename(drsscore = testscore) %>%
+  left_join(mdas.info.poly %>% 
+              select(theta, testscore) %>%
+              rename(mdasscore = testscore), by="theta") %>%
+  left_join(cam.info.poly %>%
+              select(theta, testscore) %>%
+              rename(camscore = testscore), by="theta") 
+
+### Tables
+## CAM-S table
+testscore %>%
+  mutate(goo.cam = round(camscore)) %>%
+  group_by(goo.cam) %>%
+  mutate(hoo.cam = abs(camscore-goo.cam),
+         ioo.cam = min(hoo.cam)) %>%
+  filter(hoo.cam==ioo.cam) %>%
+  select(-hoo.cam, -ioo.cam, -camscore, -theta) %>%
+  mutate(score = goo.cam) %>%
+  select(goo.cam, mdasscore, drsscore) %>%
+  kable(digits = c(0, 1, 1), col.names= c("CAM-S", "MDAS", "DRS"), caption = "CAM-S to MDAS and DRS")
+
+## MDAS table
+testscore %>%
+  mutate(goo.mdas = round(mdasscore)) %>%
+  group_by(goo.mdas) %>%
+  mutate(hoo.mdas = abs(mdasscore-goo.mdas),
+         ioo.mdas = min(hoo.mdas)) %>%
+  filter(hoo.mdas==ioo.mdas) %>%
+  select(-hoo.mdas, -ioo.mdas, -mdasscore, -theta) %>%
+  mutate(score = goo.mdas) %>%
+  select(goo.mdas, camscore, drsscore) %>% 
+  kable(digits = c(0, 1, 1), col.names = c("MDAS", "CAM-S", "DRS"), caption = "MDAS to CAM-S and DRS")
+
+## DRS table
+testscore %>%
+  mutate(goo.drs = round(drsscore)) %>%
+  group_by(goo.drs) %>%
+  mutate(hoo.drs = abs(drsscore-goo.drs),
+         ioo.drs = min(hoo.drs)) %>%
+  filter(hoo.drs==ioo.drs) %>%
+  select(-hoo.drs, -ioo.drs, -drsscore, -theta) %>%
+  mutate(score = goo.drs) %>%
+  select(goo.drs, camscore, mdasscore) %>%
+  kable(digits = c(0, 1, 1), col.names = c("DRS", "CAM-S", "MDAS"), caption = "DRS to CAM-S and MDAS")
+
+
+
+### Nomograms
+## CAM-S nomogram
+testscore %>%
+  mutate(goo.cam = round(camscore)) %>%
+  group_by(goo.cam) %>%
+  mutate(hoo.cam = abs(camscore-goo.cam),
+         ioo.cam = min(hoo.cam)) %>%
+  filter(hoo.cam==ioo.cam) %>%
+  select(-hoo.cam, -ioo.cam, -camscore, -theta) %>%
+  mutate(score = goo.cam) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = ifelse(test=="goo.cam", 
+                            paste(score), paste(round(value, 1)))) %>%
+  arrange(score) %>%
+  ggplot(aes(x=test, y=value, group=score, label = value.lab)) +
+    geom_point() +
+    geom_line() +
+    geom_label() +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("drsscore" = "DRS", 
+                                "goo.cam"= "CAM-S", 
+                                "mdasscore"="MDAS"),
+                     limits = c("drsscore", "goo.cam", "mdasscore")) +
+    scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
+    ggtitle("Nomogram linking CAM-S with DRS and MDAS")
+
+ggsave("nomogram-cam.pdf", height = 20, units="cm")
+
+## MDAS nomogram
+testscore %>%
+  mutate(goo.mdas = round(mdasscore)) %>%
+  group_by(goo.mdas) %>%
+  mutate(hoo.mdas = abs(mdasscore-goo.mdas),
+         ioo.mdas = min(hoo.mdas)) %>%
+  filter(hoo.mdas==ioo.mdas) %>%
+  select(-hoo.mdas, -ioo.mdas, -mdasscore, -theta) %>%
+  mutate(score = goo.mdas) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = ifelse(test=="goo.mdas", 
+                            paste(score), paste(round(value, 1)))) %>%
+  arrange(score) %>%
+  ggplot(aes(x=test, y=value, group=score, label = value.lab)) +
+    geom_point() +
+    geom_line() +
+    geom_label() +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("drsscore" = "DRS", 
+                                "goo.mdas"= "MDAS", 
+                                "camscore"="CAM-S"), 
+                     limits = c("camscore", "goo.mdas", "drsscore")) +
+    scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
+    ggtitle("Nomogram linking MDAS with DRS and CAM-S")
+
+ggsave("nomogram-mdas.pdf", height = 20, units="cm")
+
+## DRS nomogram
+testscore %>%
+  mutate(goo.drs = round(drsscore)) %>%
+  group_by(goo.drs) %>%
+  mutate(hoo.drs = abs(drsscore-goo.drs),
+         ioo.drs = min(hoo.drs)) %>%
+  filter(hoo.drs==ioo.drs) %>%
+  select(-hoo.drs, -ioo.drs, -drsscore, -theta) %>%
+  mutate(score = goo.drs) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = ifelse(test=="goo.drs", 
+                            paste(score), paste(round(value, 1)))) %>%
+  arrange(score) %>%
+  ggplot(aes(x=test, y=value, group=score, label = value.lab)) +
+    geom_point() +
+    geom_line() +
+    geom_label() +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("mdasscore" = "MDAS", 
+                                "goo.drs"= "DRS", 
+                                "camscore"="CAM-S"), 
+                     limits = c("camscore", "goo.drs", "mdasscore")) +
+    scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
+    ggtitle("Nomogram linking DRS with MDAS and CAM-S")
+
+ggsave("nomogram-drs.pdf", height = 30, units="cm")
+
+```

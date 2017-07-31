@@ -1,0 +1,24 @@
+
+# Goal
+The goal of this paper is to describe the level of agreement and a harmonized scale of severity applicable to several commonly used delirium instruments: the CAM-S, DRS-R98, MDAS. We do this in the context of a single clinical research study, where a team of trained lay interviewers administered each instrument along with supporting stimulus assessments in the same group of patients.
+
+## Summary of Results So Far
+### IRT Models Estimated for All Three Instruments: CAM-S, DRS, MDAS
+
+Fit to 6 or 7 core items per instrument is good. The core items include Sleep disturbance, Perceptual disturbance, Psychomotor agitation/retardation, Orientation, Attention, and Memory impairment. 
+
+Fit to expanded item sets is unacceptably bad. That is an interesting result. 
+
+But we may need to re-estimate co-calibration models with better fitting models. In particular, we might want to omit sleep/wake disturbance which is decidedly not related to delirium severity despite being present on all item sets.
+
+*TODO:* Examine misfit, residuals, try to improve models
+
+## Item Parameters have been co-calibrated
+
+But we might want to re-do this with better fitting IRT models. Or at least omitting sleep disturbance. 
+
+*TODO:* Estimate all thresholds for all items, and link these parameters.
+
+*TODO:* Update expected-score vs latent trait curve (this is the cross-walk) with all thresholds estimated, and perhaps on a better fitting set of models (maybe omitting sleep disturbance).
+
+Note: In writing the paper, use the term "features" instead of "symptoms".

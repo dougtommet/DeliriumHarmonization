@@ -1,0 +1,36 @@
+
+
+
+### Table 2
+Summary of delirium severity instruments from all hospital interviews.
+```{r}
+inhosp %>%
+  summarise(N_DRS = sum(!is.na(vddrs)),
+            N_MDAS = sum(!is.na(vdmdas)),
+            N_CAMS = sum(!is.na(vdcamseveritylf)),
+            mean_DRS = mean(vddrs, na.rm=T), 
+            mean_MDAS = mean(vdmdas, na.rm=T), 
+            mean_CAMS = mean(vdcamseveritylf, na.rm=T),
+            sd_DRS = sd(vddrs, na.rm=T),
+            sd_MDAS = sd(vdmdas, na.rm=T),
+            sd_CAMS = sd(vdcamseveritylf, na.rm=T),
+            min_DRS = min(vddrs, na.rm=T), 
+            min_MDAS = min(vdmdas, na.rm=T), 
+            min_CAMS = min(vdcamseveritylf, na.rm=T),
+            p50_DRS = quantile(vddrs, probs=c(.5), na.rm=T), 
+            p50_MDAS = quantile(vdmdas, probs=c(.5),na.rm=T), 
+            p50_CAMS = quantile(vdcamseveritylf, probs=c(.5), na.rm=T),
+            max_DRS = max(vddrs, na.rm=T), 
+            max_MDAS = max(vdmdas, na.rm=T), 
+            max_CAMS = max(vdcamseveritylf, na.rm=T)) %>%
+  gather(Name, Value) %>%
+  separate(Name, c("stat", "var"), "_") %>%
+  spread(stat, Value) %>%
+  select(var, N, mean, sd, min, p50, max) %>%
+  kable(digits=1, col.names=c("Variable", "N", "Mean", "SD", "Min", "Median", "Max"))
+
+
+ 
+
+```
+

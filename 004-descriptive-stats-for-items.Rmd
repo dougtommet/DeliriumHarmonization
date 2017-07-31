@@ -1,0 +1,117 @@
+
+
+# Descriptive statistics
+
+## Summary table for DRS (N=`r  dim(basil)[1]`)
+
+Original item categories (%)
+```{r }
+basil %>%
+  select(starts_with("rdrs")) %>%
+  gather(item, y)   %>%
+  arrange(item) %>%
+  mutate(foo = TRUE,
+         id = row_number())   %>%
+  spread(y, foo)  %>%
+  select(-id)   %>%
+  group_by(item) %>%
+  summarize_all(funs(100*sum(., na.rm=TRUE)/n())) %>%
+  arrange(desc(`0`)) %>%
+  kable(digits = 2, 
+        col.names = c("Item", "0", "1", "2", "3", "Missing"))
+
+
+```
+
+Dichotomized item categories (%)
+
+```{r}
+basil2 %>%
+  select(starts_with("rdrs")) %>%
+  gather(item, y)   %>%
+  arrange(item) %>%
+  mutate(foo = TRUE,
+         id = row_number())   %>%
+  spread(y, foo)  %>%
+  select(-id)   %>%
+  group_by(item) %>%
+  summarize_all(funs(100*sum(., na.rm=TRUE)/n())) %>%
+  arrange(desc(`0`)) %>%
+  kable(digits = 2, 
+        col.names = c("Item", "0", "1", "Missing"))
+```
+
+## Summary table for MDAS (N=`r dim(basil)[1]`)
+Original item categories (%)
+
+```{r}
+basil %>%
+  select(starts_with("rmdas")) %>%
+  gather(item, y)   %>%
+  arrange(item) %>%
+  mutate(foo = TRUE,
+         id = row_number())   %>%
+  spread(y, foo)  %>%
+  select(-id)   %>%
+  group_by(item) %>%
+  summarize_all(funs(100*sum(., na.rm=TRUE)/n()))  %>%
+  arrange(desc(`0`)) %>%
+  kable(digits = 2, 
+        col.names = c("Item", "0", "1", "2", "3", "Missing"))
+```
+
+Dichotomized item categories (%)
+
+```{r}
+basil2 %>%
+  select(starts_with("rmdas")) %>%
+  gather(item, y)   %>%
+  arrange(item) %>%
+  mutate(foo = TRUE,
+         id = row_number())   %>%
+  spread(y, foo)  %>%
+  select(-id)   %>%
+  group_by(item) %>%
+  summarize_all(funs(100*sum(., na.rm=TRUE)/n()))  %>%
+  arrange(desc(`0`)) %>%
+  kable(digits = 2, 
+        col.names = c("Item", "0", "1", "Missing"))
+```
+
+## Summary table for CAM-S (N=`r dim(basil)[1]`)
+Original item categories (%)
+
+```{r}
+basil %>%
+  select(starts_with("rcam")) %>%
+  gather(item, y)   %>%
+  arrange(item) %>%
+  mutate(foo = TRUE,
+         id = row_number())   %>%
+  spread(y, foo)  %>%
+  select(-id)   %>%
+  group_by(item) %>%
+  summarize_all(funs(100*sum(., na.rm=TRUE)/n())) %>%
+  arrange(desc(`0`)) %>%
+  kable(digits = 2, 
+        col.names = c("Item", "0", "1", "2", "Missing"))
+```
+
+Dichotomized item categories (%)
+
+```{r}
+basil2 %>%
+  select(starts_with("rcam")) %>%
+  gather(item, y)   %>%
+  arrange(item) %>%
+  mutate(foo = TRUE,
+         id = row_number())   %>%
+  spread(y, foo)  %>%
+  select(-id)   %>%
+  group_by(item) %>%
+  summarize_all(funs(100*sum(., na.rm=TRUE)/n())) %>%
+  arrange(desc(`0`)) %>%
+  kable(digits = 2, 
+        col.names = c("Item", "0", "1", "Missing"))
+
+```

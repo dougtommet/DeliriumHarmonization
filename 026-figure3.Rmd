@@ -1,0 +1,73 @@
+
+
+
+
+
+
+### Figure 3
+```{r}
+inhosp.delirium <- inhosp %>%
+  select("vddrs", "vdmdas", "vdcamseveritylf")
+
+drs.lim <- c(0, 30)
+drs.seq <- seq(0, 30, by = 5)
+mdas.lim <- c(0, 25)
+mdas.seq <- seq(0, 25, by = 5)
+cam.lim <- c(0, 20)
+cam.seq <- seq(0, 20, by = 5)
+cor.drs.mdas <- with(inhosp.delirium, cor(vddrs, vdmdas, use="complete.obs"))
+cor.drs.cam <- with(inhosp.delirium, cor(vddrs, vdcamseveritylf, use="complete.obs"))
+cor.cam.mdas <- with(inhosp.delirium, cor(vdcamseveritylf, vdmdas, use="complete.obs"))
+text.drs.mdas <- paste("r = ", round(cor.drs.mdas, 2))
+text.drs.cam <- paste("r = ", round(cor.drs.cam, 2))
+text.cam.mdas <- paste("r = ", round(cor.cam.mdas, 2))
+
+plot1 <- ggplot(inhosp.delirium, aes(x = vddrs , y = vddrs)) +
+  scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
+  scale_y_continuous(limits = drs.lim, breaks = drs.seq)
+plot2 <- ggplot(inhosp.delirium, aes(x = vdmdas , y = vddrs)) +
+  geom_point() +
+  scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
+  scale_y_continuous(limits = drs.lim, breaks = drs.seq) + 
+  annotate("text", x = 20, y = 5, label = text.drs.mdas)
+plot3 <- ggplot(inhosp.delirium, aes(x = vdcamseveritylf, y = vddrs)) +
+  geom_point()+
+  scale_x_continuous(limits = cam.lim, breaks = cam.seq) +
+  scale_y_continuous(limits = drs.lim, breaks = drs.seq) + 
+  annotate("text", x = 17, y = 5, label = text.drs.cam)
+plot4 <- ggplot(inhosp.delirium, aes(x = vddrs, y = vdmdas)) +
+  geom_point() +
+  scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
+  scale_y_continuous(limits = mdas.lim, breaks = mdas.seq) + 
+  annotate("text", x = 25, y = 5, label = text.drs.mdas)
+plot5 <- ggplot(inhosp.delirium, aes(x = vdmdas , y = vdmdas)) +
+  scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
+  scale_y_continuous(limits = mdas.lim, breaks = mdas.seq)
+plot6 <- ggplot(inhosp.delirium, aes(x = vdcamseveritylf, y = vdmdas)) +
+  geom_point() +
+  scale_x_continuous(limits = cam.lim, breaks = cam.seq) +
+  scale_y_continuous(limits = mdas.lim, breaks = mdas.seq) + 
+  annotate("text", x = 17, y = 5, label = text.cam.mdas)
+plot7 <- ggplot(inhosp.delirium, aes(x = vddrs, y = vdcamseveritylf)) +
+  geom_point() +
+  scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
+  scale_y_continuous(limits = cam.lim, breaks = cam.seq) + 
+  annotate("text", x = 25, y = 3, label = text.drs.cam)
+plot8 <- ggplot(inhosp.delirium, aes(x = vdmdas, y = vdcamseveritylf)) +
+  geom_point() +
+  scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
+  scale_y_continuous(limits = cam.lim, breaks = cam.seq) + 
+  annotate("text", x = 20, y = 3, label = text.cam.mdas)
+plot9 <- ggplot(inhosp.delirium, aes(x = vdcamseveritylf , y = vdcamseveritylf)) +
+  scale_x_continuous(limits = cam.lim, breaks = cam.seq) +
+  scale_y_continuous(limits = cam.lim, breaks = cam.seq)
+
+
+
+ggmatrix(list(plot1, plot2, plot3, plot4, plot5, plot6, plot7, plot8, plot9), 
+         nrow = 3, ncol = 3,
+         xAxisLabels = c("DRS", "MDAS", "CAM-S"), 
+         yAxisLabels = c("DRS", "MDAS", "CAM-S"))
+
+```
+

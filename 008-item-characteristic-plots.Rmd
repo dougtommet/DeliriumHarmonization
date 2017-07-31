@@ -1,0 +1,177 @@
+
+
+```{r, dichotomousICC}
+theta <- seq(-4, 6, by= .1)
+hoo <- data.frame(theta)
+
+my.par <- drs.par[,c("A.drs", "B.drs")]
+drs.info <- hoo %>%
+  mutate(p1 = (exp(my.par[1,1]*(theta-my.par[1,2]))/(1+exp(my.par[1,1]*(theta-my.par[1,2])))),
+         p2 = (exp(my.par[2,1]*(theta-my.par[2,2]))/(1+exp(my.par[2,1]*(theta-my.par[2,2])))),
+         p3 = (exp(my.par[3,1]*(theta-my.par[3,2]))/(1+exp(my.par[3,1]*(theta-my.par[3,2])))),
+         p4 = (exp(my.par[4,1]*(theta-my.par[4,2]))/(1+exp(my.par[4,1]*(theta-my.par[4,2])))),
+         p5 = (exp(my.par[5,1]*(theta-my.par[5,2]))/(1+exp(my.par[5,1]*(theta-my.par[5,2])))),
+         p6 = (exp(my.par[6,1]*(theta-my.par[6,2]))/(1+exp(my.par[6,1]*(theta-my.par[6,2])))),
+         p7 = (exp(my.par[7,1]*(theta-my.par[7,2]))/(1+exp(my.par[7,1]*(theta-my.par[7,2])))),
+         p8 = (exp(my.par[8,1]*(theta-my.par[8,2]))/(1+exp(my.par[8,1]*(theta-my.par[8,2])))),
+         p9 = (exp(my.par[9,1]*(theta-my.par[9,2]))/(1+exp(my.par[9,1]*(theta-my.par[9,2])))),
+         p10 = (exp(my.par[10,1]*(theta-my.par[10,2]))/(1+exp(my.par[10,1]*(theta-my.par[10,2])))),
+         p11 = (exp(my.par[11,1]*(theta-my.par[11,2]))/(1+exp(my.par[11,1]*(theta-my.par[11,2])))),
+         p12 = (exp(my.par[12,1]*(theta-my.par[12,2]))/(1+exp(my.par[12,1]*(theta-my.par[12,2])))),
+         p13 = (exp(my.par[13,1]*(theta-my.par[13,2]))/(1+exp(my.par[13,1]*(theta-my.par[13,2])))),
+         q1 = 1-p1,
+         q2 = 1-p2,
+         q3 = 1-p3,
+         q4 = 1-p4,
+         q5 = 1-p5,
+         q6 = 1-p6,
+         q7 = 1-p7,
+         q8 = 1-p8,
+         q9 = 1-p9,
+         q10 = 1-p10,
+         q11 = 1-p11,
+         q12 = 1-p12,
+         q13 = 1-p13,
+         i1 = my.par[1,1]^2*p1*q1,
+         i2 = my.par[2,1]^2*p2*q2,
+         i3 = my.par[3,1]^2*p3*q3,
+         i4 = my.par[4,1]^2*p4*q4,
+         i5 = my.par[5,1]^2*p5*q5,
+         i6 = my.par[6,1]^2*p6*q6,
+         i7 = my.par[7,1]^2*p7*q7,
+         i8 = my.par[8,1]^2*p8*q8,
+         i9 = my.par[9,1]^2*p9*q9,
+         i10 = my.par[10,1]^2*p10*q10,
+         i11 = my.par[11,1]^2*p11*q11,
+         i12 = my.par[12,1]^2*p12*q12,
+         i13 = my.par[13,1]^2*p13*q13,
+         testscore = p1+p2+p3+p4+p5+p6+p7+p8+p9+p10+p11+p12+p13,
+         testinfo = i1+i2+i3+i4+i5+i6+i7+i8+i9+i10+i11+i12+i13)
+
+my.par <- mdas.par[,c("A.l.mdas", "B.l.mdas")]
+mdas.info.linked <- hoo %>%
+  mutate(p1 = (exp(my.par[1,1]*(theta-my.par[1,2]))/(1+exp(my.par[1,1]*(theta-my.par[1,2])))),
+         p2 = (exp(my.par[2,1]*(theta-my.par[2,2]))/(1+exp(my.par[2,1]*(theta-my.par[2,2])))),
+         p3 = (exp(my.par[3,1]*(theta-my.par[3,2]))/(1+exp(my.par[3,1]*(theta-my.par[3,2])))),
+         p4 = (exp(my.par[4,1]*(theta-my.par[4,2]))/(1+exp(my.par[4,1]*(theta-my.par[4,2])))),
+         p5 = (exp(my.par[5,1]*(theta-my.par[5,2]))/(1+exp(my.par[5,1]*(theta-my.par[5,2])))),
+         p6 = (exp(my.par[6,1]*(theta-my.par[6,2]))/(1+exp(my.par[6,1]*(theta-my.par[6,2])))),
+         p7 = (exp(my.par[7,1]*(theta-my.par[7,2]))/(1+exp(my.par[7,1]*(theta-my.par[7,2])))),
+         p8 = (exp(my.par[8,1]*(theta-my.par[8,2]))/(1+exp(my.par[8,1]*(theta-my.par[8,2])))),
+         p9 = (exp(my.par[9,1]*(theta-my.par[9,2]))/(1+exp(my.par[9,1]*(theta-my.par[9,2])))),
+         p10 = (exp(my.par[10,1]*(theta-my.par[10,2]))/(1+exp(my.par[10,1]*(theta-my.par[10,2])))),
+         q1 = 1-p1,
+         q2 = 1-p2,
+         q3 = 1-p3,
+         q4 = 1-p4,
+         q5 = 1-p5,
+         q6 = 1-p6,
+         q7 = 1-p7,
+         q8 = 1-p8,
+         q9 = 1-p9,
+         q10 = 1-p10,
+         i1 = my.par[1,1]^2*p1*q1,
+         i2 = my.par[2,1]^2*p2*q2,
+         i3 = my.par[3,1]^2*p3*q3,
+         i4 = my.par[4,1]^2*p4*q4,
+         i5 = my.par[5,1]^2*p5*q5,
+         i6 = my.par[6,1]^2*p6*q6,
+         i7 = my.par[7,1]^2*p7*q7,
+         i8 = my.par[8,1]^2*p8*q8,
+         i9 = my.par[9,1]^2*p9*q9,
+         i10 = my.par[10,1]^2*p10*q10,
+         testscore = p1+p2+p3+p4+p5+p6+p7+p8+p9+p10,
+         testinfo = i1+i2+i3+i4+i5+i6+i7+i8+i9+i10)
+
+
+my.par <- cam.par[,c("A.l.cam", "B.l.cam")]
+cam.info.linked <- hoo %>%
+  mutate(p1 = (exp(my.par[1,1]*(theta-my.par[1,2]))/(1+exp(my.par[1,1]*(theta-my.par[1,2])))),
+         p2 = (exp(my.par[2,1]*(theta-my.par[2,2]))/(1+exp(my.par[2,1]*(theta-my.par[2,2])))),
+         p3 = (exp(my.par[3,1]*(theta-my.par[3,2]))/(1+exp(my.par[3,1]*(theta-my.par[3,2])))),
+         p4 = (exp(my.par[4,1]*(theta-my.par[4,2]))/(1+exp(my.par[4,1]*(theta-my.par[4,2])))),
+         p5 = (exp(my.par[5,1]*(theta-my.par[5,2]))/(1+exp(my.par[5,1]*(theta-my.par[5,2])))),
+         p6 = (exp(my.par[6,1]*(theta-my.par[6,2]))/(1+exp(my.par[6,1]*(theta-my.par[6,2])))),
+         p7 = (exp(my.par[7,1]*(theta-my.par[7,2]))/(1+exp(my.par[7,1]*(theta-my.par[7,2])))),
+         p8 = (exp(my.par[8,1]*(theta-my.par[8,2]))/(1+exp(my.par[8,1]*(theta-my.par[8,2])))),
+         p9 = (exp(my.par[9,1]*(theta-my.par[9,2]))/(1+exp(my.par[9,1]*(theta-my.par[9,2])))),
+         p10 = (exp(my.par[10,1]*(theta-my.par[10,2]))/(1+exp(my.par[10,1]*(theta-my.par[10,2])))),
+         q1 = 1-p1,
+         q2 = 1-p2,
+         q3 = 1-p3,
+         q4 = 1-p4,
+         q5 = 1-p5,
+         q6 = 1-p6,
+         q7 = 1-p7,
+         q8 = 1-p8,
+         q9 = 1-p9,
+         q10 = 1-p10,
+         i1 = my.par[1,1]^2*p1*q1,
+         i2 = my.par[2,1]^2*p2*q2,
+         i3 = my.par[3,1]^2*p3*q3,
+         i4 = my.par[4,1]^2*p4*q4,
+         i5 = my.par[5,1]^2*p5*q5,
+         i6 = my.par[6,1]^2*p6*q6,
+         i7 = my.par[7,1]^2*p7*q7,
+         i8 = my.par[8,1]^2*p8*q8,
+         i9 = my.par[9,1]^2*p9*q9,
+         i10 = my.par[10,1]^2*p10*q10,
+         testscore = p1+p2+p3+p4+p5+p6+p7+p8+p9+p10,
+         testinfo = i1+i2+i3+i4+i5+i6+i7+i8+i9+i10)
+```
+
+```{r}
+info <- drs.info %>%
+  select(theta, testinfo) %>%
+  rename(drsinfo = testinfo) %>%
+  left_join(mdas.info.linked %>% 
+              select(theta, testinfo) %>%
+              rename(mdasinfo = testinfo), by="theta") %>%
+  left_join(cam.info.linked %>%
+              select(theta, testinfo) %>%
+              rename(caminfo = testinfo), by="theta") %>%
+  gather(test, info, 2:4)
+
+ggplot(info, aes(theta, info, group=test, color=test)) +
+  geom_line() +
+  scale_color_brewer(palette = "Dark2", 
+                     name = "Delirium Scale",
+                     breaks = c("drsinfo", "mdasinfo", "caminfo"),
+                     labels = c("DRS", "MDAS", "CAM-S")) + 
+  xlab("Delirium Intensity") +
+  ylab("Information") +
+  ggtitle("Test Information Curves (Dichotomous CFA)")
+```
+
+```{r}
+prob <- drs.info %>%
+  select(theta, starts_with("p")) %>%
+  gather("item", "prob", 2:14) %>%
+  mutate(test = "drs",
+         testitem = paste0("drs-",item)) %>%
+  bind_rows(mdas.info.linked %>% 
+              select(theta, starts_with("p")) %>% 
+              gather("item", "prob", 2:11) %>% 
+              mutate(test = "mdas",
+                     testitem = paste0("mdas-",item))) %>%
+  bind_rows(cam.info.linked %>% 
+              select(theta, starts_with("p")) %>% 
+              gather("item", "prob", 2:11) %>% 
+              mutate(test = "cam", 
+                     testitem = paste0("cam-",item)))
+  
+
+
+ggplot(prob, aes(theta, prob, group=testitem, color = test)) +
+  geom_line() +
+  scale_color_brewer(palette = "Dark2", 
+                     name = "Delirium Scale",
+                     breaks = c("drs", "mdas", "cam"),
+                     labels = c("DRS", "MDAS", "CAM-S")) + 
+  xlab("Delirium Intensity") +
+  ylab("Probability") +
+  ggtitle("Item Characteristic Curves (Dichotomous CFA)")
+  
+
+```
+

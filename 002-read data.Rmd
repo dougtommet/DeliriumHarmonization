@@ -1,0 +1,37 @@
+
+# Data Processing
+## Read Data
+
+The datafile is */POSTED/DATA/DERIVED/clean/processing/Basil-Hospital-Patient-Assessment.dta*.  
+
+This analysis will only use baseline hospital visits and daily hospital visits.  Interviews that are not complete are dropped.
+
+```{r}
+# dataprocessing <- "R:/POSTED/DATA/DERIVED/clean/processing/"
+dataprocessing <- "/Users/douglastommet/Documents/dwork/BASIL/POSTED/DATA/DERIVED/clean/processing/"
+
+inhosp <- read_dta(paste0(dataprocessing, "BASIL-Hospital-Patient-Data-Analysis-File.dta"))
+
+patientinterview <- read_dta(paste0(dataprocessing, "BASIL-Patient-Interview-Data-Analysis-File.dta")) %>%
+  filter(timefr==0) %>%
+  select(studyid, timefr, starts_with("vd"))
+
+medical <- read_dta(paste0(dataprocessing, "BASIL-Medical-Record-Data-Analysis-File.dta")) %>%
+  select(studyid, vddementia, vdsurgical)
+
+patientinterview <- patientinterview %>%
+  full_join(medical, by = "studyid")
+
+
+# select baseline hospital visits (cvpg4==1) and daily hospital visits (cvpg4==2)
+basil <- inhosp %>%
+  filter(cvpg4==1 | cvpg4==2)
+
+# select complete interviews
+basil <- basil %>%
+  filter(b_end_of_interview_complete==2)
+
+```
+
+
+

@@ -1,0 +1,39 @@
+
+
+```{r}
+fscores.drs <- getSavedata_Data("cfa-drs-2.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  rename(f.drs = f)
+
+fscores.mdas <- getSavedata_Data("cfa-mdas-link.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  rename(f.mdas = f)
+
+fscores.cam <- getSavedata_Data("cfa-cam-link.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  rename(f.cam = f)
+
+fscores <- fscores.drs %>%
+  left_join(fscores.mdas, by="recordid") %>%
+  left_join(fscores.cam, by="recordid")
+
+fscores %>%
+  gather(test, fscore, 2:4) %>%
+  ggplot(aes(fscore, group=test, color=test)) +
+    geom_density(adjust=2) +
+    scale_color_brewer(palette = "Dark2", 
+                      name = "Delirium Scale",
+                      breaks = c("f.drs", "f.mdas", "f.cam"),
+                      labels = c("DRS", "MDAS", "CAM-S")) + 
+  xlab("Delirium Intensity") +
+  ylab("Density") +
+  scale_x_continuous(limits = c(-4, 6)) +
+  ggtitle("Distribution of estimated delirium level (Dichotomous CFA)")
+
+
+
+
+```

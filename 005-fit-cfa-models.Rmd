@@ -1,0 +1,757 @@
+```{r}
+loopReplace <- function(text, replacements) {
+  for (v in names(replacements)) {
+    text <- gsub(sprintf("\\[\\[%s\\]\\]", v), replacements[[v]], text)
+  }
+  return(text)
+}
+
+```
+# Model Fitting
+
+## Fit CFA models
+We will fit a CFA in the MDAS, DRS, and CAM-S individually then equate them.  To ensure that the CFA covers the same dimension for each test, we are fitting the CFA to a core set of items in common across test and then add in the remaining items keeping the core item parameters fixed.
+
+The core set of items are: 
+
+| Feature                           | DRS          | MDAS           |  CAM-S  |
+|-----------------------------------|--------------|----------------|-------|
+| Sleep disturbance                 | drs01        | mdas10         | camlf9a |
+| Perceptual disturbance            | drs02        | mdas07         | camlf7a |
+| Psychomotor agitation/retardation | drs07, drs08 | mdas09         | camlf8a, camlf8d |
+| Orientation                       | drs09        | mdas02         | camlf5a |
+| Attention                         | drs10        | mdas04, mdas05 | camlf2a |
+| Memory impairment                 | drs11, drs12 | mdas03         | camlf6a |
+
+**NOTE:**  In the original 2PL models, the sleep item did not fit well.  To try to improve the fit, we tried changing to a 3PL model.  This did not improve the fit.  So, next we changed the way we dichotomized sleep.  Instead of grouping the categories 0 vs 1, 2, 3, we used 0, 1 vs 2, 3.  This helped improve the fit in the DRS and MDAS a lot and in the CAM-S a little.
+
+```{r}
+### 2PL model
+model.drs.1 <- " f by  rdrs01* rdrs02 rdrs07 rdrs08 rdrs09 rdrs10 rdrs11 ;
+               f @1; "
+cfa.drs.1.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.drs.1,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
+                   "rdrs09", "rdrs10", "rdrs11"),
+  rdata = basil2
+)
+cfa.drs.1.fit <- mplusModeler(cfa.drs.1.body, 
+                              modelout = "cfa-drs-1.inp", run = TRUE)
+
+param <- readModels("cfa-drs-1.out")$parameters$unstandardized
+mc.param <- param %>%
+  filter(paramHeader=="F.BY" | 
+         paramHeader=="Thresholds" |
+         (paramHeader=="Variances" & param=="F")) %>%
+  mutate(est = as.numeric(est)) %>%
+  mutate_all(funs(tolower))
+  
+mc.param <- mc.param[1:15,1:3]
+
+myParam <- data.frame(f1s = 0)
+for (i in 1:dim(mc.param)[1]) {
+  if (mc.param$paramHeader[i]=="f.by") {
+    myParam[[paste0("f",i, "s")]] = paste0(gsub("\\.", " ", 
+                                                mc.param$paramHeader[i]), " ",
+                                          mc.param$param[i], 
+                                          "@", mc.param$est[i])
+  }
+  if (mc.param$paramHeader[i]=="thresholds") {
+    myParam[[paste0("f",i, "s")]] = paste0("[", mc.param$param[i], 
+                                           "@", mc.param$est[i],"]")
+  }
+  if (mc.param$paramHeader[i]=="variances") {
+    myParam[[paste0("f",i, "s")]] = paste0(mc.param$param[i], 
+                                           "*")
+  }
+}
+
+goo <- paste(paste0("[[f", 1:dim(mc.param)[1], "s]];"), collapse = " \n ")
+model.drs.2 <- loopReplace(goo, myParam)
+
+drs.varlist <- c("rdrs03", "rdrs04", "rdrs05", "rdrs06", "rdrs12", "rdrs13")
+drs.varlist <- paste0("f by ", drs.varlist, ";")
+drs.varlist.collapsed<- paste0(drs.varlist, collapse = " \n ")
+model.drs.2 <- paste(model.drs.2, "\n", drs.varlist.collapsed)
+
+cfa.drs.2.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.drs.2,
+  OUTPUT = "",
+  SAVEDATA = "save = fscores; file = fscores-drs.dat;",
+  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
+                   "rdrs09", "rdrs10", "rdrs11", "rdrs03", 
+                   "rdrs04", "rdrs05", "rdrs06", "rdrs12", "rdrs13"),
+  rdata = basil2)
+cfa.drs.2.fit <- mplusModeler(cfa.drs.2.body, 
+                               modelout = "cfa-drs-2.inp", run = TRUE)
+```
+
+```{r, eval=FALSE}
+###3PL model
+model.drs.1.3pl <- " f by  rdrs01* rdrs02 rdrs07 rdrs08 rdrs09 rdrs10 rdrs11 ;
+               f @1; 
+               [rdrs01$2-rdrs11$2] (a1-a7);
+            MODEL PRIORS:
+              a1-a7~N(1.386,1);
+
+"
+cfa.drs.1.3pl.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all (3pl);",
+  MODEL = model.drs.1.3pl,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
+                   "rdrs09", "rdrs10", "rdrs11"),
+  rdata = basil2
+)
+cfa.drs.1.3pl.fit <- mplusModeler(cfa.drs.1.3pl.body, 
+                              modelout = "cfa-drs-1-3pl.inp", run = TRUE)
+
+param <- extractModelParameters("cfa-drs-1-3pl.out")$unstandardized
+mc.param <- param %>%
+  filter(paramHeader=="F.BY" |
+         paramHeader=="Thresholds" |
+         (paramHeader=="Variances" & param=="F")) %>%
+  mutate(est = as.numeric(est)) %>%
+  mutate_all(funs(tolower))
+
+mc.param <- unique(mc.param[,1:3])
+
+myParam <- data.frame(f1s = 0)
+for (i in 1:dim(mc.param)[1]) {
+  if (mc.param$paramHeader[i]=="f.by") {
+    myParam[[paste0("f",i, "s")]] = paste0(gsub("\\.", " ",
+                                                mc.param$paramHeader[i]), " ",
+                                          mc.param$param[i],
+                                          "@", mc.param$est[i])
+  }
+  if (mc.param$paramHeader[i]=="thresholds") {
+    myParam[[paste0("f",i, "s")]] = paste0("[", mc.param$param[i],
+                                           "@", mc.param$est[i],"]")
+  }
+  if (mc.param$paramHeader[i]=="variances") {
+    myParam[[paste0("f",i, "s")]] = paste0(mc.param$param[i],
+                                           "*")
+  }
+}
+
+goo <- paste(paste0("[[f", 1:dim(mc.param)[1], "s]];"), collapse = " \n ")
+model.drs.2.3pl <- loopReplace(goo, myParam)
+
+drs.varlist <- c("rdrs03", "rdrs04", "rdrs05", "rdrs06", "rdrs12", "rdrs13")
+drs.varlist <- paste0("f by ", drs.varlist, ";") 
+drs.varlist <- c(drs.varlist, "[rdrs03$2-rdrs13$2] (a1-a6); ", "MODEL PRIORS: ", "a1-a6~N(1.386,1);")
+drs.varlist.collapsed<- paste0(drs.varlist, collapse = " \n ")
+model.drs.2.3pl <- paste(model.drs.2.3pl, "\n", drs.varlist.collapsed)
+
+cfa.drs.2.3pl.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all (3pl);",
+  MODEL = model.drs.2.3pl,
+  OUTPUT = "",
+  SAVEDATA = "save = fscores; file = fscores-drs.dat;",
+  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08",
+                   "rdrs09", "rdrs10", "rdrs11", "rdrs03",
+                   "rdrs04", "rdrs05", "rdrs06", "rdrs12", "rdrs13"),
+  rdata = basil2)
+cfa.drs.2.3pl.fit <- mplusModeler(cfa.drs.2.3pl.body,
+                               modelout = "cfa-drs-2-3pl.inp", run = TRUE)
+```
+
+```{r}
+### WLSMV model for fit statistics
+cfa.drs.wlsmv.1.body <- mplusObject(
+  ANALYSIS = "estimator = wlsmv;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.drs.1,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
+                   "rdrs09", "rdrs10", "rdrs11"),
+  rdata = basil2
+)
+cfa.drs.wlsmv.1.fit <- mplusModeler(cfa.drs.wlsmv.1.body, 
+                              modelout = "cfa-drs-wlsmv-1.inp", run = TRUE)
+
+
+param <- readModels("cfa-drs-wlsmv-1.out")$parameters$unstandardized
+mc.param <- param %>%
+  filter(paramHeader=="F.BY" | 
+         paramHeader=="Thresholds" |
+         (paramHeader=="Variances" & param=="F")) %>%
+  mutate(est = as.numeric(est)) %>%
+  mutate_all(funs(tolower))
+  
+mc.param <- mc.param[1:15,1:3]
+
+myParam <- data.frame(f1s = 0)
+for (i in 1:dim(mc.param)[1]) {
+  if (mc.param$paramHeader[i]=="f.by") {
+    myParam[[paste0("f",i, "s")]] = paste0(gsub("\\.", " ", 
+                                                mc.param$paramHeader[i]), " ",
+                                          mc.param$param[i], 
+                                          "@", mc.param$est[i])
+  }
+  if (mc.param$paramHeader[i]=="thresholds") {
+    myParam[[paste0("f",i, "s")]] = paste0("[", mc.param$param[i], 
+                                           "@", mc.param$est[i],"]")
+  }
+  if (mc.param$paramHeader[i]=="variances") {
+    myParam[[paste0("f",i, "s")]] = paste0(mc.param$param[i], 
+                                           "*")
+  }
+}
+
+goo <- paste(paste0("[[f", 1:dim(mc.param)[1], "s]];"), collapse = " \n ")
+model.drs.2 <- loopReplace(goo, myParam)
+
+drs.varlist <- c("rdrs03", "rdrs04", "rdrs05", "rdrs06", "rdrs12", "rdrs13")
+drs.varlist <- paste0("f by ", drs.varlist, ";")
+drs.varlist.collapsed<- paste0(drs.varlist, collapse = " \n ")
+model.drs.2 <- paste(model.drs.2, "\n", drs.varlist.collapsed)
+
+cfa.drs.wlsmv.2.body <- mplusObject(
+  ANALYSIS = "estimator = wlsmv;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.drs.2,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
+                   "rdrs09", "rdrs10", "rdrs11", "rdrs03", 
+                   "rdrs04", "rdrs05", "rdrs06", "rdrs12", "rdrs13"),
+  rdata = basil2)
+cfa.drs.wlsmv.2.fit <- mplusModeler(cfa.drs.wlsmv.2.body, 
+                               modelout = "cfa-drs-wlsmv-2.inp", run = TRUE)
+
+```
+
+## DRS Confirmatory Factor Analysis
+### Fit statistics
+Model 1
+```{r}
+readModels("cfa-drs-wlsmv-1.out")$summaries %>%
+  select(Observations, CFI, RMSEA_Estimate) %>%
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+```
+
+Model 2
+```{r}
+readModels("cfa-drs-wlsmv-2.out")$summaries %>%
+  select(Observations, CFI, RMSEA_Estimate) %>%
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  
+
+```
+
+
+### Item Parameters
+Model 1
+```{r}
+item.parameter.table("cfa-drs-1.out", 7)
+```
+
+Model 2
+```{r}
+item.parameter.table("cfa-drs-2.out", 13)
+```
+
+
+
+```{r}
+### 2PL model
+model.mdas.1 <- "f by rmdas10* rmdas07 rmdas09 rmdas02 rmdas04 rmdas05 rmdas03 ;
+               f @1; "
+cfa.mdas.1.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.mdas.1,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
+                   "rmdas07", "rmdas09", "rmdas10"),
+  rdata = basil2
+)
+cfa.mdas.1.fit <- mplusModeler(cfa.mdas.1.body, 
+                              modelout = "cfa-mdas-1.inp", run = TRUE)
+
+param <- readModels("cfa-mdas-1.out")$parameters$unstandardized
+mc.param <- param %>%
+  filter(paramHeader=="F.BY" | 
+         paramHeader=="Thresholds" |
+         (paramHeader=="Variances" & param=="F")) %>%
+  mutate(est = as.numeric(est)) %>%
+  mutate_all(funs(tolower))
+  
+mc.param <- mc.param[1:15,1:3]
+
+myParam <- data.frame(f1s = 0)
+for (i in 1:dim(mc.param)[1]) {
+  if (mc.param$paramHeader[i]=="f.by") {
+    myParam[[paste0("f",i, "s")]] = paste0(gsub("\\.", " ", 
+                                                mc.param$paramHeader[i]), " ",
+                                          mc.param$param[i], 
+                                          "@", mc.param$est[i])
+  }
+  if (mc.param$paramHeader[i]=="thresholds") {
+    myParam[[paste0("f",i, "s")]] = paste0("[", mc.param$param[i], 
+                                           "@", mc.param$est[i],"]")
+  }
+  if (mc.param$paramHeader[i]=="variances") {
+    myParam[[paste0("f",i, "s")]] = paste0(mc.param$param[i], 
+                                           "*")
+  }
+}
+
+goo <- paste(paste0("[[f", 1:dim(mc.param)[1], "s]];"), collapse = " \n ")
+model.mdas.2 <- loopReplace(goo, myParam)
+
+mdas.varlist <- c("rmdas01", "rmdas06", "rmdas08")
+mdas.varlist <- paste0("f by ", mdas.varlist, ";")
+mdas.varlist.collapsed<- paste0(mdas.varlist, collapse = " \n ")
+model.mdas.2 <- paste(model.mdas.2, "\n", mdas.varlist.collapsed)
+
+cfa.mdas.2.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.mdas.2,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rmdas01", "rmdas02", "rmdas03", 
+                   "rmdas04", "rmdas05", "rmdas06", "rmdas07", 
+                   "rmdas08", "rmdas09", "rmdas10"),
+  rdata = basil2)
+cfa.mdas.2.fit <- mplusModeler(cfa.mdas.2.body, 
+                               modelout = "cfa-mdas-2.inp", run = TRUE)
+
+
+```
+
+
+```{r, eval=FALSE}
+### 3PL model
+model.mdas.1.3pl <- "f by rmdas02* rmdas03 rmdas04 rmdas05  rmdas07 rmdas09 rmdas10;
+               f @1; 
+               [rmdas02$2 - rmdas10$2] (a1-a7);
+             MODEL PRIORS:
+               a1-a7 ~ N(1.386, 1);"
+cfa.mdas.1.3pl.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all (3pl);",
+  MODEL = model.mdas.1.3pl,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
+                   "rmdas07", "rmdas09", "rmdas10"),
+  rdata = basil2
+)
+cfa.mdas.1.3pl.fit <- mplusModeler(cfa.mdas.1.3pl.body, 
+                              modelout = "cfa-mdas-1-3pl.inp", run = TRUE)
+
+param <- extractModelParameters("cfa-mdas-1-3pl.out")$unstandardized
+mc.param <- param %>%
+  filter(paramHeader=="F.BY" | 
+         paramHeader=="Thresholds" |
+         (paramHeader=="Variances" & param=="F")) %>%
+  mutate(est = as.numeric(est)) %>%
+  mutate_all(funs(tolower))
+  
+mc.param <- unique(mc.param[,1:3])
+
+myParam <- data.frame(f1s = 0)
+for (i in 1:dim(mc.param)[1]) {
+  if (mc.param$paramHeader[i]=="f.by") {
+    myParam[[paste0("f",i, "s")]] = paste0(gsub("\\.", " ", 
+                                                mc.param$paramHeader[i]), " ",
+                                          mc.param$param[i], 
+                                          "@", mc.param$est[i])
+  }
+  if (mc.param$paramHeader[i]=="thresholds") {
+    myParam[[paste0("f",i, "s")]] = paste0("[", mc.param$param[i], 
+                                           "@", mc.param$est[i],"]")
+  }
+  if (mc.param$paramHeader[i]=="variances") {
+    myParam[[paste0("f",i, "s")]] = paste0(mc.param$param[i], 
+                                           "*")
+  }
+}
+
+goo <- paste(paste0("[[f", 1:dim(mc.param)[1], "s]];"), collapse = " \n ")
+model.mdas.2.3pl <- loopReplace(goo, myParam)
+
+mdas.varlist <- c("rmdas01", "rmdas06", "rmdas08")
+mdas.varlist <- paste0("f by ", mdas.varlist, ";")
+mdas.varlist <- c(mdas.varlist, "[rmdas01$2 rmdas06$2 rmdas08$2] (a1-a3); ", "MODEL PRIORS: ", "a1-a3~N(1.386,1);")
+mdas.varlist.collapsed<- paste0(mdas.varlist, collapse = " \n ")
+model.mdas.2.3pl <- paste(model.mdas.2.3pl, "\n", mdas.varlist.collapsed)
+
+cfa.mdas.2.3pl.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all (3pl);",
+  MODEL = model.mdas.2.3pl,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rmdas01", "rmdas02", "rmdas03", 
+                   "rmdas04", "rmdas05", "rmdas06", "rmdas07", 
+                   "rmdas08", "rmdas09", "rmdas10"),
+  rdata = basil2)
+cfa.mdas.2.3pl.fit <- mplusModeler(cfa.mdas.2.3pl.body, 
+                               modelout = "cfa-mdas-2-3pl.inp", run = TRUE)
+
+
+```
+
+```{r}
+### WLSMV model for fit statistics
+cfa.mdas.wlsmv.1.body <- mplusObject(
+  ANALYSIS = "estimator = wlsmv;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.mdas.1,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
+                   "rmdas07", "rmdas09", "rmdas10"),
+  rdata = basil2
+)
+cfa.mdas.wlsmv.1.fit <- mplusModeler(cfa.mdas.wlsmv.1.body, 
+                              modelout = "cfa-mdas-wlsmv-1.inp", run = TRUE)
+
+param <- readModels("cfa-mdas-wlsmv-1.out")$parameters$unstandardized
+mc.param <- param %>%
+  filter(paramHeader=="F.BY" | 
+         paramHeader=="Thresholds" |
+         (paramHeader=="Variances" & param=="F")) %>%
+  mutate(est = as.numeric(est)) %>%
+  mutate_all(funs(tolower))
+  
+mc.param <- mc.param[1:15,1:3]
+
+myParam <- data.frame(f1s = 0)
+for (i in 1:dim(mc.param)[1]) {
+  if (mc.param$paramHeader[i]=="f.by") {
+    myParam[[paste0("f",i, "s")]] = paste0(gsub("\\.", " ", 
+                                                mc.param$paramHeader[i]), " ",
+                                          mc.param$param[i], 
+                                          "@", mc.param$est[i])
+  }
+  if (mc.param$paramHeader[i]=="thresholds") {
+    myParam[[paste0("f",i, "s")]] = paste0("[", mc.param$param[i], 
+                                           "@", mc.param$est[i],"]")
+  }
+  if (mc.param$paramHeader[i]=="variances") {
+    myParam[[paste0("f",i, "s")]] = paste0(mc.param$param[i], 
+                                           "*")
+  }
+}
+
+goo <- paste(paste0("[[f", 1:dim(mc.param)[1], "s]];"), collapse = " \n ")
+model.mdas.2 <- loopReplace(goo, myParam)
+
+mdas.varlist <- c("rmdas01", "rmdas06", "rmdas08")
+mdas.varlist <- paste0("f by ", mdas.varlist, ";")
+mdas.varlist.collapsed<- paste0(mdas.varlist, collapse = " \n ")
+model.mdas.2 <- paste(model.mdas.2, "\n", mdas.varlist.collapsed)
+
+cfa.mdas.wlsmv.2.body <- mplusObject(
+  ANALYSIS = "estimator = wlsmv;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.mdas.2,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rmdas01", "rmdas02", "rmdas03", 
+                   "rmdas04", "rmdas05", "rmdas06", "rmdas07", 
+                   "rmdas08", "rmdas09", "rmdas10"),
+  rdata = basil2)
+cfa.mdas.wlsmv.2.fit <- mplusModeler(cfa.mdas.wlsmv.2.body, 
+                               modelout = "cfa-mdas-wlsmv-2.inp", run = TRUE)
+
+
+```
+
+## MDAS Confirmatory Factor Analysis
+### Fit statistics
+Model 1
+```{r}
+readModels("cfa-mdas-wlsmv-1.out")$summaries %>%
+  select(Observations, CFI, RMSEA_Estimate) %>%
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  
+
+```
+
+Model 2
+```{r}
+readModels("cfa-mdas-wlsmv-2.out")$summaries %>%
+  select(Observations, CFI, RMSEA_Estimate) %>%
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  
+
+```
+
+### Item Parameters
+Model 1
+```{r}
+item.parameter.table("cfa-mdas-1.out", 7)
+```
+
+Model 2
+```{r}
+item.parameter.table("cfa-mdas-2.out", 10)
+```
+
+
+```{r}
+### 2PL model
+model.cam.1 <- "f by rcamlf9a* rcamlf7a rcamlf8a rcamlf8d rcamlf5a rcamlf2a rcamlf6a ;
+               f @1; "
+cfa.cam.1.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.cam.1,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rcamlf2a", "rcamlf5a",
+                   "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
+                   "rcamlf9a"),
+  rdata = basil2
+)
+cfa.cam.1.fit <- mplusModeler(cfa.cam.1.body, 
+                              modelout = "cfa-cam-1.inp", run = TRUE)
+
+param <- readModels("cfa-cam-1.out")$parameters$unstandardized
+mc.param <- param %>%
+  filter(paramHeader=="F.BY" | 
+         paramHeader=="Thresholds" |
+         (paramHeader=="Variances" & param=="F")) %>%
+  mutate(est = as.numeric(est)) %>%
+  mutate_all(funs(tolower))
+  
+mc.param <- mc.param[1:15,1:3]
+
+myParam <- data.frame(f1s = 0)
+for (i in 1:dim(mc.param)[1]) {
+  if (mc.param$paramHeader[i]=="f.by") {
+    myParam[[paste0("f",i, "s")]] = paste0(gsub("\\.", " ", 
+                                                mc.param$paramHeader[i]), " ",
+                                          mc.param$param[i], 
+                                          "@", mc.param$est[i])
+  }
+  if (mc.param$paramHeader[i]=="thresholds") {
+    myParam[[paste0("f",i, "s")]] = paste0("[", mc.param$param[i], 
+                                           "@", mc.param$est[i],"]")
+  }
+  if (mc.param$paramHeader[i]=="variances") {
+    myParam[[paste0("f",i, "s")]] = paste0(mc.param$param[i], 
+                                           "*")
+  }
+}
+
+goo <- paste(paste0("[[f", 1:dim(mc.param)[1], "s]];"), collapse = " \n ")
+model.cam.2 <- loopReplace(goo, myParam)
+
+cam.varlist <- c("rcamlf1a", "rcamlf3a", "rcamlf4a")
+cam.varlist <- paste0("f by ", cam.varlist, ";")
+cam.varlist.collapsed<- paste0(cam.varlist, collapse = " \n ")
+model.cam.2 <- paste(model.cam.2, "\n", cam.varlist.collapsed)
+
+cfa.cam.2.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.cam.2,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rcamlf1a", "rcamlf2a", "rcamlf3a", 
+                   "rcamlf4a", "rcamlf5a",
+                   "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
+                   "rcamlf9a"),
+  rdata = basil2)
+cfa.cam.2.fit <- mplusModeler(cfa.cam.2.body, 
+                               modelout = "cfa-cam-2.inp", run = TRUE)
+
+
+```
+
+```{r, eval=FALSE}
+### 3PL model
+model.cam.1.3pl <- "f by rcamlf9a* rcamlf7a rcamlf8a rcamlf8d rcamlf5a rcamlf2a rcamlf6a ;
+               f @1; 
+               [rcamlf2a$2 - rcamlf9a$2] (a1-a7);
+              MODEL PRIORS:
+               a1-a7 ~ N(1.386, 1);"
+cfa.cam.1.3pl.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all (3pl);",
+  MODEL = model.cam.1.3pl,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rcamlf2a", "rcamlf5a",
+                   "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
+                   "rcamlf9a"),
+  rdata = basil2
+)
+cfa.cam.1.3pl.fit <- mplusModeler(cfa.cam.1.3pl.body, 
+                              modelout = "cfa-cam-1-3pl.inp", run = TRUE)
+
+param <- extractModelParameters("cfa-cam-1-3pl.out")$unstandardized
+mc.param <- param %>%
+  filter(paramHeader=="F.BY" | 
+         paramHeader=="Thresholds" |
+         (paramHeader=="Variances" & param=="F")) %>%
+  mutate(est = as.numeric(est)) %>%
+  mutate_all(funs(tolower))
+  
+mc.param <- unique(mc.param[,1:3])
+
+myParam <- data.frame(f1s = 0)
+for (i in 1:dim(mc.param)[1]) {
+  if (mc.param$paramHeader[i]=="f.by") {
+    myParam[[paste0("f",i, "s")]] = paste0(gsub("\\.", " ", 
+                                                mc.param$paramHeader[i]), " ",
+                                          mc.param$param[i], 
+                                          "@", mc.param$est[i])
+  }
+  if (mc.param$paramHeader[i]=="thresholds") {
+    myParam[[paste0("f",i, "s")]] = paste0("[", mc.param$param[i], 
+                                           "@", mc.param$est[i],"]")
+  }
+  if (mc.param$paramHeader[i]=="variances") {
+    myParam[[paste0("f",i, "s")]] = paste0(mc.param$param[i], 
+                                           "*")
+  }
+}
+
+goo <- paste(paste0("[[f", 1:dim(mc.param)[1], "s]];"), collapse = " \n ")
+model.cam.2.3pl <- loopReplace(goo, myParam)
+
+cam.varlist <- c("rcamlf1a", "rcamlf3a", "rcamlf4a")
+cam.varlist <- paste0("f by ", cam.varlist, ";")
+cam.varlist <- c(cam.varlist, "[rcamlf1a$2 rcamlf3a$2 rcamlf4a$2] (a1-a3); ", "MODEL PRIORS: ", "a1-a3~N(1.386,1);")
+cam.varlist.collapsed<- paste0(cam.varlist, collapse = " \n ")
+model.cam.2.3pl <- paste(model.cam.2.3pl, "\n", cam.varlist.collapsed)
+
+cfa.cam.2.3pl.body <- mplusObject(
+  ANALYSIS = "estimator = mlr; link=logit;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all (3pl);",
+  MODEL = model.cam.2.3pl,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rcamlf1a", "rcamlf2a", "rcamlf3a", 
+                   "rcamlf4a", "rcamlf5a",
+                   "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
+                   "rcamlf9a"),
+  rdata = basil2)
+cfa.cam.2.3pl.fit <- mplusModeler(cfa.cam.2.3pl.body, 
+                               modelout = "cfa-cam-2-3pl.inp", run = TRUE)
+
+
+```
+
+
+```{r}
+### WLSMV model for fit statistics
+cfa.cam.wlsmv.1.body <- mplusObject(
+  ANALYSIS = "estimator = wlsmv;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.cam.1,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rcamlf2a", "rcamlf5a",
+                   "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
+                   "rcamlf9a"),
+  rdata = basil2
+)
+cfa.cam.wlsmv.1.fit <- mplusModeler(cfa.cam.wlsmv.1.body, 
+                              modelout = "cfa-cam-wlsmv-1.inp", run = TRUE)
+
+param <- readModels("cfa-cam-wlsmv-1.out")$parameters$unstandardized
+mc.param <- param %>%
+  filter(paramHeader=="F.BY" | 
+         paramHeader=="Thresholds" |
+         (paramHeader=="Variances" & param=="F")) %>%
+  mutate(est = as.numeric(est)) %>%
+  mutate_all(funs(tolower))
+  
+mc.param <- mc.param[1:15,1:3]
+
+myParam <- data.frame(f1s = 0)
+for (i in 1:dim(mc.param)[1]) {
+  if (mc.param$paramHeader[i]=="f.by") {
+    myParam[[paste0("f",i, "s")]] = paste0(gsub("\\.", " ", 
+                                                mc.param$paramHeader[i]), " ",
+                                          mc.param$param[i], 
+                                          "@", mc.param$est[i])
+  }
+  if (mc.param$paramHeader[i]=="thresholds") {
+    myParam[[paste0("f",i, "s")]] = paste0("[", mc.param$param[i], 
+                                           "@", mc.param$est[i],"]")
+  }
+  if (mc.param$paramHeader[i]=="variances") {
+    myParam[[paste0("f",i, "s")]] = paste0(mc.param$param[i], 
+                                           "*")
+  }
+}
+
+goo <- paste(paste0("[[f", 1:dim(mc.param)[1], "s]];"), collapse = " \n ")
+model.cam.2 <- loopReplace(goo, myParam)
+
+cam.varlist <- c("rcamlf1a", "rcamlf3a", "rcamlf4a")
+cam.varlist <- paste0("f by ", cam.varlist, ";")
+cam.varlist.collapsed<- paste0(cam.varlist, collapse = " \n ")
+model.cam.2 <- paste(model.cam.2, "\n", cam.varlist.collapsed)
+
+cfa.cam.wlsmv.2.body <- mplusObject(
+  ANALYSIS = "estimator = wlsmv;",
+  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  MODEL = model.cam.2,
+  OUTPUT = "",
+  SAVEDATA = "",
+  usevariables = c("recordid", "rcamlf1a", "rcamlf2a", "rcamlf3a", 
+                   "rcamlf4a", "rcamlf5a",
+                   "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
+                   "rcamlf9a"),
+  rdata = basil2)
+cfa.cam.wlsmv.2.fit <- mplusModeler(cfa.cam.wlsmv.2.body, 
+                               modelout = "cfa-cam-wlsmv-2.inp", run = TRUE)
+
+
+```
+
+## CAM-S Confirmatory Factor Analysis
+### Fit statistics
+Model 1
+```{r}
+readModels("cfa-cam-wlsmv-1.out")$summaries %>%
+  select(Observations, CFI, RMSEA_Estimate) %>%
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  
+
+```
+
+Model 2
+```{r}
+readModels("cfa-cam-wlsmv-2.out")$summaries %>%
+  select(Observations, CFI, RMSEA_Estimate) %>%
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  
+
+```
+
+### Item Parameters
+Model 1
+```{r}
+item.parameter.table("cfa-cam-1.out", 7)
+```
+
+Model 2
+```{r}
+item.parameter.table("cfa-cam-2.out", 10)
+```
+
+
+
