@@ -1,29 +1,6 @@
 
 
-```{r}
-drs.par <- readModels("cfa-drs-3.out")$parameters$unstandardized
 
-drs.par <- drs.par %>%
-      filter(paramHeader=="F.BY" | 
-           paramHeader=="Thresholds") %>%
-  separate(param, c("item", "cat"), "\\$", fill="right", 
-           remove=FALSE, convert=TRUE) %>%
-  mutate(parameter = ifelse(paramHeader=="F.BY", "FL", paste0("T", cat))) %>%
-    select(parameter, item, est) %>%
-    mutate_all(funs(tolower))
-
-drs.par$est <- as.numeric(drs.par$est)
-  
-drs.par <- drs.par %>% 
-  spread(parameter, est) %>%
-  mutate(B1.drs = t1/fl,
-         B2.drs = t2/fl,
-         B3.drs = t3/fl,
-         A.drs = fl,
-         itemnum = row_number()) %>%
-  select(item, itemnum, A.drs, B1.drs, B2.drs, B3.drs)
-    
-```
 
 ```{r}
 theta <- seq(-4, 8, by= .01)
@@ -99,32 +76,6 @@ drs.info.poly <- hoo %>%
 ```
 
 
-
-```{r}
-mdas.par <- readModels("cfa-mdas-3.out")$parameters$unstandardized
-
-mdas.par <- mdas.par %>%
-      filter(paramHeader=="F.BY" | 
-           paramHeader=="Thresholds") %>%
-  separate(param, c("item", "cat"), "\\$", fill="right", 
-           remove=FALSE, convert=TRUE) %>%
-  mutate(parameter = ifelse(paramHeader=="F.BY", "FL", paste0("T", cat))) %>%
-    select(parameter, item, est) %>%
-    mutate_all(funs(tolower))
-
-mdas.par$est <- as.numeric(mdas.par$est)
-  
-mdas.par <- mdas.par %>% 
-  spread(parameter, est) %>%
-  mutate(B1.mdas = t1/fl,
-         B2.mdas = t2/fl,
-         B3.mdas = t3/fl,
-         A.mdas = fl,
-         itemnum = row_number()) %>%
-  select(item, itemnum, A.mdas, B1.mdas, B2.mdas, B3.mdas)
-    
-```
-
 ```{r}
 theta <- seq(-4, 8, by= .01)
 hoo <- data.frame(theta)
@@ -184,29 +135,6 @@ mdas.info.poly <- hoo %>%
 
 ```
 
-```{r}
-cam.par <- readModels("cfa-cam-3.out")$parameters$unstandardized
-
-cam.par <- cam.par %>%
-      filter(paramHeader=="F.BY" | 
-           paramHeader=="Thresholds") %>%
-  separate(param, c("item", "cat"), "\\$", fill="right", 
-           remove=FALSE, convert=TRUE) %>%
-  mutate(parameter = ifelse(paramHeader=="F.BY", "FL", paste0("T", cat))) %>%
-    select(parameter, item, est) %>%
-    mutate_all(funs(tolower))
-
-cam.par$est <- as.numeric(cam.par$est)
-  
-cam.par <- cam.par %>% 
-  spread(parameter, est) %>%
-  mutate(B1.cam = t1/fl,
-         B2.cam = t2/fl,
-         A.cam = fl,
-         itemnum = row_number()) %>%
-  select(item, itemnum, A.cam, B1.cam, B2.cam)
-    
-```
 
 ```{r}
 theta <- seq(-4, 8, by= .01)
@@ -258,7 +186,8 @@ cam.info.poly <- hoo %>%
 
 ```
 
-Test characteristic curves for polytomous CFA.
+## Plots for the polytomous model
+
 ```{r}
 
 testscore <- drs.info.poly %>%
@@ -290,7 +219,6 @@ ggplot(testscore, aes(theta, score, group=test, color=test)) +
 
 
 
-Test Information curve for polytomous IRT.
 ```{r}
 
 testinfo <- drs.info.poly %>%

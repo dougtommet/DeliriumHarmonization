@@ -1,8 +1,8 @@
 
 
-# Descriptive statistics
+## Descriptive statistics
 
-## Summary table for DRS (N=`r  dim(basil)[1]`)
+### Summary table for DRS (N=`r  dim(basil)[1]`)
 
 Original item categories (%)
 ```{r }
@@ -18,7 +18,9 @@ basil %>%
   summarize_all(funs(100*sum(., na.rm=TRUE)/n())) %>%
   arrange(desc(`0`)) %>%
   kable(digits = 2, 
-        col.names = c("Item", "0", "1", "2", "3", "Missing"))
+        col.names = c("Item", "0", "1", "2", "3", "Missing")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 
 
 ```
@@ -38,10 +40,12 @@ basil2 %>%
   summarize_all(funs(100*sum(., na.rm=TRUE)/n())) %>%
   arrange(desc(`0`)) %>%
   kable(digits = 2, 
-        col.names = c("Item", "0", "1", "Missing"))
+        col.names = c("Item", "0", "1", "Missing")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 ```
 
-## Summary table for MDAS (N=`r dim(basil)[1]`)
+### Summary table for MDAS (N=`r dim(basil)[1]`)
 Original item categories (%)
 
 ```{r}
@@ -57,7 +61,9 @@ basil %>%
   summarize_all(funs(100*sum(., na.rm=TRUE)/n()))  %>%
   arrange(desc(`0`)) %>%
   kable(digits = 2, 
-        col.names = c("Item", "0", "1", "2", "3", "Missing"))
+        col.names = c("Item", "0", "1", "2", "3", "Missing")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 ```
 
 Dichotomized item categories (%)
@@ -75,10 +81,12 @@ basil2 %>%
   summarize_all(funs(100*sum(., na.rm=TRUE)/n()))  %>%
   arrange(desc(`0`)) %>%
   kable(digits = 2, 
-        col.names = c("Item", "0", "1", "Missing"))
+        col.names = c("Item", "0", "1", "Missing")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 ```
 
-## Summary table for CAM-S (N=`r dim(basil)[1]`)
+### Summary table for CAM-S (N=`r dim(basil)[1]`)
 Original item categories (%)
 
 ```{r}
@@ -94,7 +102,9 @@ basil %>%
   summarize_all(funs(100*sum(., na.rm=TRUE)/n())) %>%
   arrange(desc(`0`)) %>%
   kable(digits = 2, 
-        col.names = c("Item", "0", "1", "2", "Missing"))
+        col.names = c("Item", "0", "1", "2", "Missing")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 ```
 
 Dichotomized item categories (%)
@@ -112,6 +122,8 @@ basil2 %>%
   summarize_all(funs(100*sum(., na.rm=TRUE)/n())) %>%
   arrange(desc(`0`)) %>%
   kable(digits = 2, 
-        col.names = c("Item", "0", "1", "Missing"))
+        col.names = c("Item", "0", "1", "Missing")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 
 ```

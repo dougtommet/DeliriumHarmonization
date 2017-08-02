@@ -1,5 +1,5 @@
 
-## Data recode
+### Data recode
 
 The items that were coded as Don't Know, Refused, Uncertain were set to missing, and the response options were reordered such that no symptoms was 0 and any symptoms were positive values.
 
@@ -142,7 +142,7 @@ basil2 <- basil %>%
 
 ```
 
-## Item reference table
+### Item reference table
 
 This table is a reference for the following tables to link item numbers to item content
 

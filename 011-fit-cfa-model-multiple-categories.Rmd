@@ -1,5 +1,5 @@
 
-
+## Model Fitting (Polytomous model)
 ```{r}
 basil3 <- basil %>%
   mutate(rdrs01 = recode(rdrs01, "1=1; 2=2; 3=3; "),
@@ -93,7 +93,7 @@ basil3 %>%
         col.names = c("Item", "0", "1", "2"))
 ```
 
-### DRS CFA model with multiple category outcome
+### DRS CFA model with polytomous outcome
 Need to check the coding for rdrs06.
 ```{r}
 ### 2PL model
@@ -147,9 +147,42 @@ cfa.drs.3.fit <- mplusModeler(cfa.drs.3.body,
                                modelout = "cfa-drs-3.inp", run = TRUE)
 
 ```
+```{r}
+drs.par <- readModels("cfa-drs-3.out")$parameters$unstandardized
+
+drs.par <- drs.par %>%
+      filter(paramHeader=="F.BY" | 
+           paramHeader=="Thresholds") %>%
+  separate(param, c("item", "cat"), "\\$", fill="right", 
+           remove=FALSE, convert=TRUE) %>%
+  mutate(parameter = ifelse(paramHeader=="F.BY", "FL", paste0("T", cat))) %>%
+    select(parameter, item, est) %>%
+    mutate_all(funs(tolower))
+
+drs.par$est <- as.numeric(drs.par$est)
+  
+drs.par <- drs.par %>% 
+  spread(parameter, est) %>%
+  mutate(B1.drs = t1/fl,
+         B2.drs = t2/fl,
+         B3.drs = t3/fl,
+         A.drs = fl,
+         itemnum = row_number()) %>%
+  select(item, itemnum, A.drs, B1.drs, B2.drs, B3.drs)
 
 
-### MDAS CFA model with multiple category outcome
+drs.par %>%
+  select(-itemnum) %>%
+  kable(digits = 2, col.names = c("Item", "A", "B1", "B2", "B3")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
+
+
+
+```
+
+
+### MDAS CFA model with polytomous outcome
 Need to check the coding of rmdas06
 ```{r}
 ### 2PL model
@@ -207,7 +240,38 @@ cfa.mdas.3.fit <- mplusModeler(cfa.mdas.3.body,
 
 ```
 
-### CAM-S CFA model with multiple category outcome
+```{r}
+mdas.par <- readModels("cfa-mdas-3.out")$parameters$unstandardized
+
+mdas.par <- mdas.par %>%
+      filter(paramHeader=="F.BY" | 
+           paramHeader=="Thresholds") %>%
+  separate(param, c("item", "cat"), "\\$", fill="right", 
+           remove=FALSE, convert=TRUE) %>%
+  mutate(parameter = ifelse(paramHeader=="F.BY", "FL", paste0("T", cat))) %>%
+    select(parameter, item, est) %>%
+    mutate_all(funs(tolower))
+
+mdas.par$est <- as.numeric(mdas.par$est)
+  
+mdas.par <- mdas.par %>% 
+  spread(parameter, est) %>%
+  mutate(B1.mdas = t1/fl,
+         B2.mdas = t2/fl,
+         B3.mdas = t3/fl,
+         A.mdas = fl,
+         itemnum = row_number()) %>%
+  select(item, itemnum, A.mdas, B1.mdas, B2.mdas, B3.mdas)
+
+mdas.par %>%
+  select(-itemnum) %>%
+  kable(digits = 2, col.names = c("Item", "A", "B1", "B2", "B3")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
+    
+```
+
+### CAM-S CFA model with polytomous outcome
 ```{r}
 ### 2PL model
 
@@ -263,6 +327,36 @@ cfa.cam.3.fit <- mplusModeler(cfa.cam.3.body,
                                modelout = "cfa-cam-3.inp", run = TRUE)
 
 
+```
+
+```{r}
+cam.par <- readModels("cfa-cam-3.out")$parameters$unstandardized
+
+cam.par <- cam.par %>%
+      filter(paramHeader=="F.BY" | 
+           paramHeader=="Thresholds") %>%
+  separate(param, c("item", "cat"), "\\$", fill="right", 
+           remove=FALSE, convert=TRUE) %>%
+  mutate(parameter = ifelse(paramHeader=="F.BY", "FL", paste0("T", cat))) %>%
+    select(parameter, item, est) %>%
+    mutate_all(funs(tolower))
+
+cam.par$est <- as.numeric(cam.par$est)
+  
+cam.par <- cam.par %>% 
+  spread(parameter, est) %>%
+  mutate(B1.cam = t1/fl,
+         B2.cam = t2/fl,
+         A.cam = fl,
+         itemnum = row_number()) %>%
+  select(item, itemnum, A.cam, B1.cam, B2.cam)
+
+cam.par %>%
+  select(-itemnum) %>%
+  kable(digits = 2, col.names = c("Item", "A", "B1", "B2")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
+    
 ```
 
 

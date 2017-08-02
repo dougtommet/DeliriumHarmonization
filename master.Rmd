@@ -5,16 +5,24 @@ date: '`r Sys.Date()`'
 output:
   html_document:
     keep_md: yes
+    theme: cerulean
+    toc: yes
+    toc_float: yes
   word_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
 
+options(knitr.table.format = "html") 
+
+
 ```
 
 ```{r, child="000-opening-summary.Rmd"}
 ```
+
+# Report
 
 ```{r, child="001-libraries and functions.Rmd"}
 ```
@@ -56,6 +64,7 @@ knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
  
 ```
 
+# For the manuscript
 ```{r, child="021-table1.Rmd"}
  
 ```
@@ -84,6 +93,7 @@ knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
  
 ```
 
+# For the appendix
 ```{r, child="029-figure5.Rmd"}
  
 ```

@@ -1,4 +1,4 @@
-# Item equating
+## Item equating
 Using the SNSequate package to equate item parameters.
 
 
@@ -73,28 +73,34 @@ cam.par <- cam.par %>%
 cam.par$itemnum <- c(22, 10, 24, 25, 9, 26, 2, 7, 8, 1)
                      
 ```
-## DRS item parameters
+### DRS item parameters
 ```{r}
 drs.par %>%
   select(-C.drs, -itemnum) %>%
   arrange(desc(A.drs)) %>%
-  kable(digits=2)
+  kable(digits=2) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 ```
 
-## MDAS item parameters
+### MDAS item parameters
 ```{r}
 mdas.par %>%
   select(-C.mdas, -itemnum) %>%
   arrange(desc(A.mdas)) %>%
-  kable(digits=2)
+  kable(digits=2) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 ```
 
-## CAM-S item parameters
+### CAM-S item parameters
 ```{r}
 cam.par %>%
   select(-C.cam, -itemnum) %>%
   arrange(desc(A.cam)) %>%
-  kable(digits=2)
+  kable(digits=2) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 
 ```
 
@@ -121,12 +127,15 @@ mdas.par <- mdas.par %>%
          t.l.mdas = B.l.mdas*fl.l.mdas)
 ```
 
-## MDAS item parameters linked
+### MDAS item parameters linked
 ```{r}
 mdas.par %>%
   select(item, A.mdas, B.mdas, A.l.mdas, B.l.mdas) %>%
   kable(digits = 2,
-        col.names = c("Item", "A (original)", "B (original)", "A (linked)", "B (linked)"))
+        col.names = c("Item", "A (original)", "B (original)", 
+                      "A (linked)", "B (linked)")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 
 ```
 
@@ -200,13 +209,16 @@ cam.par <- cam.par %>%
          t.l.cam = B.l.cam*fl.l.cam)
 ```
 
-## CAM-S item parameters linked
+### CAM-S item parameters linked
 
 ```{r}
 cam.par %>%
   select(item, A.cam, B.cam, A.l.cam, B.l.cam) %>%
   kable(digits = 2,
-        col.names = c("Item", "A (original)", "B (original)", "A (linked)", "B (linked)"))
+        col.names = c("Item", "A (original)", "B (original)", 
+                      "A (linked)", "B (linked)")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 
 ```
 

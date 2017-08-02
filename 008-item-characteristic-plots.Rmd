@@ -1,4 +1,5 @@
 
+## Plots for the dichotomous model
 
 ```{r, dichotomousICC}
 theta <- seq(-4, 6, by= .1)

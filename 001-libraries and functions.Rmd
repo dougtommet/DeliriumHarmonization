@@ -46,7 +46,9 @@ maketable <- function(p, d) {
     select(item, short.label) %>%
     rename('Question' =  short.label) %>%
     left_join(goo, by = "item") %>%
-    kable(digits = 0)
+    kable(digits = 0) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                  full_width = F, position = "center")
 
 }
 
@@ -80,7 +82,9 @@ item.parameter.table <- function(filename, nitems) {
     spread(parameter, est) %>%
     arrange(desc(fl)) %>%
     kable(col.names = c("Item", "Slope", "Threshold"), 
-          digits=c(0, 2, 2))
+          digits=c(0, 2, 2)) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                  full_width = F, position = "center")
 }
 
 ```

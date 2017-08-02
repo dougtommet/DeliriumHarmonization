@@ -7,9 +7,9 @@ loopReplace <- function(text, replacements) {
 }
 
 ```
-# Model Fitting
+## Model Fitting (Dichotomous model)
 
-## Fit CFA models
+### Fit CFA models
 We will fit a CFA in the MDAS, DRS, and CAM-S individually then equate them.  To ensure that the CFA covers the same dimension for each test, we are fitting the CFA to a core set of items in common across test and then add in the remaining items keeping the core item parameters fixed.
 
 The core set of items are: 
@@ -232,26 +232,30 @@ cfa.drs.wlsmv.2.fit <- mplusModeler(cfa.drs.wlsmv.2.body,
 
 ```
 
-## DRS Confirmatory Factor Analysis
-### Fit statistics
+### DRS Confirmatory Factor Analysis
+#### Fit statistics
 Model 1
 ```{r}
 readModels("cfa-drs-wlsmv-1.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
 ```
 
 Model 2
 ```{r}
 readModels("cfa-drs-wlsmv-2.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
   
 
 ```
 
 
-### Item Parameters
+#### Item Parameters
 Model 1
 ```{r}
 item.parameter.table("cfa-drs-1.out", 7)
@@ -474,13 +478,15 @@ cfa.mdas.wlsmv.2.fit <- mplusModeler(cfa.mdas.wlsmv.2.body,
 
 ```
 
-## MDAS Confirmatory Factor Analysis
-### Fit statistics
+### MDAS Confirmatory Factor Analysis
+#### Fit statistics
 Model 1
 ```{r}
 readModels("cfa-mdas-wlsmv-1.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
   
 
 ```
@@ -489,12 +495,14 @@ Model 2
 ```{r}
 readModels("cfa-mdas-wlsmv-2.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
   
 
 ```
 
-### Item Parameters
+#### Item Parameters
 Model 1
 ```{r}
 item.parameter.table("cfa-mdas-1.out", 7)
@@ -722,13 +730,15 @@ cfa.cam.wlsmv.2.fit <- mplusModeler(cfa.cam.wlsmv.2.body,
 
 ```
 
-## CAM-S Confirmatory Factor Analysis
-### Fit statistics
+### CAM-S Confirmatory Factor Analysis
+#### Fit statistics
 Model 1
 ```{r}
 readModels("cfa-cam-wlsmv-1.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
   
 
 ```
@@ -737,12 +747,14 @@ Model 2
 ```{r}
 readModels("cfa-cam-wlsmv-2.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA"))
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
   
 
 ```
 
-### Item Parameters
+#### Item Parameters
 Model 1
 ```{r}
 item.parameter.table("cfa-cam-1.out", 7)

@@ -27,7 +27,8 @@ inhosp %>%
   separate(Name, c("stat", "var"), "_") %>%
   spread(stat, Value) %>%
   select(var, N, mean, sd, min, p50, max) %>%
-  kable(digits=1, col.names=c("Variable", "N", "Mean", "SD", "Min", "Median", "Max"))
+  kable(digits=1, col.names=c("Variable", "N", "Mean", "SD", "Min", "Median", "Max")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
 
 
  

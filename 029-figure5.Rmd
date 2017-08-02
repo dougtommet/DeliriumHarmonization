@@ -1,5 +1,6 @@
 
-
+### Figure A1: Nomogram
+(The nomogram figures aren't turning out well, so the tables they are based on are being provided.)
 
 ```{r}
 
@@ -12,9 +13,10 @@ testscore <- drs.info.poly %>%
   left_join(cam.info.poly %>%
               select(theta, testscore) %>%
               rename(camscore = testscore), by="theta") 
+```
 
-### Tables
-## CAM-S table
+#### Table A1a: CAM-S table
+```{r}
 testscore %>%
   mutate(goo.cam = round(camscore)) %>%
   group_by(goo.cam) %>%
@@ -24,9 +26,13 @@ testscore %>%
   select(-hoo.cam, -ioo.cam, -camscore, -theta) %>%
   mutate(score = goo.cam) %>%
   select(goo.cam, mdasscore, drsscore) %>%
-  kable(digits = c(0, 1, 1), col.names= c("CAM-S", "MDAS", "DRS"), caption = "CAM-S to MDAS and DRS")
+  kable(format = "html", digits = c(0, 1, 1), col.names= c("CAM-S", "MDAS", "DRS"), caption = "CAM-S to MDAS and DRS") %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
+```
 
-## MDAS table
+
+#### Table A1b: MDAS table
+```{r}
 testscore %>%
   mutate(goo.mdas = round(mdasscore)) %>%
   group_by(goo.mdas) %>%
@@ -36,9 +42,12 @@ testscore %>%
   select(-hoo.mdas, -ioo.mdas, -mdasscore, -theta) %>%
   mutate(score = goo.mdas) %>%
   select(goo.mdas, camscore, drsscore) %>% 
-  kable(digits = c(0, 1, 1), col.names = c("MDAS", "CAM-S", "DRS"), caption = "MDAS to CAM-S and DRS")
+  kable(digits = c(0, 1, 1), col.names = c("MDAS", "CAM-S", "DRS"), caption = "MDAS to CAM-S and DRS") %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
+```
 
-## DRS table
+#### Table A1c: DRS table
+```{r}
 testscore %>%
   mutate(goo.drs = round(drsscore)) %>%
   group_by(goo.drs) %>%
@@ -48,12 +57,13 @@ testscore %>%
   select(-hoo.drs, -ioo.drs, -drsscore, -theta) %>%
   mutate(score = goo.drs) %>%
   select(goo.drs, camscore, mdasscore) %>%
-  kable(digits = c(0, 1, 1), col.names = c("DRS", "CAM-S", "MDAS"), caption = "DRS to CAM-S and MDAS")
+  kable(digits = c(0, 1, 1), col.names = c("DRS", "CAM-S", "MDAS"), caption = "DRS to CAM-S and MDAS") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
+```
 
 
-
-### Nomograms
-## CAM-S nomogram
+#### Figure A1a: CAM-S nomogram
+```{r}
 testscore %>%
   mutate(goo.cam = round(camscore)) %>%
   group_by(goo.cam) %>%
@@ -80,7 +90,10 @@ testscore %>%
 
 ggsave("nomogram-cam.pdf", height = 20, units="cm")
 
-## MDAS nomogram
+```
+
+#### Figure A1b: MDAS nomogram
+```{r}
 testscore %>%
   mutate(goo.mdas = round(mdasscore)) %>%
   group_by(goo.mdas) %>%
@@ -106,8 +119,10 @@ testscore %>%
     ggtitle("Nomogram linking MDAS with DRS and CAM-S")
 
 ggsave("nomogram-mdas.pdf", height = 20, units="cm")
+```
 
-## DRS nomogram
+#### Figure A1c: DRS nomogram
+```{r}
 testscore %>%
   mutate(goo.drs = round(drsscore)) %>%
   group_by(goo.drs) %>%
@@ -135,3 +150,4 @@ testscore %>%
 ggsave("nomogram-drs.pdf", height = 30, units="cm")
 
 ```
+

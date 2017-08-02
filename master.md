@@ -30,6 +30,7 @@ But we might want to re-do this with better fitting IRT models. Or at least omit
 
 Note: In writing the paper, use the term "features" instead of "symptoms".
 
+# Report
 
 
 
@@ -42,8 +43,9 @@ Note: In writing the paper, use the term "features" instead of "symptoms".
 
 
 
-# Data Processing
-## Read Data
+
+## Data Processing
+### Read Data
 
 The datafile is */POSTED/DATA/DERIVED/clean/processing/Basil-Hospital-Patient-Assessment.dta*.  
 
@@ -56,7 +58,7 @@ This analysis will only use baseline hospital visits and daily hospital visits. 
 
 
 
-## Data recode
+### Data recode
 
 The items that were coded as Don't Know, Refused, Uncertain were set to missing, and the response options were reordered such that no symptoms was 0 and any symptoms were positive values.
 
@@ -68,7 +70,7 @@ It is always possible once the item parameters are calibrated in the dichotomous
   
 
 
-## Item reference table
+### Item reference table
 
 This table is a reference for the following tables to link item numbers to item content
 
@@ -124,118 +126,389 @@ This table is a reference for the following tables to link item numbers to item 
 
 
 
-# Descriptive statistics
+## Descriptive statistics
 
-## Summary table for DRS (N=1184)
+### Summary table for DRS (N=1184)
 
 Original item categories (%)
-
-Item          0       1       2       3   Missing
--------  ------  ------  ------  ------  --------
-rdrs08    97.47    1.77    0.68    0.00      0.08
-rdrs04    97.21    1.77    0.68    0.00      0.34
-rdrs07    96.79    2.28    0.68    0.00      0.25
-rdrs03    94.51    2.53    0.68    1.01      1.27
-rdrs05    86.49   11.40    1.18    0.51      0.42
-rdrs13    86.32    9.71    1.94    0.08      1.94
-rdrs06    85.73    8.53    4.73    0.51      0.51
-rdrs02    83.70    4.56    3.89    6.59      1.27
-rdrs09    74.75   14.36    9.46    0.42      1.01
-rdrs11    52.03   25.17    7.52   14.10      1.18
-rdrs12    45.27   23.48   11.40   17.65      2.20
-rdrs10    42.91   42.82   13.18    0.93      0.17
-rdrs01    25.59   67.40    6.08    0.42      0.51
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> 0 </th>
+   <th style="text-align:right;"> 1 </th>
+   <th style="text-align:right;"> 2 </th>
+   <th style="text-align:right;"> 3 </th>
+   <th style="text-align:right;"> Missing </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rdrs08 </td>
+   <td style="text-align:right;"> 97.47 </td>
+   <td style="text-align:right;"> 1.77 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr><tr><td style="text-align:left;"> rdrs04 </td>
+   <td style="text-align:right;"> 97.21 </td>
+   <td style="text-align:right;"> 1.77 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.34 </td>
+  </tr><tr><td style="text-align:left;"> rdrs07 </td>
+   <td style="text-align:right;"> 96.79 </td>
+   <td style="text-align:right;"> 2.28 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr><tr><td style="text-align:left;"> rdrs03 </td>
+   <td style="text-align:right;"> 94.51 </td>
+   <td style="text-align:right;"> 2.53 </td>
+   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 1.01 </td>
+   <td style="text-align:right;"> 1.27 </td>
+  </tr><tr><td style="text-align:left;"> rdrs05 </td>
+   <td style="text-align:right;"> 86.49 </td>
+   <td style="text-align:right;"> 11.40 </td>
+   <td style="text-align:right;"> 1.18 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.42 </td>
+  </tr><tr><td style="text-align:left;"> rdrs13 </td>
+   <td style="text-align:right;"> 86.32 </td>
+   <td style="text-align:right;"> 9.71 </td>
+   <td style="text-align:right;"> 1.94 </td>
+   <td style="text-align:right;"> 0.08 </td>
+   <td style="text-align:right;"> 1.94 </td>
+  </tr><tr><td style="text-align:left;"> rdrs06 </td>
+   <td style="text-align:right;"> 85.73 </td>
+   <td style="text-align:right;"> 8.53 </td>
+   <td style="text-align:right;"> 4.73 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.51 </td>
+  </tr><tr><td style="text-align:left;"> rdrs02 </td>
+   <td style="text-align:right;"> 83.70 </td>
+   <td style="text-align:right;"> 4.56 </td>
+   <td style="text-align:right;"> 3.89 </td>
+   <td style="text-align:right;"> 6.59 </td>
+   <td style="text-align:right;"> 1.27 </td>
+  </tr><tr><td style="text-align:left;"> rdrs09 </td>
+   <td style="text-align:right;"> 74.75 </td>
+   <td style="text-align:right;"> 14.36 </td>
+   <td style="text-align:right;"> 9.46 </td>
+   <td style="text-align:right;"> 0.42 </td>
+   <td style="text-align:right;"> 1.01 </td>
+  </tr><tr><td style="text-align:left;"> rdrs11 </td>
+   <td style="text-align:right;"> 52.03 </td>
+   <td style="text-align:right;"> 25.17 </td>
+   <td style="text-align:right;"> 7.52 </td>
+   <td style="text-align:right;"> 14.10 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rdrs12 </td>
+   <td style="text-align:right;"> 45.27 </td>
+   <td style="text-align:right;"> 23.48 </td>
+   <td style="text-align:right;"> 11.40 </td>
+   <td style="text-align:right;"> 17.65 </td>
+   <td style="text-align:right;"> 2.20 </td>
+  </tr><tr><td style="text-align:left;"> rdrs10 </td>
+   <td style="text-align:right;"> 42.91 </td>
+   <td style="text-align:right;"> 42.82 </td>
+   <td style="text-align:right;"> 13.18 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 0.17 </td>
+  </tr><tr><td style="text-align:left;"> rdrs01 </td>
+   <td style="text-align:right;"> 25.59 </td>
+   <td style="text-align:right;"> 67.40 </td>
+   <td style="text-align:right;"> 6.08 </td>
+   <td style="text-align:right;"> 0.42 </td>
+   <td style="text-align:right;"> 0.51 </td>
+  </tr></tbody></table>
 
 Dichotomized item categories (%)
 
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> 0 </th>
+   <th style="text-align:right;"> 1 </th>
+   <th style="text-align:right;"> Missing </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rdrs08 </td>
+   <td style="text-align:right;"> 97.47 </td>
+   <td style="text-align:right;"> 2.45 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr><tr><td style="text-align:left;"> rdrs04 </td>
+   <td style="text-align:right;"> 97.21 </td>
+   <td style="text-align:right;"> 2.45 </td>
+   <td style="text-align:right;"> 0.34 </td>
+  </tr><tr><td style="text-align:left;"> rdrs07 </td>
+   <td style="text-align:right;"> 96.79 </td>
+   <td style="text-align:right;"> 2.96 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr><tr><td style="text-align:left;"> rdrs03 </td>
+   <td style="text-align:right;"> 94.51 </td>
+   <td style="text-align:right;"> 4.22 </td>
+   <td style="text-align:right;"> 1.27 </td>
+  </tr><tr><td style="text-align:left;"> rdrs01 </td>
+   <td style="text-align:right;"> 92.99 </td>
+   <td style="text-align:right;"> 6.50 </td>
+   <td style="text-align:right;"> 0.51 </td>
+  </tr><tr><td style="text-align:left;"> rdrs05 </td>
+   <td style="text-align:right;"> 86.49 </td>
+   <td style="text-align:right;"> 13.09 </td>
+   <td style="text-align:right;"> 0.42 </td>
+  </tr><tr><td style="text-align:left;"> rdrs13 </td>
+   <td style="text-align:right;"> 86.32 </td>
+   <td style="text-align:right;"> 11.74 </td>
+   <td style="text-align:right;"> 1.94 </td>
+  </tr><tr><td style="text-align:left;"> rdrs06 </td>
+   <td style="text-align:right;"> 85.73 </td>
+   <td style="text-align:right;"> 13.77 </td>
+   <td style="text-align:right;"> 0.51 </td>
+  </tr><tr><td style="text-align:left;"> rdrs02 </td>
+   <td style="text-align:right;"> 83.70 </td>
+   <td style="text-align:right;"> 15.03 </td>
+   <td style="text-align:right;"> 1.27 </td>
+  </tr><tr><td style="text-align:left;"> rdrs09 </td>
+   <td style="text-align:right;"> 74.75 </td>
+   <td style="text-align:right;"> 24.24 </td>
+   <td style="text-align:right;"> 1.01 </td>
+  </tr><tr><td style="text-align:left;"> rdrs11 </td>
+   <td style="text-align:right;"> 52.03 </td>
+   <td style="text-align:right;"> 46.79 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rdrs12 </td>
+   <td style="text-align:right;"> 45.27 </td>
+   <td style="text-align:right;"> 52.53 </td>
+   <td style="text-align:right;"> 2.20 </td>
+  </tr><tr><td style="text-align:left;"> rdrs10 </td>
+   <td style="text-align:right;"> 42.91 </td>
+   <td style="text-align:right;"> 56.93 </td>
+   <td style="text-align:right;"> 0.17 </td>
+  </tr></tbody></table>
 
-Item          0       1   Missing
--------  ------  ------  --------
-rdrs08    97.47    2.45      0.08
-rdrs04    97.21    2.45      0.34
-rdrs07    96.79    2.96      0.25
-rdrs03    94.51    4.22      1.27
-rdrs01    92.99    6.50      0.51
-rdrs05    86.49   13.09      0.42
-rdrs13    86.32   11.74      1.94
-rdrs06    85.73   13.77      0.51
-rdrs02    83.70   15.03      1.27
-rdrs09    74.75   24.24      1.01
-rdrs11    52.03   46.79      1.18
-rdrs12    45.27   52.53      2.20
-rdrs10    42.91   56.93      0.17
-
-## Summary table for MDAS (N=1184)
+### Summary table for MDAS (N=1184)
 Original item categories (%)
 
-
-Item           0       1       2      3   Missing
---------  ------  ------  ------  -----  --------
-rmdas09    94.59    3.72    1.52   0.00      0.17
-rmdas08    94.43    3.21    1.10   0.08      1.18
-rmdas01    94.17    4.22    1.35   0.00      0.25
-rmdas06    84.12   10.64    4.22   0.76      0.25
-rmdas07    83.78   12.75    2.20   0.08      1.18
-rmdas02    76.01   14.10    5.66   3.12      1.10
-rmdas05    58.45   29.05   11.23   1.18      0.08
-rmdas03    50.93   23.56   18.67   5.66      1.18
-rmdas04    29.05   57.01   12.50   0.59      0.84
-rmdas10    25.42   68.58    5.07   0.42      0.51
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> 0 </th>
+   <th style="text-align:right;"> 1 </th>
+   <th style="text-align:right;"> 2 </th>
+   <th style="text-align:right;"> 3 </th>
+   <th style="text-align:right;"> Missing </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rmdas09 </td>
+   <td style="text-align:right;"> 94.59 </td>
+   <td style="text-align:right;"> 3.72 </td>
+   <td style="text-align:right;"> 1.52 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.17 </td>
+  </tr><tr><td style="text-align:left;"> rmdas08 </td>
+   <td style="text-align:right;"> 94.43 </td>
+   <td style="text-align:right;"> 3.21 </td>
+   <td style="text-align:right;"> 1.10 </td>
+   <td style="text-align:right;"> 0.08 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rmdas01 </td>
+   <td style="text-align:right;"> 94.17 </td>
+   <td style="text-align:right;"> 4.22 </td>
+   <td style="text-align:right;"> 1.35 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr><tr><td style="text-align:left;"> rmdas06 </td>
+   <td style="text-align:right;"> 84.12 </td>
+   <td style="text-align:right;"> 10.64 </td>
+   <td style="text-align:right;"> 4.22 </td>
+   <td style="text-align:right;"> 0.76 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr><tr><td style="text-align:left;"> rmdas07 </td>
+   <td style="text-align:right;"> 83.78 </td>
+   <td style="text-align:right;"> 12.75 </td>
+   <td style="text-align:right;"> 2.20 </td>
+   <td style="text-align:right;"> 0.08 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rmdas02 </td>
+   <td style="text-align:right;"> 76.01 </td>
+   <td style="text-align:right;"> 14.10 </td>
+   <td style="text-align:right;"> 5.66 </td>
+   <td style="text-align:right;"> 3.12 </td>
+   <td style="text-align:right;"> 1.10 </td>
+  </tr><tr><td style="text-align:left;"> rmdas05 </td>
+   <td style="text-align:right;"> 58.45 </td>
+   <td style="text-align:right;"> 29.05 </td>
+   <td style="text-align:right;"> 11.23 </td>
+   <td style="text-align:right;"> 1.18 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr><tr><td style="text-align:left;"> rmdas03 </td>
+   <td style="text-align:right;"> 50.93 </td>
+   <td style="text-align:right;"> 23.56 </td>
+   <td style="text-align:right;"> 18.67 </td>
+   <td style="text-align:right;"> 5.66 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rmdas04 </td>
+   <td style="text-align:right;"> 29.05 </td>
+   <td style="text-align:right;"> 57.01 </td>
+   <td style="text-align:right;"> 12.50 </td>
+   <td style="text-align:right;"> 0.59 </td>
+   <td style="text-align:right;"> 0.84 </td>
+  </tr><tr><td style="text-align:left;"> rmdas10 </td>
+   <td style="text-align:right;"> 25.42 </td>
+   <td style="text-align:right;"> 68.58 </td>
+   <td style="text-align:right;"> 5.07 </td>
+   <td style="text-align:right;"> 0.42 </td>
+   <td style="text-align:right;"> 0.51 </td>
+  </tr></tbody></table>
 
 Dichotomized item categories (%)
 
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> 0 </th>
+   <th style="text-align:right;"> 1 </th>
+   <th style="text-align:right;"> Missing </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rmdas09 </td>
+   <td style="text-align:right;"> 94.59 </td>
+   <td style="text-align:right;"> 5.24 </td>
+   <td style="text-align:right;"> 0.17 </td>
+  </tr><tr><td style="text-align:left;"> rmdas08 </td>
+   <td style="text-align:right;"> 94.43 </td>
+   <td style="text-align:right;"> 4.39 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rmdas01 </td>
+   <td style="text-align:right;"> 94.17 </td>
+   <td style="text-align:right;"> 5.57 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr><tr><td style="text-align:left;"> rmdas10 </td>
+   <td style="text-align:right;"> 94.00 </td>
+   <td style="text-align:right;"> 5.49 </td>
+   <td style="text-align:right;"> 0.51 </td>
+  </tr><tr><td style="text-align:left;"> rmdas06 </td>
+   <td style="text-align:right;"> 84.12 </td>
+   <td style="text-align:right;"> 15.62 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr><tr><td style="text-align:left;"> rmdas07 </td>
+   <td style="text-align:right;"> 83.78 </td>
+   <td style="text-align:right;"> 15.03 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rmdas02 </td>
+   <td style="text-align:right;"> 76.01 </td>
+   <td style="text-align:right;"> 22.89 </td>
+   <td style="text-align:right;"> 1.10 </td>
+  </tr><tr><td style="text-align:left;"> rmdas05 </td>
+   <td style="text-align:right;"> 58.45 </td>
+   <td style="text-align:right;"> 41.47 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr><tr><td style="text-align:left;"> rmdas03 </td>
+   <td style="text-align:right;"> 50.93 </td>
+   <td style="text-align:right;"> 47.89 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rmdas04 </td>
+   <td style="text-align:right;"> 29.05 </td>
+   <td style="text-align:right;"> 70.10 </td>
+   <td style="text-align:right;"> 0.84 </td>
+  </tr></tbody></table>
 
-Item           0       1   Missing
---------  ------  ------  --------
-rmdas09    94.59    5.24      0.17
-rmdas08    94.43    4.39      1.18
-rmdas01    94.17    5.57      0.25
-rmdas10    94.00    5.49      0.51
-rmdas06    84.12   15.62      0.25
-rmdas07    83.78   15.03      1.18
-rmdas02    76.01   22.89      1.10
-rmdas05    58.45   41.47      0.08
-rmdas03    50.93   47.89      1.18
-rmdas04    29.05   70.10      0.84
-
-## Summary table for CAM-S (N=1184)
+### Summary table for CAM-S (N=1184)
 Original item categories (%)
 
-
-Item            0       1       2   Missing
----------  ------  ------  ------  --------
-rcamlf8d    97.30    2.36    0.25      0.08
-rcamlf8a    97.04    2.36    0.51      0.08
-rcamlf4a    96.03    0.34    3.63      0.00
-rcamlf7a    85.39   12.08    1.35      1.18
-rcamlf3a    84.04   12.08    3.63      0.25
-rcamlf5a    76.01   15.79    7.09      1.10
-rcamlf1a    73.90   25.34    0.00      0.76
-rcamlf6a    72.21   22.64    3.97      1.18
-rcamlf2a    41.81   44.09   13.94      0.17
-rcamlf9a    25.00   68.58    5.83      0.59
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> 0 </th>
+   <th style="text-align:right;"> 1 </th>
+   <th style="text-align:right;"> 2 </th>
+   <th style="text-align:right;"> Missing </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rcamlf8d </td>
+   <td style="text-align:right;"> 97.30 </td>
+   <td style="text-align:right;"> 2.36 </td>
+   <td style="text-align:right;"> 0.25 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8a </td>
+   <td style="text-align:right;"> 97.04 </td>
+   <td style="text-align:right;"> 2.36 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf4a </td>
+   <td style="text-align:right;"> 96.03 </td>
+   <td style="text-align:right;"> 0.34 </td>
+   <td style="text-align:right;"> 3.63 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf7a </td>
+   <td style="text-align:right;"> 85.39 </td>
+   <td style="text-align:right;"> 12.08 </td>
+   <td style="text-align:right;"> 1.35 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf3a </td>
+   <td style="text-align:right;"> 84.04 </td>
+   <td style="text-align:right;"> 12.08 </td>
+   <td style="text-align:right;"> 3.63 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf5a </td>
+   <td style="text-align:right;"> 76.01 </td>
+   <td style="text-align:right;"> 15.79 </td>
+   <td style="text-align:right;"> 7.09 </td>
+   <td style="text-align:right;"> 1.10 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf1a </td>
+   <td style="text-align:right;"> 73.90 </td>
+   <td style="text-align:right;"> 25.34 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.76 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf6a </td>
+   <td style="text-align:right;"> 72.21 </td>
+   <td style="text-align:right;"> 22.64 </td>
+   <td style="text-align:right;"> 3.97 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf2a </td>
+   <td style="text-align:right;"> 41.81 </td>
+   <td style="text-align:right;"> 44.09 </td>
+   <td style="text-align:right;"> 13.94 </td>
+   <td style="text-align:right;"> 0.17 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf9a </td>
+   <td style="text-align:right;"> 25.00 </td>
+   <td style="text-align:right;"> 68.58 </td>
+   <td style="text-align:right;"> 5.83 </td>
+   <td style="text-align:right;"> 0.59 </td>
+  </tr></tbody></table>
 
 Dichotomized item categories (%)
 
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> 0 </th>
+   <th style="text-align:right;"> 1 </th>
+   <th style="text-align:right;"> Missing </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rcamlf8d </td>
+   <td style="text-align:right;"> 97.30 </td>
+   <td style="text-align:right;"> 2.62 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8a </td>
+   <td style="text-align:right;"> 97.04 </td>
+   <td style="text-align:right;"> 2.87 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf4a </td>
+   <td style="text-align:right;"> 96.03 </td>
+   <td style="text-align:right;"> 3.97 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf9a </td>
+   <td style="text-align:right;"> 93.58 </td>
+   <td style="text-align:right;"> 5.83 </td>
+   <td style="text-align:right;"> 0.59 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf7a </td>
+   <td style="text-align:right;"> 85.39 </td>
+   <td style="text-align:right;"> 13.43 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf3a </td>
+   <td style="text-align:right;"> 84.04 </td>
+   <td style="text-align:right;"> 15.71 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf5a </td>
+   <td style="text-align:right;"> 76.01 </td>
+   <td style="text-align:right;"> 22.89 </td>
+   <td style="text-align:right;"> 1.10 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf1a </td>
+   <td style="text-align:right;"> 73.90 </td>
+   <td style="text-align:right;"> 25.34 </td>
+   <td style="text-align:right;"> 0.76 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf6a </td>
+   <td style="text-align:right;"> 72.21 </td>
+   <td style="text-align:right;"> 26.60 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf2a </td>
+   <td style="text-align:right;"> 41.81 </td>
+   <td style="text-align:right;"> 58.02 </td>
+   <td style="text-align:right;"> 0.17 </td>
+  </tr></tbody></table>
 
-Item            0       1   Missing
----------  ------  ------  --------
-rcamlf8d    97.30    2.62      0.08
-rcamlf8a    97.04    2.87      0.08
-rcamlf4a    96.03    3.97      0.00
-rcamlf9a    93.58    5.83      0.59
-rcamlf7a    85.39   13.43      1.18
-rcamlf3a    84.04   15.71      0.25
-rcamlf5a    76.01   22.89      1.10
-rcamlf1a    73.90   25.34      0.76
-rcamlf6a    72.21   26.60      1.18
-rcamlf2a    41.81   58.02      0.17
 
 
+## Model Fitting (Dichotomous model)
 
-# Model Fitting
-
-## Fit CFA models
+### Fit CFA models
 We will fit a CFA in the MDAS, DRS, and CAM-S individually then equate them.  To ensure that the CFA covers the same dimension for each test, we are fitting the CFA to a core set of items in common across test and then add in the remaining items keeping the core item parameters fixed.
 
 The core set of items are: 
@@ -291,17 +564,21 @@ The core set of items are:
 ## Reading model:  cfa-drs-wlsmv-2.out
 ```
 
-## DRS Confirmatory Factor Analysis
-### Fit statistics
+### DRS Confirmatory Factor Analysis
+#### Fit statistics
 Model 1
 
 ```
 ## Reading model:  cfa-drs-wlsmv-1.out
 ```
 
-    N    CFI   RMSEA
------  -----  ------
- 1184   0.97    0.04
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:right;"> N </th>
+   <th style="text-align:right;"> CFI </th>
+   <th style="text-align:right;"> RMSEA </th>
+  </tr></thead><tbody><tr><td style="text-align:right;"> 1184 </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.04 </td>
+  </tr></tbody></table>
 
 Model 2
 
@@ -309,29 +586,47 @@ Model 2
 ## Reading model:  cfa-drs-wlsmv-2.out
 ```
 
-    N    CFI   RMSEA
------  -----  ------
- 1184   0.97     0.1
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:right;"> N </th>
+   <th style="text-align:right;"> CFI </th>
+   <th style="text-align:right;"> RMSEA </th>
+  </tr></thead><tbody><tr><td style="text-align:right;"> 1184 </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.1 </td>
+  </tr></tbody></table>
 
 
-### Item Parameters
+#### Item Parameters
 Model 1
 
 ```
 ## Reading model:  cfa-drs-1.out
 ```
 
-
-
-Item      Slope   Threshold
--------  ------  ----------
-rdrs10     2.56       -0.55
-rdrs09     1.84        1.71
-rdrs07     1.57        4.55
-rdrs11     1.53        0.13
-rdrs08     1.33        4.48
-rdrs02     0.94        1.98
-rdrs01     0.93        3.01
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> Slope </th>
+   <th style="text-align:right;"> Threshold </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rdrs10 </td>
+   <td style="text-align:right;"> 2.56 </td>
+   <td style="text-align:right;"> -0.55 </td>
+  </tr><tr><td style="text-align:left;"> rdrs09 </td>
+   <td style="text-align:right;"> 1.84 </td>
+   <td style="text-align:right;"> 1.71 </td>
+  </tr><tr><td style="text-align:left;"> rdrs07 </td>
+   <td style="text-align:right;"> 1.57 </td>
+   <td style="text-align:right;"> 4.55 </td>
+  </tr><tr><td style="text-align:left;"> rdrs11 </td>
+   <td style="text-align:right;"> 1.53 </td>
+   <td style="text-align:right;"> 0.13 </td>
+  </tr><tr><td style="text-align:left;"> rdrs08 </td>
+   <td style="text-align:right;"> 1.33 </td>
+   <td style="text-align:right;"> 4.48 </td>
+  </tr><tr><td style="text-align:left;"> rdrs02 </td>
+   <td style="text-align:right;"> 0.94 </td>
+   <td style="text-align:right;"> 1.98 </td>
+  </tr><tr><td style="text-align:left;"> rdrs01 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 3.01 </td>
+  </tr></tbody></table>
 
 Model 2
 
@@ -339,23 +634,49 @@ Model 2
 ## Reading model:  cfa-drs-2.out
 ```
 
-
-
-Item      Slope   Threshold
--------  ------  ----------
-rdrs06     2.80        3.62
-rdrs12     2.76       -0.37
-rdrs10     2.56       -0.55
-rdrs09     1.84        1.71
-rdrs13     1.61        2.76
-rdrs05     1.59        2.66
-rdrs07     1.57        4.55
-rdrs11     1.53        0.13
-rdrs04     1.49        4.72
-rdrs03     1.39        3.90
-rdrs08     1.33        4.48
-rdrs02     0.94        1.98
-rdrs01     0.93        3.01
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> Slope </th>
+   <th style="text-align:right;"> Threshold </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rdrs06 </td>
+   <td style="text-align:right;"> 2.80 </td>
+   <td style="text-align:right;"> 3.62 </td>
+  </tr><tr><td style="text-align:left;"> rdrs12 </td>
+   <td style="text-align:right;"> 2.76 </td>
+   <td style="text-align:right;"> -0.37 </td>
+  </tr><tr><td style="text-align:left;"> rdrs10 </td>
+   <td style="text-align:right;"> 2.56 </td>
+   <td style="text-align:right;"> -0.55 </td>
+  </tr><tr><td style="text-align:left;"> rdrs09 </td>
+   <td style="text-align:right;"> 1.84 </td>
+   <td style="text-align:right;"> 1.71 </td>
+  </tr><tr><td style="text-align:left;"> rdrs13 </td>
+   <td style="text-align:right;"> 1.61 </td>
+   <td style="text-align:right;"> 2.76 </td>
+  </tr><tr><td style="text-align:left;"> rdrs05 </td>
+   <td style="text-align:right;"> 1.59 </td>
+   <td style="text-align:right;"> 2.66 </td>
+  </tr><tr><td style="text-align:left;"> rdrs07 </td>
+   <td style="text-align:right;"> 1.57 </td>
+   <td style="text-align:right;"> 4.55 </td>
+  </tr><tr><td style="text-align:left;"> rdrs11 </td>
+   <td style="text-align:right;"> 1.53 </td>
+   <td style="text-align:right;"> 0.13 </td>
+  </tr><tr><td style="text-align:left;"> rdrs04 </td>
+   <td style="text-align:right;"> 1.49 </td>
+   <td style="text-align:right;"> 4.72 </td>
+  </tr><tr><td style="text-align:left;"> rdrs03 </td>
+   <td style="text-align:right;"> 1.39 </td>
+   <td style="text-align:right;"> 3.90 </td>
+  </tr><tr><td style="text-align:left;"> rdrs08 </td>
+   <td style="text-align:right;"> 1.33 </td>
+   <td style="text-align:right;"> 4.48 </td>
+  </tr><tr><td style="text-align:left;"> rdrs02 </td>
+   <td style="text-align:right;"> 0.94 </td>
+   <td style="text-align:right;"> 1.98 </td>
+  </tr><tr><td style="text-align:left;"> rdrs01 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 3.01 </td>
+  </tr></tbody></table>
 
 
 
@@ -400,17 +721,21 @@ rdrs01     0.93        3.01
 ## Reading model:  cfa-mdas-wlsmv-2.out
 ```
 
-## MDAS Confirmatory Factor Analysis
-### Fit statistics
+### MDAS Confirmatory Factor Analysis
+#### Fit statistics
 Model 1
 
 ```
 ## Reading model:  cfa-mdas-wlsmv-1.out
 ```
 
-    N    CFI   RMSEA
------  -----  ------
- 1184   0.97    0.04
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:right;"> N </th>
+   <th style="text-align:right;"> CFI </th>
+   <th style="text-align:right;"> RMSEA </th>
+  </tr></thead><tbody><tr><td style="text-align:right;"> 1184 </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.04 </td>
+  </tr></tbody></table>
 
 Model 2
 
@@ -418,28 +743,46 @@ Model 2
 ## Reading model:  cfa-mdas-wlsmv-2.out
 ```
 
-    N    CFI   RMSEA
------  -----  ------
- 1184   0.97    0.04
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:right;"> N </th>
+   <th style="text-align:right;"> CFI </th>
+   <th style="text-align:right;"> RMSEA </th>
+  </tr></thead><tbody><tr><td style="text-align:right;"> 1184 </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.04 </td>
+  </tr></tbody></table>
 
-### Item Parameters
+#### Item Parameters
 Model 1
 
 ```
 ## Reading model:  cfa-mdas-1.out
 ```
 
-
-
-Item       Slope   Threshold
---------  ------  ----------
-rmdas05     2.28        0.62
-rmdas02     2.27        2.07
-rmdas03     1.64        0.08
-rmdas09     1.38        3.66
-rmdas04     1.31       -1.17
-rmdas07     0.96        2.00
-rmdas10     0.81        3.11
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> Slope </th>
+   <th style="text-align:right;"> Threshold </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rmdas05 </td>
+   <td style="text-align:right;"> 2.28 </td>
+   <td style="text-align:right;"> 0.62 </td>
+  </tr><tr><td style="text-align:left;"> rmdas02 </td>
+   <td style="text-align:right;"> 2.27 </td>
+   <td style="text-align:right;"> 2.07 </td>
+  </tr><tr><td style="text-align:left;"> rmdas03 </td>
+   <td style="text-align:right;"> 1.64 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr><tr><td style="text-align:left;"> rmdas09 </td>
+   <td style="text-align:right;"> 1.38 </td>
+   <td style="text-align:right;"> 3.66 </td>
+  </tr><tr><td style="text-align:left;"> rmdas04 </td>
+   <td style="text-align:right;"> 1.31 </td>
+   <td style="text-align:right;"> -1.17 </td>
+  </tr><tr><td style="text-align:left;"> rmdas07 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 2.00 </td>
+  </tr><tr><td style="text-align:left;"> rmdas10 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> 3.11 </td>
+  </tr></tbody></table>
 
 Model 2
 
@@ -447,20 +790,40 @@ Model 2
 ## Reading model:  cfa-mdas-2.out
 ```
 
-
-
-Item       Slope   Threshold
---------  ------  ----------
-rmdas06     4.04        4.44
-rmdas01     2.55        4.96
-rmdas05     2.28        0.62
-rmdas02     2.27        2.07
-rmdas03     1.64        0.08
-rmdas08     1.58        4.03
-rmdas09     1.38        3.66
-rmdas04     1.31       -1.17
-rmdas07     0.96        2.00
-rmdas10     0.81        3.11
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> Slope </th>
+   <th style="text-align:right;"> Threshold </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rmdas06 </td>
+   <td style="text-align:right;"> 4.04 </td>
+   <td style="text-align:right;"> 4.44 </td>
+  </tr><tr><td style="text-align:left;"> rmdas01 </td>
+   <td style="text-align:right;"> 2.55 </td>
+   <td style="text-align:right;"> 4.96 </td>
+  </tr><tr><td style="text-align:left;"> rmdas05 </td>
+   <td style="text-align:right;"> 2.28 </td>
+   <td style="text-align:right;"> 0.62 </td>
+  </tr><tr><td style="text-align:left;"> rmdas02 </td>
+   <td style="text-align:right;"> 2.27 </td>
+   <td style="text-align:right;"> 2.07 </td>
+  </tr><tr><td style="text-align:left;"> rmdas03 </td>
+   <td style="text-align:right;"> 1.64 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr><tr><td style="text-align:left;"> rmdas08 </td>
+   <td style="text-align:right;"> 1.58 </td>
+   <td style="text-align:right;"> 4.03 </td>
+  </tr><tr><td style="text-align:left;"> rmdas09 </td>
+   <td style="text-align:right;"> 1.38 </td>
+   <td style="text-align:right;"> 3.66 </td>
+  </tr><tr><td style="text-align:left;"> rmdas04 </td>
+   <td style="text-align:right;"> 1.31 </td>
+   <td style="text-align:right;"> -1.17 </td>
+  </tr><tr><td style="text-align:left;"> rmdas07 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 2.00 </td>
+  </tr><tr><td style="text-align:left;"> rmdas10 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> 3.11 </td>
+  </tr></tbody></table>
 
 
 
@@ -504,17 +867,21 @@ rmdas10     0.81        3.11
 ## Reading model:  cfa-cam-wlsmv-2.out
 ```
 
-## CAM-S Confirmatory Factor Analysis
-### Fit statistics
+### CAM-S Confirmatory Factor Analysis
+#### Fit statistics
 Model 1
 
 ```
 ## Reading model:  cfa-cam-wlsmv-1.out
 ```
 
-    N    CFI   RMSEA
------  -----  ------
- 1184   0.99    0.02
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:right;"> N </th>
+   <th style="text-align:right;"> CFI </th>
+   <th style="text-align:right;"> RMSEA </th>
+  </tr></thead><tbody><tr><td style="text-align:right;"> 1184 </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 0.02 </td>
+  </tr></tbody></table>
 
 Model 2
 
@@ -522,28 +889,46 @@ Model 2
 ## Reading model:  cfa-cam-wlsmv-2.out
 ```
 
-    N    CFI   RMSEA
------  -----  ------
- 1184   0.88    0.13
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:right;"> N </th>
+   <th style="text-align:right;"> CFI </th>
+   <th style="text-align:right;"> RMSEA </th>
+  </tr></thead><tbody><tr><td style="text-align:right;"> 1184 </td>
+   <td style="text-align:right;"> 0.88 </td>
+   <td style="text-align:right;"> 0.13 </td>
+  </tr></tbody></table>
 
-### Item Parameters
+#### Item Parameters
 Model 1
 
 ```
 ## Reading model:  cfa-cam-1.out
 ```
 
-
-
-Item        Slope   Threshold
----------  ------  ----------
-rcamlf5a     2.49        2.21
-rcamlf2a     2.36       -0.60
-rcamlf6a     2.23        1.71
-rcamlf8a     1.49        4.48
-rcamlf7a     1.10        2.22
-rcamlf8d     1.03        4.10
-rcamlf9a     0.66        2.96
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> Slope </th>
+   <th style="text-align:right;"> Threshold </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rcamlf5a </td>
+   <td style="text-align:right;"> 2.49 </td>
+   <td style="text-align:right;"> 2.21 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf2a </td>
+   <td style="text-align:right;"> 2.36 </td>
+   <td style="text-align:right;"> -0.60 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf6a </td>
+   <td style="text-align:right;"> 2.23 </td>
+   <td style="text-align:right;"> 1.71 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8a </td>
+   <td style="text-align:right;"> 1.49 </td>
+   <td style="text-align:right;"> 4.48 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf7a </td>
+   <td style="text-align:right;"> 1.10 </td>
+   <td style="text-align:right;"> 2.22 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8d </td>
+   <td style="text-align:right;"> 1.03 </td>
+   <td style="text-align:right;"> 4.10 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf9a </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 2.96 </td>
+  </tr></tbody></table>
 
 Model 2
 
@@ -551,26 +936,46 @@ Model 2
 ## Reading model:  cfa-cam-2.out
 ```
 
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> Slope </th>
+   <th style="text-align:right;"> Threshold </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rcamlf3a </td>
+   <td style="text-align:right;"> 4.21 </td>
+   <td style="text-align:right;"> 4.57 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf5a </td>
+   <td style="text-align:right;"> 2.49 </td>
+   <td style="text-align:right;"> 2.21 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf1a </td>
+   <td style="text-align:right;"> 2.46 </td>
+   <td style="text-align:right;"> 1.98 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf2a </td>
+   <td style="text-align:right;"> 2.36 </td>
+   <td style="text-align:right;"> -0.60 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf6a </td>
+   <td style="text-align:right;"> 2.23 </td>
+   <td style="text-align:right;"> 1.71 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf4a </td>
+   <td style="text-align:right;"> 2.03 </td>
+   <td style="text-align:right;"> 4.77 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8a </td>
+   <td style="text-align:right;"> 1.49 </td>
+   <td style="text-align:right;"> 4.48 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf7a </td>
+   <td style="text-align:right;"> 1.10 </td>
+   <td style="text-align:right;"> 2.22 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8d </td>
+   <td style="text-align:right;"> 1.03 </td>
+   <td style="text-align:right;"> 4.10 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf9a </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 2.96 </td>
+  </tr></tbody></table>
 
 
-Item        Slope   Threshold
----------  ------  ----------
-rcamlf3a     4.21        4.57
-rcamlf5a     2.49        2.21
-rcamlf1a     2.46        1.98
-rcamlf2a     2.36       -0.60
-rcamlf6a     2.23        1.71
-rcamlf4a     2.03        4.77
-rcamlf8a     1.49        4.48
-rcamlf7a     1.10        2.22
-rcamlf8d     1.03        4.10
-rcamlf9a     0.66        2.96
 
 
 
-
-
-# Item equating
+## Item equating
 Using the SNSequate package to equate item parameters.
 
 
@@ -586,53 +991,122 @@ Using the SNSequate package to equate item parameters.
 ```
 ## Reading model:  cfa-cam-2.out
 ```
-## DRS item parameters
+### DRS item parameters
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> item </th>
+   <th style="text-align:right;"> A.drs </th>
+   <th style="text-align:right;"> B.drs </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rdrs06 </td>
+   <td style="text-align:right;"> 2.80 </td>
+   <td style="text-align:right;"> 1.30 </td>
+  </tr><tr><td style="text-align:left;"> rdrs12 </td>
+   <td style="text-align:right;"> 2.76 </td>
+   <td style="text-align:right;"> -0.13 </td>
+  </tr><tr><td style="text-align:left;"> rdrs10 </td>
+   <td style="text-align:right;"> 2.56 </td>
+   <td style="text-align:right;"> -0.22 </td>
+  </tr><tr><td style="text-align:left;"> rdrs09 </td>
+   <td style="text-align:right;"> 1.84 </td>
+   <td style="text-align:right;"> 0.93 </td>
+  </tr><tr><td style="text-align:left;"> rdrs13 </td>
+   <td style="text-align:right;"> 1.61 </td>
+   <td style="text-align:right;"> 1.72 </td>
+  </tr><tr><td style="text-align:left;"> rdrs05 </td>
+   <td style="text-align:right;"> 1.59 </td>
+   <td style="text-align:right;"> 1.67 </td>
+  </tr><tr><td style="text-align:left;"> rdrs07 </td>
+   <td style="text-align:right;"> 1.57 </td>
+   <td style="text-align:right;"> 2.90 </td>
+  </tr><tr><td style="text-align:left;"> rdrs11 </td>
+   <td style="text-align:right;"> 1.53 </td>
+   <td style="text-align:right;"> 0.09 </td>
+  </tr><tr><td style="text-align:left;"> rdrs04 </td>
+   <td style="text-align:right;"> 1.49 </td>
+   <td style="text-align:right;"> 3.16 </td>
+  </tr><tr><td style="text-align:left;"> rdrs03 </td>
+   <td style="text-align:right;"> 1.39 </td>
+   <td style="text-align:right;"> 2.81 </td>
+  </tr><tr><td style="text-align:left;"> rdrs08 </td>
+   <td style="text-align:right;"> 1.33 </td>
+   <td style="text-align:right;"> 3.36 </td>
+  </tr><tr><td style="text-align:left;"> rdrs02 </td>
+   <td style="text-align:right;"> 0.94 </td>
+   <td style="text-align:right;"> 2.12 </td>
+  </tr><tr><td style="text-align:left;"> rdrs01 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 3.23 </td>
+  </tr></tbody></table>
 
-item      A.drs   B.drs
--------  ------  ------
-rdrs06     2.80    1.30
-rdrs12     2.76   -0.13
-rdrs10     2.56   -0.22
-rdrs09     1.84    0.93
-rdrs13     1.61    1.72
-rdrs05     1.59    1.67
-rdrs07     1.57    2.90
-rdrs11     1.53    0.09
-rdrs04     1.49    3.16
-rdrs03     1.39    2.81
-rdrs08     1.33    3.36
-rdrs02     0.94    2.12
-rdrs01     0.93    3.23
+### MDAS item parameters
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> item </th>
+   <th style="text-align:right;"> A.mdas </th>
+   <th style="text-align:right;"> B.mdas </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rmdas06 </td>
+   <td style="text-align:right;"> 4.04 </td>
+   <td style="text-align:right;"> 1.10 </td>
+  </tr><tr><td style="text-align:left;"> rmdas01 </td>
+   <td style="text-align:right;"> 2.55 </td>
+   <td style="text-align:right;"> 1.95 </td>
+  </tr><tr><td style="text-align:left;"> rmdas05 </td>
+   <td style="text-align:right;"> 2.28 </td>
+   <td style="text-align:right;"> 0.27 </td>
+  </tr><tr><td style="text-align:left;"> rmdas02 </td>
+   <td style="text-align:right;"> 2.27 </td>
+   <td style="text-align:right;"> 0.91 </td>
+  </tr><tr><td style="text-align:left;"> rmdas03 </td>
+   <td style="text-align:right;"> 1.64 </td>
+   <td style="text-align:right;"> 0.05 </td>
+  </tr><tr><td style="text-align:left;"> rmdas08 </td>
+   <td style="text-align:right;"> 1.58 </td>
+   <td style="text-align:right;"> 2.55 </td>
+  </tr><tr><td style="text-align:left;"> rmdas09 </td>
+   <td style="text-align:right;"> 1.38 </td>
+   <td style="text-align:right;"> 2.65 </td>
+  </tr><tr><td style="text-align:left;"> rmdas04 </td>
+   <td style="text-align:right;"> 1.31 </td>
+   <td style="text-align:right;"> -0.90 </td>
+  </tr><tr><td style="text-align:left;"> rmdas07 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 2.07 </td>
+  </tr><tr><td style="text-align:left;"> rmdas10 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> 3.86 </td>
+  </tr></tbody></table>
 
-## MDAS item parameters
-
-item       A.mdas   B.mdas
---------  -------  -------
-rmdas06      4.04     1.10
-rmdas01      2.55     1.95
-rmdas05      2.28     0.27
-rmdas02      2.27     0.91
-rmdas03      1.64     0.05
-rmdas08      1.58     2.55
-rmdas09      1.38     2.65
-rmdas04      1.31    -0.90
-rmdas07      0.96     2.07
-rmdas10      0.81     3.86
-
-## CAM-S item parameters
-
-item        A.cam   B.cam
----------  ------  ------
-rcamlf3a     4.21    1.09
-rcamlf5a     2.49    0.89
-rcamlf1a     2.46    0.81
-rcamlf2a     2.36   -0.25
-rcamlf6a     2.23    0.77
-rcamlf4a     2.03    2.35
-rcamlf8a     1.49    3.01
-rcamlf7a     1.10    2.02
-rcamlf8d     1.03    3.99
-rcamlf9a     0.66    4.46
+### CAM-S item parameters
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> item </th>
+   <th style="text-align:right;"> A.cam </th>
+   <th style="text-align:right;"> B.cam </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rcamlf3a </td>
+   <td style="text-align:right;"> 4.21 </td>
+   <td style="text-align:right;"> 1.09 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf5a </td>
+   <td style="text-align:right;"> 2.49 </td>
+   <td style="text-align:right;"> 0.89 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf1a </td>
+   <td style="text-align:right;"> 2.46 </td>
+   <td style="text-align:right;"> 0.81 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf2a </td>
+   <td style="text-align:right;"> 2.36 </td>
+   <td style="text-align:right;"> -0.25 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf6a </td>
+   <td style="text-align:right;"> 2.23 </td>
+   <td style="text-align:right;"> 0.77 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf4a </td>
+   <td style="text-align:right;"> 2.03 </td>
+   <td style="text-align:right;"> 2.35 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8a </td>
+   <td style="text-align:right;"> 1.49 </td>
+   <td style="text-align:right;"> 3.01 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf7a </td>
+   <td style="text-align:right;"> 1.10 </td>
+   <td style="text-align:right;"> 2.02 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8d </td>
+   <td style="text-align:right;"> 1.03 </td>
+   <td style="text-align:right;"> 3.99 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf9a </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 4.46 </td>
+  </tr></tbody></table>
 
 
 The items used to link the MDAS to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Short term memory impairment, and Delusions.
@@ -641,20 +1115,63 @@ The items used to link the CAM-S to the DRS are: Disorientation, Perceptual dist
 
 
 
-## MDAS item parameters linked
-
-Item       A (original)   B (original)   A (linked)   B (linked)
---------  -------------  -------------  -----------  -----------
-rmdas01            2.55           1.95         2.51         1.92
-rmdas02            2.27           0.91         2.23         0.87
-rmdas03            1.64           0.05         1.61        -0.01
-rmdas04            1.31          -0.90         1.28        -0.97
-rmdas05            2.28           0.27         2.24         0.22
-rmdas06            4.04           1.10         3.97         1.06
-rmdas07            0.96           2.07         0.95         2.05
-rmdas08            1.58           2.55         1.55         2.54
-rmdas09            1.38           2.65         1.35         2.65
-rmdas10            0.81           3.86         0.79         3.88
+### MDAS item parameters linked
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> A (original) </th>
+   <th style="text-align:right;"> B (original) </th>
+   <th style="text-align:right;"> A (linked) </th>
+   <th style="text-align:right;"> B (linked) </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rmdas01 </td>
+   <td style="text-align:right;"> 2.55 </td>
+   <td style="text-align:right;"> 1.95 </td>
+   <td style="text-align:right;"> 2.51 </td>
+   <td style="text-align:right;"> 1.92 </td>
+  </tr><tr><td style="text-align:left;"> rmdas02 </td>
+   <td style="text-align:right;"> 2.27 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 2.23 </td>
+   <td style="text-align:right;"> 0.87 </td>
+  </tr><tr><td style="text-align:left;"> rmdas03 </td>
+   <td style="text-align:right;"> 1.64 </td>
+   <td style="text-align:right;"> 0.05 </td>
+   <td style="text-align:right;"> 1.61 </td>
+   <td style="text-align:right;"> -0.01 </td>
+  </tr><tr><td style="text-align:left;"> rmdas04 </td>
+   <td style="text-align:right;"> 1.31 </td>
+   <td style="text-align:right;"> -0.90 </td>
+   <td style="text-align:right;"> 1.28 </td>
+   <td style="text-align:right;"> -0.97 </td>
+  </tr><tr><td style="text-align:left;"> rmdas05 </td>
+   <td style="text-align:right;"> 2.28 </td>
+   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> 2.24 </td>
+   <td style="text-align:right;"> 0.22 </td>
+  </tr><tr><td style="text-align:left;"> rmdas06 </td>
+   <td style="text-align:right;"> 4.04 </td>
+   <td style="text-align:right;"> 1.10 </td>
+   <td style="text-align:right;"> 3.97 </td>
+   <td style="text-align:right;"> 1.06 </td>
+  </tr><tr><td style="text-align:left;"> rmdas07 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 2.07 </td>
+   <td style="text-align:right;"> 0.95 </td>
+   <td style="text-align:right;"> 2.05 </td>
+  </tr><tr><td style="text-align:left;"> rmdas08 </td>
+   <td style="text-align:right;"> 1.58 </td>
+   <td style="text-align:right;"> 2.55 </td>
+   <td style="text-align:right;"> 1.55 </td>
+   <td style="text-align:right;"> 2.54 </td>
+  </tr><tr><td style="text-align:left;"> rmdas09 </td>
+   <td style="text-align:right;"> 1.38 </td>
+   <td style="text-align:right;"> 2.65 </td>
+   <td style="text-align:right;"> 1.35 </td>
+   <td style="text-align:right;"> 2.65 </td>
+  </tr><tr><td style="text-align:left;"> rmdas10 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> 3.86 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> 3.88 </td>
+  </tr></tbody></table>
 
 
 ```
@@ -666,21 +1183,64 @@ rmdas10            0.81           3.86         0.79         3.88
 
 
 
-## CAM-S item parameters linked
+### CAM-S item parameters linked
 
-
-Item        A (original)   B (original)   A (linked)   B (linked)
----------  -------------  -------------  -----------  -----------
-rcamlf1a            2.46           0.81         2.14         0.82
-rcamlf2a            2.36          -0.25         2.05        -0.39
-rcamlf3a            4.21           1.09         3.67         1.14
-rcamlf4a            2.03           2.35         1.77         2.60
-rcamlf5a            2.49           0.89         2.17         0.91
-rcamlf6a            2.23           0.77         1.94         0.78
-rcamlf7a            1.10           2.02         0.96         2.22
-rcamlf8a            1.49           3.01         1.30         3.35
-rcamlf8d            1.03           3.99         0.90         4.47
-rcamlf9a            0.66           4.46         0.58         5.02
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> A (original) </th>
+   <th style="text-align:right;"> B (original) </th>
+   <th style="text-align:right;"> A (linked) </th>
+   <th style="text-align:right;"> B (linked) </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rcamlf1a </td>
+   <td style="text-align:right;"> 2.46 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> 2.14 </td>
+   <td style="text-align:right;"> 0.82 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf2a </td>
+   <td style="text-align:right;"> 2.36 </td>
+   <td style="text-align:right;"> -0.25 </td>
+   <td style="text-align:right;"> 2.05 </td>
+   <td style="text-align:right;"> -0.39 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf3a </td>
+   <td style="text-align:right;"> 4.21 </td>
+   <td style="text-align:right;"> 1.09 </td>
+   <td style="text-align:right;"> 3.67 </td>
+   <td style="text-align:right;"> 1.14 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf4a </td>
+   <td style="text-align:right;"> 2.03 </td>
+   <td style="text-align:right;"> 2.35 </td>
+   <td style="text-align:right;"> 1.77 </td>
+   <td style="text-align:right;"> 2.60 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf5a </td>
+   <td style="text-align:right;"> 2.49 </td>
+   <td style="text-align:right;"> 0.89 </td>
+   <td style="text-align:right;"> 2.17 </td>
+   <td style="text-align:right;"> 0.91 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf6a </td>
+   <td style="text-align:right;"> 2.23 </td>
+   <td style="text-align:right;"> 0.77 </td>
+   <td style="text-align:right;"> 1.94 </td>
+   <td style="text-align:right;"> 0.78 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf7a </td>
+   <td style="text-align:right;"> 1.10 </td>
+   <td style="text-align:right;"> 2.02 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 2.22 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8a </td>
+   <td style="text-align:right;"> 1.49 </td>
+   <td style="text-align:right;"> 3.01 </td>
+   <td style="text-align:right;"> 1.30 </td>
+   <td style="text-align:right;"> 3.35 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8d </td>
+   <td style="text-align:right;"> 1.03 </td>
+   <td style="text-align:right;"> 3.99 </td>
+   <td style="text-align:right;"> 0.90 </td>
+   <td style="text-align:right;"> 4.47 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf9a </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 4.46 </td>
+   <td style="text-align:right;"> 0.58 </td>
+   <td style="text-align:right;"> 5.02 </td>
+  </tr></tbody></table>
 
 
 ```
@@ -696,6 +1256,7 @@ rcamlf9a            0.66           4.46         0.58         5.02
 
 
 
+## Plots for the dichotomous model
 
 
 
@@ -717,6 +1278,7 @@ rcamlf9a            0.66           4.46         0.58         5.02
 
 
 
+## Model Fitting (Polytomous model)
 
 
 
@@ -727,8 +1289,7 @@ rcamlf9a            0.66           4.46         0.58         5.02
 
 
 
-
-### DRS CFA model with multiple category outcome
+### DRS CFA model with polytomous outcome
 Need to check the coding for rdrs06.
 
 ```
@@ -742,8 +1303,84 @@ Need to check the coding for rdrs06.
 ## Reading model:  cfa-drs-3.out
 ```
 
+```
+## Reading model:  cfa-drs-3.out
+```
 
-### MDAS CFA model with multiple category outcome
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> A </th>
+   <th style="text-align:right;"> B1 </th>
+   <th style="text-align:right;"> B2 </th>
+   <th style="text-align:right;"> B3 </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rdrs01 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> -1.33 </td>
+   <td style="text-align:right;"> 3.23 </td>
+   <td style="text-align:right;"> 6.34 </td>
+  </tr><tr><td style="text-align:left;"> rdrs02 </td>
+   <td style="text-align:right;"> 0.94 </td>
+   <td style="text-align:right;"> 2.12 </td>
+   <td style="text-align:right;"> 2.60 </td>
+   <td style="text-align:right;"> 3.19 </td>
+  </tr><tr><td style="text-align:left;"> rdrs03 </td>
+   <td style="text-align:right;"> 1.39 </td>
+   <td style="text-align:right;"> 2.81 </td>
+   <td style="text-align:right;"> 3.53 </td>
+   <td style="text-align:right;"> 3.92 </td>
+  </tr><tr><td style="text-align:left;"> rdrs04 </td>
+   <td style="text-align:right;"> 1.49 </td>
+   <td style="text-align:right;"> 3.16 </td>
+   <td style="text-align:right;"> 4.13 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr><tr><td style="text-align:left;"> rdrs05 </td>
+   <td style="text-align:right;"> 1.59 </td>
+   <td style="text-align:right;"> 1.67 </td>
+   <td style="text-align:right;"> 3.32 </td>
+   <td style="text-align:right;"> 4.21 </td>
+  </tr><tr><td style="text-align:left;"> rdrs06 </td>
+   <td style="text-align:right;"> 2.80 </td>
+   <td style="text-align:right;"> 1.30 </td>
+   <td style="text-align:right;"> 1.93 </td>
+   <td style="text-align:right;"> 3.15 </td>
+  </tr><tr><td style="text-align:left;"> rdrs07 </td>
+   <td style="text-align:right;"> 1.57 </td>
+   <td style="text-align:right;"> 2.90 </td>
+   <td style="text-align:right;"> 3.98 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr><tr><td style="text-align:left;"> rdrs08 </td>
+   <td style="text-align:right;"> 1.33 </td>
+   <td style="text-align:right;"> 3.36 </td>
+   <td style="text-align:right;"> 4.38 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr><tr><td style="text-align:left;"> rdrs09 </td>
+   <td style="text-align:right;"> 1.84 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 1.75 </td>
+   <td style="text-align:right;"> 3.88 </td>
+  </tr><tr><td style="text-align:left;"> rdrs10 </td>
+   <td style="text-align:right;"> 2.56 </td>
+   <td style="text-align:right;"> -0.22 </td>
+   <td style="text-align:right;"> 1.30 </td>
+   <td style="text-align:right;"> 3.05 </td>
+  </tr><tr><td style="text-align:left;"> rdrs11 </td>
+   <td style="text-align:right;"> 1.53 </td>
+   <td style="text-align:right;"> 0.09 </td>
+   <td style="text-align:right;"> 1.18 </td>
+   <td style="text-align:right;"> 1.65 </td>
+  </tr><tr><td style="text-align:left;"> rdrs12 </td>
+   <td style="text-align:right;"> 2.76 </td>
+   <td style="text-align:right;"> -0.13 </td>
+   <td style="text-align:right;"> 0.61 </td>
+   <td style="text-align:right;"> 1.05 </td>
+  </tr><tr><td style="text-align:left;"> rdrs13 </td>
+   <td style="text-align:right;"> 1.61 </td>
+   <td style="text-align:right;"> 1.72 </td>
+   <td style="text-align:right;"> 3.09 </td>
+   <td style="text-align:right;"> 5.21 </td>
+  </tr></tbody></table>
+
+
+### MDAS CFA model with polytomous outcome
 Need to check the coding of rmdas06
 
 ```
@@ -757,7 +1394,69 @@ Need to check the coding of rmdas06
 ## Reading model:  cfa-mdas-3.out
 ```
 
-### CAM-S CFA model with multiple category outcome
+
+```
+## Reading model:  cfa-mdas-3.out
+```
+
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> A </th>
+   <th style="text-align:right;"> B1 </th>
+   <th style="text-align:right;"> B2 </th>
+   <th style="text-align:right;"> B3 </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rmdas01 </td>
+   <td style="text-align:right;"> 2.55 </td>
+   <td style="text-align:right;"> 1.95 </td>
+   <td style="text-align:right;"> 2.79 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr><tr><td style="text-align:left;"> rmdas02 </td>
+   <td style="text-align:right;"> 2.27 </td>
+   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 1.68 </td>
+   <td style="text-align:right;"> 2.36 </td>
+  </tr><tr><td style="text-align:left;"> rmdas03 </td>
+   <td style="text-align:right;"> 1.64 </td>
+   <td style="text-align:right;"> 0.05 </td>
+   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 2.31 </td>
+  </tr><tr><td style="text-align:left;"> rmdas04 </td>
+   <td style="text-align:right;"> 1.31 </td>
+   <td style="text-align:right;"> -0.90 </td>
+   <td style="text-align:right;"> 1.82 </td>
+   <td style="text-align:right;"> 4.54 </td>
+  </tr><tr><td style="text-align:left;"> rmdas05 </td>
+   <td style="text-align:right;"> 2.28 </td>
+   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> 1.46 </td>
+   <td style="text-align:right;"> 3.04 </td>
+  </tr><tr><td style="text-align:left;"> rmdas06 </td>
+   <td style="text-align:right;"> 4.04 </td>
+   <td style="text-align:right;"> 1.10 </td>
+   <td style="text-align:right;"> 1.82 </td>
+   <td style="text-align:right;"> 2.81 </td>
+  </tr><tr><td style="text-align:left;"> rmdas07 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 2.07 </td>
+   <td style="text-align:right;"> 4.33 </td>
+   <td style="text-align:right;"> 7.82 </td>
+  </tr><tr><td style="text-align:left;"> rmdas08 </td>
+   <td style="text-align:right;"> 1.58 </td>
+   <td style="text-align:right;"> 2.55 </td>
+   <td style="text-align:right;"> 3.48 </td>
+   <td style="text-align:right;"> 5.19 </td>
+  </tr><tr><td style="text-align:left;"> rmdas09 </td>
+   <td style="text-align:right;"> 1.38 </td>
+   <td style="text-align:right;"> 2.65 </td>
+   <td style="text-align:right;"> 3.71 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr><tr><td style="text-align:left;"> rmdas10 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> -1.50 </td>
+   <td style="text-align:right;"> 3.86 </td>
+   <td style="text-align:right;"> 7.17 </td>
+  </tr></tbody></table>
+
+### CAM-S CFA model with polytomous outcome
 
 ```
 ## Reading model:  cfa-cam-2.out
@@ -771,67 +1470,155 @@ Need to check the coding of rmdas06
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-```
-## Reading model:  cfa-drs-3.out
-```
-
-
-
-
-
-
-```
-## Reading model:  cfa-mdas-3.out
-```
-
-
-
-
 ```
 ## Reading model:  cfa-cam-3.out
 ```
 
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Item </th>
+   <th style="text-align:right;"> A </th>
+   <th style="text-align:right;"> B1 </th>
+   <th style="text-align:right;"> B2 </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> rcamlf1a </td>
+   <td style="text-align:right;"> 2.46 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr><tr><td style="text-align:left;"> rcamlf2a </td>
+   <td style="text-align:right;"> 2.36 </td>
+   <td style="text-align:right;"> -0.25 </td>
+   <td style="text-align:right;"> 1.34 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf3a </td>
+   <td style="text-align:right;"> 4.21 </td>
+   <td style="text-align:right;"> 1.09 </td>
+   <td style="text-align:right;"> 1.90 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf4a </td>
+   <td style="text-align:right;"> 2.03 </td>
+   <td style="text-align:right;"> 2.35 </td>
+   <td style="text-align:right;"> 2.41 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf5a </td>
+   <td style="text-align:right;"> 2.49 </td>
+   <td style="text-align:right;"> 0.89 </td>
+   <td style="text-align:right;"> 1.73 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf6a </td>
+   <td style="text-align:right;"> 2.23 </td>
+   <td style="text-align:right;"> 0.77 </td>
+   <td style="text-align:right;"> 2.17 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf7a </td>
+   <td style="text-align:right;"> 1.10 </td>
+   <td style="text-align:right;"> 2.02 </td>
+   <td style="text-align:right;"> 4.41 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8a </td>
+   <td style="text-align:right;"> 1.49 </td>
+   <td style="text-align:right;"> 3.01 </td>
+   <td style="text-align:right;"> 4.25 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf8d </td>
+   <td style="text-align:right;"> 1.03 </td>
+   <td style="text-align:right;"> 3.99 </td>
+   <td style="text-align:right;"> 6.31 </td>
+  </tr><tr><td style="text-align:left;"> rcamlf9a </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> -1.79 </td>
+   <td style="text-align:right;"> 4.46 </td>
+  </tr></tbody></table>
 
 
-Test characteristic curves for polytomous CFA.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Plots for the polytomous model
+
 ![](master_files/figure-html/unnamed-chunk-82-1.png)<!-- -->
 
 
 
-Test Information curve for polytomous IRT.
 ![](master_files/figure-html/unnamed-chunk-83-1.png)<!-- -->
 
 
 
 
+# For the manuscript
 
 
 ### Table 1
 
-
-Variable        N   Mean    SD   Count   Percent
------------  ----  -----  ----  ------  --------
-adlany        342     NA    NA     272      79.5
-age           352   80.3   6.8      NA        NA
-dementia      352     NA    NA     101      28.7
-educ          344   14.5   3.0      NA        NA
-female        352     NA    NA     207      58.8
-livesalone    348     NA    NA     133      38.2
-married       348     NA    NA     139      39.9
-nonwhite      352     NA    NA      51      14.5
-surgical      352     NA    NA     102      29.0
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Variable </th>
+   <th style="text-align:right;"> N </th>
+   <th style="text-align:right;"> Mean </th>
+   <th style="text-align:right;"> SD </th>
+   <th style="text-align:right;"> Count </th>
+   <th style="text-align:right;"> Percent </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> adlany </td>
+   <td style="text-align:right;"> 342 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 272 </td>
+   <td style="text-align:right;"> 79.5 </td>
+  </tr><tr><td style="text-align:left;"> age </td>
+   <td style="text-align:right;"> 352 </td>
+   <td style="text-align:right;"> 80.3 </td>
+   <td style="text-align:right;"> 6.8 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr><tr><td style="text-align:left;"> dementia </td>
+   <td style="text-align:right;"> 352 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 101 </td>
+   <td style="text-align:right;"> 28.7 </td>
+  </tr><tr><td style="text-align:left;"> educ </td>
+   <td style="text-align:right;"> 344 </td>
+   <td style="text-align:right;"> 14.5 </td>
+   <td style="text-align:right;"> 3.0 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr><tr><td style="text-align:left;"> female </td>
+   <td style="text-align:right;"> 352 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 207 </td>
+   <td style="text-align:right;"> 58.8 </td>
+  </tr><tr><td style="text-align:left;"> livesalone </td>
+   <td style="text-align:right;"> 348 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 133 </td>
+   <td style="text-align:right;"> 38.2 </td>
+  </tr><tr><td style="text-align:left;"> married </td>
+   <td style="text-align:right;"> 348 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 139 </td>
+   <td style="text-align:right;"> 39.9 </td>
+  </tr><tr><td style="text-align:left;"> nonwhite </td>
+   <td style="text-align:right;"> 352 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 14.5 </td>
+  </tr><tr><td style="text-align:left;"> surgical </td>
+   <td style="text-align:right;"> 352 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 102 </td>
+   <td style="text-align:right;"> 29.0 </td>
+  </tr></tbody></table>
 
 
 
@@ -839,12 +1626,35 @@ surgical      352     NA    NA     102      29.0
 
 ### Table 2
 Summary of delirium severity instruments from all hospital interviews.
-
-Variable       N   Mean    SD   Min   Median   Max
----------  -----  -----  ----  ----  -------  ----
-CAMS        1185    2.3   2.5     0        1    14
-DRS         1181    4.7   4.4     0        3    28
-MDAS        1181    3.9   3.3     0        3    22
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Variable </th>
+   <th style="text-align:right;"> N </th>
+   <th style="text-align:right;"> Mean </th>
+   <th style="text-align:right;"> SD </th>
+   <th style="text-align:right;"> Min </th>
+   <th style="text-align:right;"> Median </th>
+   <th style="text-align:right;"> Max </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> CAMS </td>
+   <td style="text-align:right;"> 1185 </td>
+   <td style="text-align:right;"> 2.3 </td>
+   <td style="text-align:right;"> 2.5 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 14 </td>
+  </tr><tr><td style="text-align:left;"> DRS </td>
+   <td style="text-align:right;"> 1181 </td>
+   <td style="text-align:right;"> 4.7 </td>
+   <td style="text-align:right;"> 4.4 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 28 </td>
+  </tr><tr><td style="text-align:left;"> MDAS </td>
+   <td style="text-align:right;"> 1181 </td>
+   <td style="text-align:right;"> 3.9 </td>
+   <td style="text-align:right;"> 3.3 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr></tbody></table>
 
 
 
@@ -862,19 +1672,28 @@ MDAS        1181    3.9   3.3     0        3    22
 ## Reading model:  cfa-cam-wlsmv-2.out
 ```
 
-
-
-Delirium Instrument                          CFI   RMSEA
------------------------------------------  -----  ------
-DRS (Model using only common features)      0.97    0.04
-DRS (Model using all features)              0.97    0.10
-MDAS (Model using only common features)     0.97    0.04
-MDAS (Model using all features)             0.97    0.04
-CAM-S (Model using only common features)    0.99    0.02
-CAM-S (Model using all features)            0.88    0.13
-
-__Note:__
-^\*^ CFI = Confirmatory Fit Index, RMSEA = Root Mean Squared Error of Approximation ^†^ Values indicating good fit are: CFI>.9, RMSEA<.06
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><thead><tr><th style="text-align:left;"> Delirium Instrument </th>
+   <th style="text-align:right;"> CFI </th>
+   <th style="text-align:right;"> RMSEA </th>
+  </tr></thead><tbody><tr><td style="text-align:left;"> DRS (Model using only common features) </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.04 </td>
+  </tr><tr><td style="text-align:left;"> DRS (Model using all features) </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.10 </td>
+  </tr><tr><td style="text-align:left;"> MDAS (Model using only common features) </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.04 </td>
+  </tr><tr><td style="text-align:left;"> MDAS (Model using all features) </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.04 </td>
+  </tr><tr><td style="text-align:left;"> CAM-S (Model using only common features) </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 0.02 </td>
+  </tr><tr><td style="text-align:left;"> CAM-S (Model using all features) </td>
+   <td style="text-align:right;"> 0.88 </td>
+   <td style="text-align:right;"> 0.13 </td>
+  </tr></tbody></table>
 
 
 
@@ -912,113 +1731,298 @@ __Note:__
 
 ![](master_files/figure-html/unnamed-chunk-90-1.png)<!-- -->
 
+# For the appendix
+
+
+### Figure A1: Nomogram
+(The nomogram figures aren't turning out well, so the tables they are based on are being provided.)
 
 
 
+#### Table A1a: CAM-S table
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><caption>CAM-S to MDAS and DRS</caption>
+ <thead><tr><th style="text-align:right;"> CAM-S </th>
+   <th style="text-align:right;"> MDAS </th>
+   <th style="text-align:right;"> DRS </th>
+  </tr></thead><tbody><tr><td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.1 </td>
+   <td style="text-align:right;"> 0.1 </td>
+  </tr><tr><td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1.6 </td>
+   <td style="text-align:right;"> 1.4 </td>
+  </tr><tr><td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 3.0 </td>
+   <td style="text-align:right;"> 3.5 </td>
+  </tr><tr><td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 4.2 </td>
+   <td style="text-align:right;"> 5.4 </td>
+  </tr><tr><td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 5.3 </td>
+   <td style="text-align:right;"> 6.9 </td>
+  </tr><tr><td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 6.4 </td>
+   <td style="text-align:right;"> 8.3 </td>
+  </tr><tr><td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 7.5 </td>
+   <td style="text-align:right;"> 9.6 </td>
+  </tr><tr><td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 8.6 </td>
+   <td style="text-align:right;"> 11.0 </td>
+  </tr><tr><td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 9.8 </td>
+   <td style="text-align:right;"> 12.4 </td>
+  </tr><tr><td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 11.1 </td>
+   <td style="text-align:right;"> 13.8 </td>
+  </tr><tr><td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 12.4 </td>
+   <td style="text-align:right;"> 15.2 </td>
+  </tr><tr><td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 13.8 </td>
+   <td style="text-align:right;"> 16.6 </td>
+  </tr><tr><td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 15.4 </td>
+   <td style="text-align:right;"> 18.3 </td>
+  </tr><tr><td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 17.4 </td>
+   <td style="text-align:right;"> 20.5 </td>
+  </tr><tr><td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 19.5 </td>
+   <td style="text-align:right;"> 23.3 </td>
+  </tr><tr><td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 21.4 </td>
+   <td style="text-align:right;"> 26.7 </td>
+  </tr><tr><td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 23.0 </td>
+   <td style="text-align:right;"> 30.1 </td>
+  </tr><tr><td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 24.5 </td>
+   <td style="text-align:right;"> 32.9 </td>
+  </tr><tr><td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 25.9 </td>
+   <td style="text-align:right;"> 34.9 </td>
+  </tr><tr><td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 27.1 </td>
+   <td style="text-align:right;"> 35.8 </td>
+  </tr></tbody></table>
 
 
-Table: CAM-S to MDAS and DRS
+#### Table A1b: MDAS table
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><caption>MDAS to CAM-S and DRS</caption>
+ <thead><tr><th style="text-align:right;"> MDAS </th>
+   <th style="text-align:right;"> CAM-S </th>
+   <th style="text-align:right;"> DRS </th>
+  </tr></thead><tbody><tr><td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.2 </td>
+   <td style="text-align:right;"> 0.1 </td>
+  </tr><tr><td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.7 </td>
+   <td style="text-align:right;"> 0.7 </td>
+  </tr><tr><td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.3 </td>
+   <td style="text-align:right;"> 2.0 </td>
+  </tr><tr><td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 2.0 </td>
+   <td style="text-align:right;"> 3.5 </td>
+  </tr><tr><td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 2.8 </td>
+   <td style="text-align:right;"> 5.1 </td>
+  </tr><tr><td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 3.7 </td>
+   <td style="text-align:right;"> 6.5 </td>
+  </tr><tr><td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 4.7 </td>
+   <td style="text-align:right;"> 7.8 </td>
+  </tr><tr><td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 5.6 </td>
+   <td style="text-align:right;"> 9.0 </td>
+  </tr><tr><td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6.5 </td>
+   <td style="text-align:right;"> 10.3 </td>
+  </tr><tr><td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 7.3 </td>
+   <td style="text-align:right;"> 11.5 </td>
+  </tr><tr><td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 8.1 </td>
+   <td style="text-align:right;"> 12.6 </td>
+  </tr><tr><td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 8.9 </td>
+   <td style="text-align:right;"> 13.7 </td>
+  </tr><tr><td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 9.7 </td>
+   <td style="text-align:right;"> 14.7 </td>
+  </tr><tr><td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 10.4 </td>
+   <td style="text-align:right;"> 15.7 </td>
+  </tr><tr><td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 11.1 </td>
+   <td style="text-align:right;"> 16.8 </td>
+  </tr><tr><td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 11.7 </td>
+   <td style="text-align:right;"> 17.8 </td>
+  </tr><tr><td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 12.3 </td>
+   <td style="text-align:right;"> 18.9 </td>
+  </tr><tr><td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 12.8 </td>
+   <td style="text-align:right;"> 20.1 </td>
+  </tr><tr><td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 13.3 </td>
+   <td style="text-align:right;"> 21.2 </td>
+  </tr><tr><td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 13.8 </td>
+   <td style="text-align:right;"> 22.6 </td>
+  </tr><tr><td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 14.2 </td>
+   <td style="text-align:right;"> 24.1 </td>
+  </tr><tr><td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 14.8 </td>
+   <td style="text-align:right;"> 25.9 </td>
+  </tr><tr><td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 15.3 </td>
+   <td style="text-align:right;"> 27.9 </td>
+  </tr><tr><td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 16.0 </td>
+   <td style="text-align:right;"> 30.0 </td>
+  </tr><tr><td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 16.7 </td>
+   <td style="text-align:right;"> 32.0 </td>
+  </tr><tr><td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 17.3 </td>
+   <td style="text-align:right;"> 33.7 </td>
+  </tr><tr><td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 18.0 </td>
+   <td style="text-align:right;"> 34.9 </td>
+  </tr><tr><td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 18.7 </td>
+   <td style="text-align:right;"> 35.7 </td>
+  </tr></tbody></table>
 
- CAM-S   MDAS    DRS
-------  -----  -----
-     0    0.1    0.1
-     1    1.6    1.4
-     2    3.0    3.5
-     3    4.2    5.4
-     4    5.3    6.9
-     5    6.4    8.3
-     6    7.5    9.6
-     7    8.6   11.0
-     8    9.8   12.4
-     9   11.1   13.8
-    10   12.4   15.2
-    11   13.8   16.6
-    12   15.4   18.3
-    13   17.4   20.5
-    14   19.5   23.3
-    15   21.4   26.7
-    16   23.0   30.1
-    17   24.5   32.9
-    18   25.9   34.9
-    19   27.1   35.8
+#### Table A1c: DRS table
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;"><caption>DRS to CAM-S and MDAS</caption>
+ <thead><tr><th style="text-align:right;"> DRS </th>
+   <th style="text-align:right;"> CAM-S </th>
+   <th style="text-align:right;"> MDAS </th>
+  </tr></thead><tbody><tr><td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.2 </td>
+   <td style="text-align:right;"> 0.1 </td>
+  </tr><tr><td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.8 </td>
+   <td style="text-align:right;"> 1.3 </td>
+  </tr><tr><td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1.3 </td>
+   <td style="text-align:right;"> 2.0 </td>
+  </tr><tr><td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 1.7 </td>
+   <td style="text-align:right;"> 2.7 </td>
+  </tr><tr><td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 2.2 </td>
+   <td style="text-align:right;"> 3.3 </td>
+  </tr><tr><td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 2.8 </td>
+   <td style="text-align:right;"> 4.0 </td>
+  </tr><tr><td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 3.4 </td>
+   <td style="text-align:right;"> 4.7 </td>
+  </tr><tr><td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 4.1 </td>
+   <td style="text-align:right;"> 5.4 </td>
+  </tr><tr><td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 4.8 </td>
+   <td style="text-align:right;"> 6.2 </td>
+  </tr><tr><td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 5.5 </td>
+   <td style="text-align:right;"> 6.9 </td>
+  </tr><tr><td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 6.3 </td>
+   <td style="text-align:right;"> 7.8 </td>
+  </tr><tr><td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 7.0 </td>
+   <td style="text-align:right;"> 8.6 </td>
+  </tr><tr><td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 7.7 </td>
+   <td style="text-align:right;"> 9.5 </td>
+  </tr><tr><td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 8.4 </td>
+   <td style="text-align:right;"> 10.4 </td>
+  </tr><tr><td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 9.2 </td>
+   <td style="text-align:right;"> 11.3 </td>
+  </tr><tr><td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 9.9 </td>
+   <td style="text-align:right;"> 12.3 </td>
+  </tr><tr><td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 10.6 </td>
+   <td style="text-align:right;"> 13.2 </td>
+  </tr><tr><td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 11.3 </td>
+   <td style="text-align:right;"> 14.2 </td>
+  </tr><tr><td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 11.9 </td>
+   <td style="text-align:right;"> 15.2 </td>
+  </tr><tr><td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 12.4 </td>
+   <td style="text-align:right;"> 16.1 </td>
+  </tr><tr><td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 12.8 </td>
+   <td style="text-align:right;"> 17.0 </td>
+  </tr><tr><td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 13.2 </td>
+   <td style="text-align:right;"> 17.8 </td>
+  </tr><tr><td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 13.6 </td>
+   <td style="text-align:right;"> 18.6 </td>
+  </tr><tr><td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 13.9 </td>
+   <td style="text-align:right;"> 19.3 </td>
+  </tr><tr><td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 14.2 </td>
+   <td style="text-align:right;"> 19.9 </td>
+  </tr><tr><td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 14.5 </td>
+   <td style="text-align:right;"> 20.5 </td>
+  </tr><tr><td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 14.8 </td>
+   <td style="text-align:right;"> 21.0 </td>
+  </tr><tr><td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 15.1 </td>
+   <td style="text-align:right;"> 21.5 </td>
+  </tr><tr><td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 15.4 </td>
+   <td style="text-align:right;"> 22.0 </td>
+  </tr><tr><td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 15.7 </td>
+   <td style="text-align:right;"> 22.5 </td>
+  </tr><tr><td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 16.0 </td>
+   <td style="text-align:right;"> 23.0 </td>
+  </tr><tr><td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 16.3 </td>
+   <td style="text-align:right;"> 23.5 </td>
+  </tr><tr><td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 16.7 </td>
+   <td style="text-align:right;"> 24.0 </td>
+  </tr><tr><td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 17.1 </td>
+   <td style="text-align:right;"> 24.6 </td>
+  </tr><tr><td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 17.5 </td>
+   <td style="text-align:right;"> 25.2 </td>
+  </tr><tr><td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 18.1 </td>
+   <td style="text-align:right;"> 26.1 </td>
+  </tr><tr><td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 18.7 </td>
+   <td style="text-align:right;"> 27.1 </td>
+  </tr></tbody></table>
 
 
+#### Figure A1a: CAM-S nomogram
+![](master_files/figure-html/unnamed-chunk-95-1.png)<!-- -->
 
-Table: MDAS to CAM-S and DRS
+#### Figure A1b: MDAS nomogram
+![](master_files/figure-html/unnamed-chunk-96-1.png)<!-- -->
 
- MDAS   CAM-S    DRS
------  ------  -----
-    0     0.2    0.1
-    1     0.7    0.7
-    2     1.3    2.0
-    3     2.0    3.5
-    4     2.8    5.1
-    5     3.7    6.5
-    6     4.7    7.8
-    7     5.6    9.0
-    8     6.5   10.3
-    9     7.3   11.5
-   10     8.1   12.6
-   11     8.9   13.7
-   12     9.7   14.7
-   13    10.4   15.7
-   14    11.1   16.8
-   15    11.7   17.8
-   16    12.3   18.9
-   17    12.8   20.1
-   18    13.3   21.2
-   19    13.8   22.6
-   20    14.2   24.1
-   21    14.8   25.9
-   22    15.3   27.9
-   23    16.0   30.0
-   24    16.7   32.0
-   25    17.3   33.7
-   26    18.0   34.9
-   27    18.7   35.7
+#### Figure A1c: DRS nomogram
+![](master_files/figure-html/unnamed-chunk-97-1.png)<!-- -->
 
-
-
-Table: DRS to CAM-S and MDAS
-
- DRS   CAM-S   MDAS
-----  ------  -----
-   0     0.2    0.1
-   1     0.8    1.3
-   2     1.3    2.0
-   3     1.7    2.7
-   4     2.2    3.3
-   5     2.8    4.0
-   6     3.4    4.7
-   7     4.1    5.4
-   8     4.8    6.2
-   9     5.5    6.9
-  10     6.3    7.8
-  11     7.0    8.6
-  12     7.7    9.5
-  13     8.4   10.4
-  14     9.2   11.3
-  15     9.9   12.3
-  16    10.6   13.2
-  17    11.3   14.2
-  18    11.9   15.2
-  19    12.4   16.1
-  20    12.8   17.0
-  21    13.2   17.8
-  22    13.6   18.6
-  23    13.9   19.3
-  24    14.2   19.9
-  25    14.5   20.5
-  26    14.8   21.0
-  27    15.1   21.5
-  28    15.4   22.0
-  29    15.7   22.5
-  30    16.0   23.0
-  31    16.3   23.5
-  32    16.7   24.0
-  33    17.1   24.6
-  34    17.5   25.2
-  35    18.1   26.1
-  36    18.7   27.1
-
-![](master_files/figure-html/unnamed-chunk-91-1.png)<!-- -->![](master_files/figure-html/unnamed-chunk-91-2.png)<!-- -->![](master_files/figure-html/unnamed-chunk-91-3.png)<!-- -->
