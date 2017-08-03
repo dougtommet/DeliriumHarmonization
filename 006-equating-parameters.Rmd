@@ -3,9 +3,9 @@ Using the SNSequate package to equate item parameters.
 
 
 ```{r}
-drs.par <- readModels("cfa-drs-2.out")$parameters$unstandardized
+drs.par.dich <- readModels("cfa-drs-2.out")$parameters$unstandardized
 
-drs.par <- drs.par %>%
+drs.par.dich <- drs.par.dich %>%
       filter(paramHeader=="F.BY" | 
            paramHeader=="Thresholds") %>%
     mutate(est = as.numeric(est),
@@ -14,10 +14,10 @@ drs.par <- drs.par %>%
            parameter = ifelse(paramHeader=="Thresholds", "T", "FL")) %>%
     select(parameter, item, est) %>%
     mutate_all(funs(tolower))
-  drs.par <- drs.par[1:26,1:3]
-  drs.par$est <- as.numeric(drs.par$est)
+  drs.par.dich <- drs.par.dich[1:26,1:3]
+  drs.par.dich$est <- as.numeric(drs.par.dich$est)
   
-drs.par <- drs.par %>% 
+drs.par.dich <- drs.par.dich %>% 
   spread(parameter, est) %>%
   mutate(B.drs = t/fl,
          A.drs = fl,
@@ -26,9 +26,9 @@ drs.par <- drs.par %>%
   select(item, itemnum, A.drs, B.drs, C.drs)
       
 
-mdas.par <- readModels("cfa-mdas-2.out")$parameters$unstandardized
+mdas.par.dich <- readModels("cfa-mdas-2.out")$parameters$unstandardized
 
-mdas.par <- mdas.par %>%
+mdas.par.dich <- mdas.par.dich %>%
       filter(paramHeader=="F.BY" | 
            paramHeader=="Thresholds") %>%
     mutate(est = as.numeric(est),
@@ -37,21 +37,21 @@ mdas.par <- mdas.par %>%
            parameter = ifelse(paramHeader=="Thresholds", "T", "FL")) %>%
     select(parameter, item, est) %>%
     mutate_all(funs(tolower))
-  mdas.par <- mdas.par[1:20,1:3]
-  mdas.par$est <- as.numeric(mdas.par$est)
+  mdas.par.dich <- mdas.par.dich[1:20,1:3]
+  mdas.par.dich$est <- as.numeric(mdas.par.dich$est)
   
-mdas.par <- mdas.par %>% 
+mdas.par.dich <- mdas.par.dich %>% 
   spread(parameter, est) %>%
   mutate(B.mdas = t/fl,
          A.mdas = fl,
          C.mdas = 0) %>%
   select(item, A.mdas, B.mdas, C.mdas)
-mdas.par$itemnum <- c(14, 9, 11, 16, 17, 18, 2, 3, 21, 1)
+mdas.par.dich$itemnum <- c(14, 9, 11, 16, 17, 18, 2, 3, 21, 1)
 
 
-cam.par <- readModels("cfa-cam-2.out")$parameters$unstandardized
+cam.par.dich <- readModels("cfa-cam-2.out")$parameters$unstandardized
 
-cam.par <- cam.par %>%
+cam.par.dich <- cam.par.dich %>%
       filter(paramHeader=="F.BY" | 
            paramHeader=="Thresholds") %>%
     mutate(est = as.numeric(est),
@@ -60,22 +60,22 @@ cam.par <- cam.par %>%
            parameter = ifelse(paramHeader=="Thresholds", "T", "FL")) %>%
     select(parameter, item, est) %>%
     mutate_all(funs(tolower))
-  cam.par <- cam.par[1:20,1:3]
-  cam.par$est <- as.numeric(cam.par$est)
+  cam.par.dich <- cam.par.dich[1:20,1:3]
+  cam.par.dich$est <- as.numeric(cam.par.dich$est)
   
-cam.par <- cam.par %>% 
+cam.par.dich <- cam.par.dich %>% 
   spread(parameter, est) %>%
   mutate(B.cam = t/fl,
          A.cam = fl,
          C.cam = 0,
          itemnum = row_number()) %>%
   select(item, itemnum, A.cam, B.cam, C.cam)
-cam.par$itemnum <- c(22, 10, 24, 25, 9, 26, 2, 7, 8, 1)
+cam.par.dich$itemnum <- c(22, 10, 24, 25, 9, 26, 2, 7, 8, 1)
                      
 ```
 ### DRS item parameters
 ```{r}
-drs.par %>%
+drs.par.dich %>%
   select(-C.drs, -itemnum) %>%
   arrange(desc(A.drs)) %>%
   kable(digits=2) %>%
@@ -85,7 +85,7 @@ drs.par %>%
 
 ### MDAS item parameters
 ```{r}
-mdas.par %>%
+mdas.par.dich %>%
   select(-C.mdas, -itemnum) %>%
   arrange(desc(A.mdas)) %>%
   kable(digits=2) %>%
@@ -95,7 +95,7 @@ mdas.par %>%
 
 ### CAM-S item parameters
 ```{r}
-cam.par %>%
+cam.par.dich %>%
   select(-C.cam, -itemnum) %>%
   arrange(desc(A.cam)) %>%
   kable(digits=2) %>%
@@ -110,7 +110,7 @@ The items used to link the MDAS to the DRS are: Disorientation, Perceptual distu
 The items used to link the CAM-S to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Psychomotor agitiation, Psychomotor retardation, and Attention.
 
 ```{r}
-par.drs.mdas <- full_join(drs.par, mdas.par, by = "itemnum") %>%
+par.drs.mdas <- full_join(drs.par.dich, mdas.par.dich, by = "itemnum") %>%
   select(A.drs, B.drs, C.drs, A.mdas, B.mdas, C.mdas)
 
 comitems <- c(1, 2, 3, 9, 11)
@@ -120,7 +120,7 @@ link.drs.mdas <- irt.link(par.drs.mdas, comitems, model = "3PL",
 A.link.mdas <- link.drs.mdas$Haebara[1]
 B.link.mdas <- link.drs.mdas$Haebara[2]
 
-mdas.par <- mdas.par %>%
+mdas.par.dich <- mdas.par.dich %>%
   mutate(A.l.mdas = A.link.mdas*A.mdas,
          B.l.mdas = (B.mdas - B.link.mdas)/A.link.mdas,
          fl.l.mdas = A.l.mdas,
@@ -129,7 +129,7 @@ mdas.par <- mdas.par %>%
 
 ### MDAS item parameters linked
 ```{r}
-mdas.par %>%
+mdas.par.dich %>%
   select(item, A.mdas, B.mdas, A.l.mdas, B.l.mdas) %>%
   kable(digits = 2,
         col.names = c("Item", "A (original)", "B (original)", 
@@ -140,7 +140,7 @@ mdas.par %>%
 ```
 
 ```{r}
-foo <- mdas.par %>%
+foo <- mdas.par.dich %>%
   mutate(fl.param = item,
          t.param = paste0(item, "$1"),
          fl.parH = "f.by",
@@ -192,7 +192,7 @@ cfa.mdas.link.fit <- mplusModeler(cfa.mdas.link.body,
 ```
 
 ```{r}
-par.drs.cam <- full_join(drs.par, cam.par, by = "itemnum") %>%
+par.drs.cam <- full_join(drs.par.dich, cam.par.dich, by = "itemnum") %>%
   select(A.drs, B.drs, C.drs, A.cam, B.cam, C.cam)
 
 comitems <- c(1, 2, 7, 8, 9, 10)
@@ -202,7 +202,7 @@ link.drs.cam <- irt.link(par.drs.cam, comitems, model = "3PL",
 A.link.cam <- link.drs.cam$Haebara[1]
 B.link.cam <- link.drs.cam$Haebara[2]
 
-cam.par <- cam.par %>%
+cam.par.dich <- cam.par.dich %>%
   mutate(A.l.cam = A.link.cam*A.cam,
          B.l.cam = (B.cam - B.link.cam)/A.link.cam,
          fl.l.cam = A.l.cam,
@@ -212,7 +212,7 @@ cam.par <- cam.par %>%
 ### CAM-S item parameters linked
 
 ```{r}
-cam.par %>%
+cam.par.dich %>%
   select(item, A.cam, B.cam, A.l.cam, B.l.cam) %>%
   kable(digits = 2,
         col.names = c("Item", "A (original)", "B (original)", 
@@ -223,7 +223,7 @@ cam.par %>%
 ```
 
 ```{r}
-foo <- cam.par %>%
+foo <- cam.par.dich %>%
   mutate(fl.param = item,
          t.param = paste0(item, "$1"),
          fl.parH = "f.by",

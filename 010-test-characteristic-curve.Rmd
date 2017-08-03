@@ -1,10 +1,10 @@
 
-```{r}
-theta <- seq(-4, 6, by= .1)
+```{r, eval=FALSE}
+theta <- seq(-4, 8, by= .01)
 hoo <- data.frame(theta)
 
-my.par <- drs.par[,c("A.drs", "B.drs")]
-drs.info <- hoo %>%
+my.par <- drs.par.dich[,c("A.drs", "B.drs")]
+drs.info.dich <- hoo %>%
   mutate(p1 = (exp(my.par[1,1]*(theta-my.par[1,2]))/(1+exp(my.par[1,1]*(theta-my.par[1,2])))),
          p2 = (exp(my.par[2,1]*(theta-my.par[2,2]))/(1+exp(my.par[2,1]*(theta-my.par[2,2])))),
          p3 = (exp(my.par[3,1]*(theta-my.par[3,2]))/(1+exp(my.par[3,1]*(theta-my.par[3,2])))),
@@ -47,8 +47,8 @@ drs.info <- hoo %>%
          testscore = p1+p2+p3+p4+p5+p6+p7+p8+p9+p10+p11+p12+p13,
          testinfo = i1+i2+i3+i4+i5+i6+i7+i8+i9+i10+i11+i12+i13)
 
-my.par <- mdas.par[,c("A.l.mdas", "B.l.mdas")]
-mdas.info <- hoo %>%
+my.par <- mdas.par.dich[,c("A.l.mdas", "B.l.mdas")]
+mdas.info.dich.linked <- hoo %>%
   mutate(p1 = (exp(my.par[1,1]*(theta-my.par[1,2]))/(1+exp(my.par[1,1]*(theta-my.par[1,2])))),
          p2 = (exp(my.par[2,1]*(theta-my.par[2,2]))/(1+exp(my.par[2,1]*(theta-my.par[2,2])))),
          p3 = (exp(my.par[3,1]*(theta-my.par[3,2]))/(1+exp(my.par[3,1]*(theta-my.par[3,2])))),
@@ -83,8 +83,8 @@ mdas.info <- hoo %>%
          testinfo = i1+i2+i3+i4+i5+i6+i7+i8+i9+i10)
 
 
-my.par <- cam.par[,c("A.l.cam", "B.l.cam")]
-cam.info <- hoo %>%
+my.par <- cam.par.dich[,c("A.l.cam", "B.l.cam")]
+cam.info.dich.linked <- hoo %>%
   mutate(p1 = (exp(my.par[1,1]*(theta-my.par[1,2]))/(1+exp(my.par[1,1]*(theta-my.par[1,2])))),
          p2 = (exp(my.par[2,1]*(theta-my.par[2,2]))/(1+exp(my.par[2,1]*(theta-my.par[2,2])))),
          p3 = (exp(my.par[3,1]*(theta-my.par[3,2]))/(1+exp(my.par[3,1]*(theta-my.par[3,2])))),
@@ -120,13 +120,13 @@ cam.info <- hoo %>%
 ```
 
 ```{r}
-testscore <- drs.info %>%
+testscore <- drs.info.dich %>%
   select(theta, testscore) %>%
   rename(drsscore = testscore) %>%
-  left_join(mdas.info %>% 
+  left_join(mdas.info.dich.linked %>% 
               select(theta, testscore) %>%
               rename(mdasscore = testscore), by="theta") %>%
-  left_join(cam.info %>%
+  left_join(cam.info.dich.linked %>%
               select(theta, testscore) %>%
               rename(camscore = testscore), by="theta") %>%
   gather(test, score, 2:4)

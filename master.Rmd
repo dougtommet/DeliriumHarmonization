@@ -65,6 +65,7 @@ options(knitr.table.format = "html")
 ```
 
 # For the manuscript
+This section contains tables/figures for the manuscript.
 ```{r, child="021-table1.Rmd"}
  
 ```
@@ -94,6 +95,15 @@ options(knitr.table.format = "html")
 ```
 
 # For the appendix
+This section contains tables/figures for the appendix.
 ```{r, child="029-figure5.Rmd"}
  
 ```
+
+# Sensitivity/Supplemental Analyses
+This section contains analyses that are more exploratory, and could be supplemental to the manuscript.
+```{r, child="035-first-thresholds.Rmd"}
+ 
+```
+
+

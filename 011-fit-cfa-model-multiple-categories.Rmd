@@ -148,9 +148,9 @@ cfa.drs.3.fit <- mplusModeler(cfa.drs.3.body,
 
 ```
 ```{r}
-drs.par <- readModels("cfa-drs-3.out")$parameters$unstandardized
+drs.par.poly <- readModels("cfa-drs-3.out")$parameters$unstandardized
 
-drs.par <- drs.par %>%
+drs.par.poly <- drs.par.poly %>%
       filter(paramHeader=="F.BY" | 
            paramHeader=="Thresholds") %>%
   separate(param, c("item", "cat"), "\\$", fill="right", 
@@ -159,9 +159,9 @@ drs.par <- drs.par %>%
     select(parameter, item, est) %>%
     mutate_all(funs(tolower))
 
-drs.par$est <- as.numeric(drs.par$est)
+drs.par.poly$est <- as.numeric(drs.par.poly$est)
   
-drs.par <- drs.par %>% 
+drs.par.poly <- drs.par.poly %>% 
   spread(parameter, est) %>%
   mutate(B1.drs = t1/fl,
          B2.drs = t2/fl,
@@ -171,7 +171,7 @@ drs.par <- drs.par %>%
   select(item, itemnum, A.drs, B1.drs, B2.drs, B3.drs)
 
 
-drs.par %>%
+drs.par.poly %>%
   select(-itemnum) %>%
   kable(digits = 2, col.names = c("Item", "A", "B1", "B2", "B3")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
@@ -241,9 +241,9 @@ cfa.mdas.3.fit <- mplusModeler(cfa.mdas.3.body,
 ```
 
 ```{r}
-mdas.par <- readModels("cfa-mdas-3.out")$parameters$unstandardized
+mdas.par.poly <- readModels("cfa-mdas-3.out")$parameters$unstandardized
 
-mdas.par <- mdas.par %>%
+mdas.par.poly <- mdas.par.poly %>%
       filter(paramHeader=="F.BY" | 
            paramHeader=="Thresholds") %>%
   separate(param, c("item", "cat"), "\\$", fill="right", 
@@ -252,9 +252,9 @@ mdas.par <- mdas.par %>%
     select(parameter, item, est) %>%
     mutate_all(funs(tolower))
 
-mdas.par$est <- as.numeric(mdas.par$est)
+mdas.par.poly$est <- as.numeric(mdas.par.poly$est)
   
-mdas.par <- mdas.par %>% 
+mdas.par.poly <- mdas.par.poly %>% 
   spread(parameter, est) %>%
   mutate(B1.mdas = t1/fl,
          B2.mdas = t2/fl,
@@ -263,7 +263,7 @@ mdas.par <- mdas.par %>%
          itemnum = row_number()) %>%
   select(item, itemnum, A.mdas, B1.mdas, B2.mdas, B3.mdas)
 
-mdas.par %>%
+mdas.par.poly %>%
   select(-itemnum) %>%
   kable(digits = 2, col.names = c("Item", "A", "B1", "B2", "B3")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
@@ -330,9 +330,9 @@ cfa.cam.3.fit <- mplusModeler(cfa.cam.3.body,
 ```
 
 ```{r}
-cam.par <- readModels("cfa-cam-3.out")$parameters$unstandardized
+cam.par.poly <- readModels("cfa-cam-3.out")$parameters$unstandardized
 
-cam.par <- cam.par %>%
+cam.par.poly <- cam.par.poly %>%
       filter(paramHeader=="F.BY" | 
            paramHeader=="Thresholds") %>%
   separate(param, c("item", "cat"), "\\$", fill="right", 
@@ -341,9 +341,9 @@ cam.par <- cam.par %>%
     select(parameter, item, est) %>%
     mutate_all(funs(tolower))
 
-cam.par$est <- as.numeric(cam.par$est)
+cam.par.poly$est <- as.numeric(cam.par.poly$est)
   
-cam.par <- cam.par %>% 
+cam.par.poly <- cam.par.poly %>% 
   spread(parameter, est) %>%
   mutate(B1.cam = t1/fl,
          B2.cam = t2/fl,
@@ -351,7 +351,7 @@ cam.par <- cam.par %>%
          itemnum = row_number()) %>%
   select(item, itemnum, A.cam, B1.cam, B2.cam)
 
-cam.par %>%
+cam.par.poly %>%
   select(-itemnum) %>%
   kable(digits = 2, col.names = c("Item", "A", "B1", "B2")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 

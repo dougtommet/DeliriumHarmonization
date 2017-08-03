@@ -1,0 +1,146 @@
+
+### Information plots using only first threshold
+
+These analyses explore the contribution the second and third thresholds have on the overall information levels of the instruments.  
+
+#### Figure S1: Test Information Curve using only the first threshold 
+
+```{r}
+
+testinfo <- drs.info.poly %>%
+  select(theta, info.sens) %>%
+  rename(drsinfo = info.sens) %>%
+  left_join(mdas.info.poly %>% 
+              select(theta, info.sens) %>%
+              rename(mdasinfo = info.sens), by="theta") %>%
+  left_join(cam.info.poly %>%
+              select(theta, info.sens) %>%
+              rename(caminfo = info.sens), by="theta") %>%
+  gather(test, info, 2:4)
+
+
+
+ggplot(testinfo, aes(theta, info, group=test, color=test)) +
+  geom_line() +
+  scale_color_brewer(palette = "Dark2", 
+                     name = "Delirium Instrument",
+                     breaks = c("drsinfo", "mdasinfo", "caminfo"),
+                     labels = c("DRS", "MDAS", "CAM-S")) + 
+  xlab("Delirium Intensity") +
+  ylab("Information") +
+  scale_y_continuous(breaks=seq(0,12,2)) +
+  scale_x_continuous(breaks=seq(-4,8,1)) +
+  ggtitle("Test Information Curves (Polytomous CFA, first threshold only)")  
+
+```
+
+#### Figure S2: Difference in Information curves between dichotomous and polytomous outcomes
+```{r}
+
+testinfo <- drs.info.poly %>%
+  select(theta, info.diff) %>%
+  rename(drsinfo = info.diff) %>%
+  left_join(mdas.info.poly %>% 
+              select(theta, info.diff) %>%
+              rename(mdasinfo = info.diff), by="theta") %>%
+  left_join(cam.info.poly %>%
+              select(theta, info.diff) %>%
+              rename(caminfo = info.diff), by="theta") %>%
+  gather(test, info, 2:4)
+
+
+
+ggplot(testinfo, aes(theta, info, group=test, color=test)) +
+  geom_line() +
+  scale_color_brewer(palette = "Dark2", 
+                     name = "Delirium Instrument",
+                     breaks = c("drsinfo", "mdasinfo", "caminfo"),
+                     labels = c("DRS", "MDAS", "CAM-S")) + 
+  xlab("Delirium Intensity") +
+  ylab("Information") +
+  scale_y_continuous(breaks=seq(0,12,2)) +
+  scale_x_continuous(breaks=seq(-4,8,1)) +
+  ggtitle("Difference in Test Information Curves")  
+
+```
+
+#### Figure S3: Difference in measurement error between dichotomous and polytomous outcomes
+
+```{r}
+fscores.dich.drs <- getSavedata_Data("cfa-drs-2.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f, f_se) %>%
+  rename(f.dich.drs = f,
+         f_se.dich.drs = f_se)
+
+fscores.dich.mdas <- getSavedata_Data("cfa-mdas-link.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f, f_se) %>%
+  rename(f.dich.mdas = f,
+         f_se.dich.mdas = f_se)
+
+fscores.dich.cam <- getSavedata_Data("cfa-cam-link.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f, f_se) %>%
+  rename(f.dich.cam = f,
+         f_se.dich.cam = f_se)
+
+fscores.poly.drs <- getSavedata_Data("cfa-drs-3.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f, f_se) %>%
+  rename(f.poly.drs = f,
+         f_se.poly.drs = f_se)
+
+fscores.poly.mdas <- getSavedata_Data("cfa-mdas-3.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f, f_se) %>%
+  rename(f.poly.mdas = f,
+         f_se.poly.mdas = f_se)
+
+fscores.poly.cam <- getSavedata_Data("cfa-cam-3.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f, f_se) %>%
+  rename(f.poly.cam = f,
+         f_se.poly.cam = f_se)
+
+
+fscores <- fscores.dich.drs %>%
+  left_join(fscores.dich.mdas, by = "recordid") %>%
+  left_join(fscores.dich.cam,  by = "recordid") %>%
+  left_join(fscores.poly.drs,  by = "recordid") %>%
+  left_join(fscores.poly.mdas, by = "recordid") %>%
+  left_join(fscores.poly.cam,  by = "recordid") %>%
+  mutate(se.diff.drs = f_se.dich.drs - f_se.poly.drs, 
+         se.diff.mdas = f_se.dich.mdas - f_se.poly.mdas, 
+         se.diff.cam = f_se.dich.cam - f_se.poly.cam)
+
+goo1 <- fscores %>%
+  select(recordid, f.poly.drs, f.poly.mdas, f.poly.cam) %>%
+  gather(test, fscore, 2:4) %>%
+  separate(test, sep="f.poly.", into = c("foo1", "test")) %>%
+  select(-foo1)
+
+goo2 <- fscores %>%
+  select(recordid, se.diff.drs, se.diff.mdas, se.diff.cam) %>%
+  gather(test, se.diff, 2:4) %>%
+  separate(test, sep="se.diff.", into = c("foo1", "test")) %>%
+  select(-foo1) 
+
+goo1 %>%
+  left_join(goo2, by = c("recordid", "test")) %>%
+  ggplot(aes(x = fscore, y = se.diff, color=test)) +
+    geom_point() +
+    scale_color_brewer(palette = "Dark2", 
+                      name = "Delirium Scale",
+                      breaks = c("drs", "mdas", "cam"),
+                      labels = c("DRS", "MDAS", "CAM-S")) + 
+  xlab("Delirium Intensity") +
+  ylab("Difference in SEM (Dich - Poly)") +
+  scale_x_continuous(breaks=seq(-4,8,1), limits =c(-4, 8)) +
+  ggtitle("Difference in Standard Error of Measurement")
+
+
+
+```
+
+

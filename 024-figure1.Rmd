@@ -5,14 +5,14 @@
 
  
   
-foo.drs<-  drs.par %>%
+foo.drs<-  drs.par.poly %>%
   gather(B, est, 4:6) %>%
   arrange(itemnum, B) %>%
   rename(A = A.drs) %>%
   mutate(gr.order = recode(itemnum, "1=1; 10=2; 12=3; 11=4; 9=7; 6=9; 5=10; 13=11; 2=13; 7=15; 8=16; 3=17; 4=18;"),
          test = "DRS") 
 
-foo.mdas<-  mdas.par %>%
+foo.mdas<-  mdas.par.poly %>%
   gather(B, est, 4:6) %>%
   arrange(itemnum, B) %>%
   rename(A = A.mdas) %>%
@@ -21,7 +21,7 @@ foo.mdas<-  mdas.par %>%
          test = "MDAS",
          itemnum = itemnum+20) 
 
-foo.cam<-  cam.par %>%
+foo.cam<-  cam.par.poly %>%
   gather(B, est, 4:5) %>%
   arrange(itemnum, B) %>%
   rename(A = A.cam) %>%

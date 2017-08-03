@@ -1260,13 +1260,7 @@ The items used to link the CAM-S to the DRS are: Disorientation, Perceptual dist
 
 
 
-![](master_files/figure-html/unnamed-chunk-64-1.png)<!-- -->
-
 ![](master_files/figure-html/unnamed-chunk-65-1.png)<!-- -->
-
-
-
-
 
 ![](master_files/figure-html/unnamed-chunk-66-1.png)<!-- -->
 
@@ -1274,7 +1268,13 @@ The items used to link the CAM-S to the DRS are: Disorientation, Perceptual dist
 
 
 
-![](master_files/figure-html/unnamed-chunk-68-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-67-1.png)<!-- -->
+
+
+
+
+
+![](master_files/figure-html/unnamed-chunk-69-1.png)<!-- -->
 
 
 
@@ -1544,16 +1544,17 @@ Need to check the coding of rmdas06
 
 ## Plots for the polytomous model
 
-![](master_files/figure-html/unnamed-chunk-82-1.png)<!-- -->
-
-
-
 ![](master_files/figure-html/unnamed-chunk-83-1.png)<!-- -->
+
+
+
+![](master_files/figure-html/unnamed-chunk-84-1.png)<!-- -->
 
 
 
 
 # For the manuscript
+This section contains tables/figures for the manuscript.
 
 
 ### Table 1
@@ -1703,7 +1704,7 @@ Summary of delirium severity instruments from all hospital interviews.
 
 ### Figure 1
 
-![](master_files/figure-html/unnamed-chunk-87-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-88-1.png)<!-- -->
 
 
 
@@ -1711,7 +1712,7 @@ Summary of delirium severity instruments from all hospital interviews.
 
 ### Figure 2
 
-![](master_files/figure-html/unnamed-chunk-88-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-89-1.png)<!-- -->
 
 
 
@@ -1721,7 +1722,7 @@ Summary of delirium severity instruments from all hospital interviews.
 
 
 ### Figure 3
-![](master_files/figure-html/unnamed-chunk-89-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-90-1.png)<!-- -->
 
 
 
@@ -1729,9 +1730,10 @@ Summary of delirium severity instruments from all hospital interviews.
 
 ### Figure 4
 
-![](master_files/figure-html/unnamed-chunk-90-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-91-1.png)<!-- -->
 
 # For the appendix
+This section contains tables/figures for the appendix.
 
 
 ### Figure A1: Nomogram
@@ -2018,11 +2020,34 @@ Summary of delirium severity instruments from all hospital interviews.
 
 
 #### Figure A1a: CAM-S nomogram
-![](master_files/figure-html/unnamed-chunk-95-1.png)<!-- -->
-
-#### Figure A1b: MDAS nomogram
 ![](master_files/figure-html/unnamed-chunk-96-1.png)<!-- -->
 
-#### Figure A1c: DRS nomogram
+#### Figure A1b: MDAS nomogram
 ![](master_files/figure-html/unnamed-chunk-97-1.png)<!-- -->
+
+#### Figure A1c: DRS nomogram
+![](master_files/figure-html/unnamed-chunk-98-1.png)<!-- -->
+
+
+# Sensitivity/Supplemental Analyses
+This section contains analyses that are more exploratory, and could be supplemental to the manuscript.
+
+
+### Information plots using only first threshold
+
+These analyses explore the contribution the second and third thresholds have on the overall information levels of the instruments.  
+
+#### Figure S1: Test Information Curve using only the first threshold 
+
+![](master_files/figure-html/unnamed-chunk-99-1.png)<!-- -->
+
+#### Figure S2: Difference in Information curves between dichotomous and polytomous outcomes
+![](master_files/figure-html/unnamed-chunk-100-1.png)<!-- -->
+
+#### Figure S3: Difference in measurement error between dichotomous and polytomous outcomes
+
+![](master_files/figure-html/unnamed-chunk-101-1.png)<!-- -->
+
+
+
 
