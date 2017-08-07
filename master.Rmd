@@ -101,7 +101,7 @@ This section contains tables/figures for the appendix.
 ```
 
 # Sensitivity/Supplemental Analyses
-This section contains analyses that are more exploratory, and could be supplemental to the manuscript.
+This section contains analyses that are more exploratory in nature, and could be supplemental to the manuscript.
 ```{r, child="035-first-thresholds.Rmd"}
  
 ```

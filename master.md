@@ -2030,7 +2030,7 @@ This section contains tables/figures for the appendix.
 
 
 # Sensitivity/Supplemental Analyses
-This section contains analyses that are more exploratory, and could be supplemental to the manuscript.
+This section contains analyses that are more exploratory in nature, and could be supplemental to the manuscript.
 
 
 ### Information plots using only first threshold
@@ -2047,6 +2047,25 @@ These analyses explore the contribution the second and third thresholds have on 
 #### Figure S3: Difference in measurement error between dichotomous and polytomous outcomes
 
 ![](master_files/figure-html/unnamed-chunk-101-1.png)<!-- -->
+
+
+#### Figure S4: Boxplot of standard error of measurement for dichotomous model (from Mplus)
+The SEM has been binned into .2 sized bins. 
+![](master_files/figure-html/unnamed-chunk-102-1.png)<!-- -->
+
+
+#### Figure S5: Boxplot of standard error of measurement for polytomous model (from Mplus)
+The SEM has been binned into .2 sized bins. 
+![](master_files/figure-html/unnamed-chunk-103-1.png)<!-- -->
+
+
+#### Figure S6: Standard error of measurement for dichotomous model (from Information function)
+![](master_files/figure-html/unnamed-chunk-104-1.png)<!-- -->
+
+
+
+#### Figure S7: Standard error of measurement for polytomous model (from Information function)
+![](master_files/figure-html/unnamed-chunk-105-1.png)<!-- -->
 
 
 

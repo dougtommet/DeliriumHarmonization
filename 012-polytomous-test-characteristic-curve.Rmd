@@ -162,7 +162,9 @@ drs.info.poly <- hoo %>%
          info = i1 + i2 + i3 + i4 + i5 + i6 + i7 + i8 + i9 + i10 + i11 + i12 + i13,
          info.sens = i1.sens + i2.sens + i3.sens + i4.sens + i5.sens + i6.sens + i7.sens + 
            i8.sens + i9.sens + i10.sens + i11.sens + i12.sens + i13.sens,
-         info.diff = info - info.sens)
+         info.diff = info - info.sens,
+         sem = info^(-.5),
+         sem.sens = info.sens^(-.5))
 
 ```
 
@@ -293,7 +295,9 @@ mdas.info.poly <- hoo %>%
          info = i1 + i2 + i3 + i4 + i5 + i6 + i7 + i8 + i9 + i10,
          info.sens = i1.sens + i2.sens + i3.sens + i4.sens + i5.sens + i6.sens + 
            i7.sens + i8.sens + i9.sens + i10.sens,
-         info.diff = info - info.sens)
+         info.diff = info - info.sens,
+         sem = info^(-.5),
+         sem.sens = info.sens^(-.5))
 
 ```
 
@@ -406,7 +410,9 @@ cam.info.poly <- hoo %>%
          info = i1 + i2 + i3 + i4 + i5 + i6 + i7 + i8 + i9 + i10,
          info.sens = i1.sens + i2.sens + i3.sens + i4.sens + i5.sens + i6.sens + 
            i7.sens + i8.sens + i9.sens + i10.sens,
-         info.diff = info - info.sens)
+         info.diff = info - info.sens,
+         sem = info^(-.5),
+         sem.sens = info.sens^(-.5))
 
 ```
 

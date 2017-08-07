@@ -63,7 +63,7 @@ testscore %>%
 
 
 #### Figure A1a: CAM-S nomogram
-```{r}
+```{r, fig.height=8}
 testscore %>%
   mutate(goo.cam = round(camscore)) %>%
   group_by(goo.cam) %>%
@@ -93,7 +93,7 @@ ggsave("nomogram-cam.pdf", height = 20, units="cm")
 ```
 
 #### Figure A1b: MDAS nomogram
-```{r}
+```{r, fig.height=8}
 testscore %>%
   mutate(goo.mdas = round(mdasscore)) %>%
   group_by(goo.mdas) %>%
@@ -122,7 +122,7 @@ ggsave("nomogram-mdas.pdf", height = 20, units="cm")
 ```
 
 #### Figure A1c: DRS nomogram
-```{r}
+```{r, fig.height=8}
 testscore %>%
   mutate(goo.drs = round(drsscore)) %>%
   group_by(goo.drs) %>%
