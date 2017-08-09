@@ -15,6 +15,9 @@ library(RColorBrewer)
 library(GGally)
 library(kableExtra)
 ```
+```{r}
+source("ggplot-theme.r")
+```
 
 ```{r}
 

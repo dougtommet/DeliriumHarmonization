@@ -439,11 +439,10 @@ ggplot(testscore, aes(theta, score, group=test, color=test)) +
                      name = "Delirium Instrument",
                      breaks = c("drsscore", "mdasscore", "camscore"),
                      labels = c("DRS", "MDAS", "CAM-S")) + 
-  xlab("Delirium Intensity") +
-  ylab("Expected Total Score") +
-  scale_y_continuous(breaks=seq(0,40,2)) +
-  scale_x_continuous(breaks=seq(-4,8,1)) +
-  ggtitle("Test Characteristic Curves (Polytomous CFA)")  
+  scale_y_continuous("Expected Total Score", breaks=seq(0,40,2)) +
+  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
+  ggtitle("Test Characteristic Curves (Polytomous CFA)") +
+  theme_doug()  
 
 ```
 
@@ -470,11 +469,10 @@ ggplot(testinfo, aes(theta, info, group=test, color=test)) +
                      name = "Delirium Instrument",
                      breaks = c("drsinfo", "mdasinfo", "caminfo"),
                      labels = c("DRS", "MDAS", "CAM-S")) + 
-  xlab("Delirium Intensity") +
-  ylab("Information") +
-  scale_y_continuous(breaks=seq(0,12,2)) +
-  scale_x_continuous(breaks=seq(-4,8,1)) +
-  ggtitle("Test Information Curves (Polytomous CFA)")  
+  scale_y_continuous("Information", breaks=seq(0,12,2)) +
+  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
+  ggtitle("Test Information Curves (Polytomous CFA)") +
+  theme_doug() 
 
 ```
 

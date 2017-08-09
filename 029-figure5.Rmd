@@ -86,7 +86,10 @@ testscore %>%
                                 "mdasscore"="MDAS"),
                      limits = c("drsscore", "goo.cam", "mdasscore")) +
     scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
-    ggtitle("Nomogram linking CAM-S with DRS and MDAS")
+    ggtitle("Nomogram linking CAM-S with DRS and MDAS") +
+    theme_doug() +
+    theme(panel.grid.minor.x = element_blank(),
+          panel.grid.major.x = element_blank())
 
 ggsave("nomogram-cam.pdf", height = 20, units="cm")
 
@@ -116,7 +119,10 @@ testscore %>%
                                 "camscore"="CAM-S"), 
                      limits = c("camscore", "goo.mdas", "drsscore")) +
     scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
-    ggtitle("Nomogram linking MDAS with DRS and CAM-S")
+    ggtitle("Nomogram linking MDAS with DRS and CAM-S") +
+    theme_doug() +
+    theme(panel.grid.minor.x = element_blank(),
+          panel.grid.major.x = element_blank())
 
 ggsave("nomogram-mdas.pdf", height = 20, units="cm")
 ```
@@ -145,7 +151,10 @@ testscore %>%
                                 "camscore"="CAM-S"), 
                      limits = c("camscore", "goo.drs", "mdasscore")) +
     scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
-    ggtitle("Nomogram linking DRS with MDAS and CAM-S")
+    ggtitle("Nomogram linking DRS with MDAS and CAM-S") +
+    theme_doug() +
+    theme(panel.grid.minor.x = element_blank(),
+          panel.grid.major.x = element_blank())
 
 ggsave("nomogram-drs.pdf", height = 30, units="cm")
 

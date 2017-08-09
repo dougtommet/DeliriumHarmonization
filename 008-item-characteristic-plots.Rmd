@@ -142,7 +142,8 @@ ggplot(info.dich, aes(theta, info, group=test, color=test)) +
   xlab("Delirium Intensity") +
   ylab("Information") +
   scale_x_continuous(breaks=seq(-4,8,1)) +
-  ggtitle("Test Information Curves (Dichotomous CFA)")
+  ggtitle("Test Information Curves (Dichotomous CFA)") +
+  theme_doug()
 ```
 
 ```{r}
@@ -170,10 +171,10 @@ ggplot(prob, aes(theta, prob, group=testitem, color = test)) +
                      name = "Delirium Scale",
                      breaks = c("drs", "mdas", "cam"),
                      labels = c("DRS", "MDAS", "CAM-S")) + 
-  xlab("Delirium Intensity") +
   ylab("Probability") +
-  scale_x_continuous(breaks=seq(-4,8,1)) +
-  ggtitle("Item Characteristic Curves (Dichotomous CFA)")
+  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
+  ggtitle("Item Characteristic Curves (Dichotomous CFA)") +
+  theme_doug()
   
 
 ```

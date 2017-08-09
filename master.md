@@ -72,6 +72,7 @@ We were interested in whether we could use the items as dichotomous outcomes in 
 
 
 
+
 ## Data Processing
 ### Read Data
 
@@ -1288,13 +1289,7 @@ The items used to link the CAM-S to the DRS are: Disorientation, Perceptual dist
 
 
 
-![](master_files/figure-html/unnamed-chunk-65-1.png)<!-- -->
-
 ![](master_files/figure-html/unnamed-chunk-66-1.png)<!-- -->
-
-
-
-
 
 ![](master_files/figure-html/unnamed-chunk-67-1.png)<!-- -->
 
@@ -1302,7 +1297,13 @@ The items used to link the CAM-S to the DRS are: Disorientation, Perceptual dist
 
 
 
-![](master_files/figure-html/unnamed-chunk-69-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-68-1.png)<!-- -->
+
+
+
+
+
+![](master_files/figure-html/unnamed-chunk-70-1.png)<!-- -->
 
 
 
@@ -1572,11 +1573,11 @@ Need to check the coding of rmdas06
 
 ## Plots for the polytomous model
 
-![](master_files/figure-html/unnamed-chunk-83-1.png)<!-- -->
-
-
-
 ![](master_files/figure-html/unnamed-chunk-84-1.png)<!-- -->
+
+
+
+![](master_files/figure-html/unnamed-chunk-85-1.png)<!-- -->
 
 
 
@@ -1732,7 +1733,7 @@ Summary of delirium severity instruments from all hospital interviews.
 
 ### Figure 1
 
-![](master_files/figure-html/unnamed-chunk-88-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-89-1.png)<!-- -->
 
 
 
@@ -1740,7 +1741,7 @@ Summary of delirium severity instruments from all hospital interviews.
 
 ### Figure 2
 
-![](master_files/figure-html/unnamed-chunk-89-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-90-1.png)<!-- -->
 
 
 
@@ -1750,7 +1751,7 @@ Summary of delirium severity instruments from all hospital interviews.
 
 
 ### Figure 3
-![](master_files/figure-html/unnamed-chunk-90-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-91-1.png)<!-- -->
 
 
 
@@ -1758,7 +1759,7 @@ Summary of delirium severity instruments from all hospital interviews.
 
 ### Figure 4
 
-![](master_files/figure-html/unnamed-chunk-91-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-92-1.png)<!-- -->
 
 # For the appendix
 This section contains tables/figures for the appendix.
@@ -2048,13 +2049,13 @@ This section contains tables/figures for the appendix.
 
 
 #### Figure A1a: CAM-S nomogram
-![](master_files/figure-html/unnamed-chunk-96-1.png)<!-- -->
-
-#### Figure A1b: MDAS nomogram
 ![](master_files/figure-html/unnamed-chunk-97-1.png)<!-- -->
 
-#### Figure A1c: DRS nomogram
+#### Figure A1b: MDAS nomogram
 ![](master_files/figure-html/unnamed-chunk-98-1.png)<!-- -->
+
+#### Figure A1c: DRS nomogram
+![](master_files/figure-html/unnamed-chunk-99-1.png)<!-- -->
 
 
 # Sensitivity/Supplemental Analyses
@@ -2067,33 +2068,33 @@ These analyses explore the contribution the second and third thresholds have on 
 
 #### Figure S1: Test Information Curve using only the first threshold 
 
-![](master_files/figure-html/unnamed-chunk-99-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-100-1.png)<!-- -->
 
 #### Figure S2: Difference in Information curves between dichotomous and polytomous outcomes
-![](master_files/figure-html/unnamed-chunk-100-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-101-1.png)<!-- -->
 
 #### Figure S3: Difference in measurement error between dichotomous and polytomous outcomes
 
-![](master_files/figure-html/unnamed-chunk-101-1.png)<!-- -->
-
-
-#### Figure S4: Boxplot of standard error of measurement for dichotomous model (from Mplus)
-The SEM has been binned into .2 sized bins. 
 ![](master_files/figure-html/unnamed-chunk-102-1.png)<!-- -->
 
 
-#### Figure S5: Boxplot of standard error of measurement for polytomous model (from Mplus)
-The SEM has been binned into .2 sized bins. 
+#### Figure S4: Boxplot of standard error of measurement for dichotomous model (from Mplus)
+The delirium intensity has been cut into bins of size = 0.2.  Boxplots of the SEM are shown for each bin.  
 ![](master_files/figure-html/unnamed-chunk-103-1.png)<!-- -->
 
 
-#### Figure S6: Standard error of measurement for dichotomous model (from Information function)
+#### Figure S5: Boxplot of standard error of measurement for polytomous model (from Mplus)
+The delirium intensity has been cut into bins of size = 0.2.  Boxplots of the SEM are shown for each bin. 
 ![](master_files/figure-html/unnamed-chunk-104-1.png)<!-- -->
+
+
+#### Figure S6: Standard error of measurement for dichotomous model (from Information function)
+![](master_files/figure-html/unnamed-chunk-105-1.png)<!-- -->
 
 
 
 #### Figure S7: Standard error of measurement for polytomous model (from Information function)
-![](master_files/figure-html/unnamed-chunk-105-1.png)<!-- -->
+![](master_files/figure-html/unnamed-chunk-106-1.png)<!-- -->
 
 
 

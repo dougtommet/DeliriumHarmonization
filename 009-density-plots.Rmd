@@ -28,10 +28,10 @@ fscores %>%
                       name = "Delirium Scale",
                       breaks = c("f.drs", "f.mdas", "f.cam"),
                       labels = c("DRS", "MDAS", "CAM-S")) + 
-  xlab("Delirium Intensity") +
   ylab("Density") +
-  scale_x_continuous(limits = c(-4, 6)) +
-  ggtitle("Distribution of estimated delirium level (Dichotomous CFA)")
+  scale_x_continuous("Delirium Intensity", limits = c(-4, 8), breaks=seq(-4,8,1)) +
+  ggtitle("Distribution of estimated delirium level (Dichotomous CFA)") +
+  theme_doug()
 
 
 

@@ -26,11 +26,10 @@ ggplot(testinfo, aes(theta, info, group=test, color=test)) +
                      name = "Delirium Instrument",
                      breaks = c("drsinfo", "mdasinfo", "caminfo"),
                      labels = c("DRS", "MDAS", "CAM-S")) + 
-  xlab("Delirium Intensity") +
-  ylab("Information") +
-  scale_y_continuous(breaks=seq(0,12,2)) +
-  scale_x_continuous(breaks=seq(-4,8,1)) +
-  ggtitle("Test Information Curves (Polytomous CFA, first threshold only)")  
+  scale_y_continuous("Information", breaks=seq(0,12,2)) +
+  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
+  ggtitle("Test Information Curves (Polytomous CFA, first threshold only)") +
+  theme_doug()
 
 ```
 
@@ -56,11 +55,10 @@ ggplot(testinfo, aes(theta, info, group=test, color=test)) +
                      name = "Delirium Instrument",
                      breaks = c("drsinfo", "mdasinfo", "caminfo"),
                      labels = c("DRS", "MDAS", "CAM-S")) + 
-  xlab("Delirium Intensity") +
-  ylab("Information") +
-  scale_y_continuous(breaks=seq(0,12,2)) +
-  scale_x_continuous(breaks=seq(-4,8,1)) +
-  ggtitle("Difference in Test Information Curves")  
+  scale_y_continuous("Information", breaks=seq(0,12,2)) +
+  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
+  ggtitle("Difference in Test Information Curves") +
+  theme_doug()  
 
 ```
 
@@ -154,15 +152,15 @@ goo <- goo1 %>%
   
 goo %>%  
   ggplot(aes(x = f.poly, y = se.diff, color=test)) +
-    geom_point() +
+    geom_point(alpha=.5) +
     scale_color_brewer(palette = "Dark2", 
                       name = "Delirium Scale",
                       breaks = c("drs", "mdas", "cam"),
                       labels = c("DRS", "MDAS", "CAM-S")) + 
-  xlab("Delirium Intensity") +
   ylab("Difference in SEM (Dich - Poly)") +
-  scale_x_continuous(breaks=seq(-4,8,1), limits =c(-4, 8)) +
-  ggtitle("Difference in Standard Error of Measurement")
+  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1), limits =c(-4, 8)) +
+  ggtitle("Difference in Standard Error of Measurement") +
+  theme_doug()  
 
 
 
@@ -170,7 +168,7 @@ goo %>%
 
 
 #### Figure S4: Boxplot of standard error of measurement for dichotomous model (from Mplus)
-The SEM has been binned into .2 sized bins. 
+The delirium intensity has been cut into bins of size = 0.2.  Boxplots of the SEM are shown for each bin.  
 ```{r}
 goo %>%
   mutate(f.binned = cut(f.dich, breaks = seq(-2, 3, by = .2))) %>%
@@ -183,18 +181,19 @@ goo %>%
     scale_x_discrete("Delirium Intensity", labels = seq(-2, 3, by=.2)) +
     scale_y_continuous("SEM (Dich)", limits = c(.25, 1)) +
     ggtitle("Standard Error of Measurement for dichotomous model (from Mplus)") +
-    geom_hline(aes(yintercept = .3), linetype="dashed")
+    geom_hline(aes(yintercept = .3), linetype="solid") +
+    theme_doug()  
 
 ```
 
 
 #### Figure S5: Boxplot of standard error of measurement for polytomous model (from Mplus)
-The SEM has been binned into .2 sized bins. 
+The delirium intensity has been cut into bins of size = 0.2.  Boxplots of the SEM are shown for each bin. 
 ```{r}
 goo %>%
   mutate(f.binned = cut(f.poly, breaks = seq(-2, 3, by = .2))) %>%
   ggplot(aes(x=f.binned, y=se.poly, color = test)) +
-    geom_boxplot() +
+    geom_boxplot(outlier.shape = NA,outlier.colour = NA) +
     scale_color_brewer(palette = "Dark2", 
                       name = "Delirium Scale",
                       breaks = c("drs", "mdas", "cam"),
@@ -202,7 +201,8 @@ goo %>%
     scale_x_discrete("Delirium Intensity", labels = seq(-2, 3, by=.2)) +
     scale_y_continuous("SEM (Poly)", limits = c(.25, 1)) +
     ggtitle("Standard Error of Measurement for polytomous model (from Mplus)") +
-    geom_hline(aes(yintercept = .3), linetype="dashed")
+    geom_hline(aes(yintercept = .3), linetype="solid") +
+    theme_doug()  
 
 
 ```
@@ -231,7 +231,8 @@ testinfo %>%
     scale_y_continuous("SEM", limits = c(0, 2), breaks=seq(0, 1, .2)) +
     scale_x_continuous("Delirium Intensity", limits = c(-2, 3), breaks=seq(-2, 3, 1)) +
     ggtitle("Standard Error of Measurement for dichotomous model (from Information function)")+
-    geom_hline(aes(yintercept = .3), linetype="dashed")
+    geom_hline(aes(yintercept = .3), linetype="solid") +
+    theme_doug()  
 
 
 ```
@@ -260,8 +261,9 @@ testinfo %>%
                      labels = c("DRS", "MDAS", "CAM-S")) + 
     scale_y_continuous("SEM", limits = c(0, 2), breaks=seq(0, 1, .2)) +
     scale_x_continuous("Delirium Intensity", limits = c(-2, 3), breaks=seq(-2, 3, 1)) +
-    ggtitle("Standard Error of Measurement for polytomous model (from Information function)")+
-    geom_hline(aes(yintercept = .3), linetype="dashed")
+    ggtitle("Standard Error of Measurement for polytomous model (from Information function)") +
+    geom_hline(aes(yintercept = .3), linetype="solid") +
+    theme_doug()
 
 
 ```

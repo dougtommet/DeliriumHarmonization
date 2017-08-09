@@ -254,7 +254,7 @@ plot2 <-  foo.drs %>%
              label = "Acute change", size = labsize) 
   
 plot2
-ggsave("plot2.pdf", height = 20, units="cm")
+ggsave("Figure1.pdf", height = 20, units="cm")
 
 
 ```
