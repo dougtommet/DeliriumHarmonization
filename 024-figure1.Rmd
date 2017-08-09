@@ -4,7 +4,7 @@
 ```{r, fig.height=10}
 
  
-  
+## Data for thresholds  
 foo.drs<-  drs.par.poly %>%
   gather(B, est, 4:6) %>%
   arrange(itemnum, B) %>%
@@ -30,6 +30,32 @@ foo.cam<-  cam.par.poly %>%
          test = "CAM",
          itemnum = itemnum+30) 
 
+
+## Data for rug plots
+## (using geom_point instead of geom_rug so that the instruments can be on their own line.)
+fscores.drs <- getSavedata_Data("cfa-drs-3.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  rename(DRS = f)
+
+fscores.mdas <- getSavedata_Data("cfa-mdas-3.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  rename(MDAS = f)
+
+fscores.cam <- getSavedata_Data("cfa-cam-3.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  rename(CAM = f)
+
+fscores <- fscores.drs %>%
+  left_join(fscores.mdas, by="recordid") %>%
+  left_join(fscores.cam, by="recordid") %>%
+  gather(test, fscore, 2:4) %>%
+  mutate(fscore.y = ifelse(test=="DRS", 190,
+                    ifelse(test=="MDAS", 192.5, 195)))
+
+## locals for plotting locations
 xmin <- -4
 xmax <- 12
 pos1 <- -4
@@ -88,7 +114,6 @@ labaffect.loc <- mean(c(d4.loc))
 awareness.loc <- mean(c(m1.loc, c4.loc))
 
 
-
 plot2 <-  foo.drs %>%
   bind_rows(foo.mdas) %>%
   bind_rows(foo.cam) %>%
@@ -96,6 +121,8 @@ plot2 <-  foo.drs %>%
   ggplot(aes(x = est, y = gr.order, group=itemnum, color = test)) +
     geom_point(show.legend = FALSE) +
     geom_line(show.legend = FALSE) +
+    geom_point(data=fscores, aes(x=fscore, y=fscore.y, group=NULL, color = test),
+                                 shape = 124, alpha = .5, show.legend=FALSE) +
     scale_color_brewer(palette = "Dark2", 
                      name = "Delirium Instrument",
                      breaks = c("DRS", "MDAS", "CAM"),

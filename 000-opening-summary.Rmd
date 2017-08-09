@@ -2,23 +2,51 @@
 # Goal
 The goal of this paper is to describe the level of agreement and a harmonized scale of severity applicable to several commonly used delirium instruments: the CAM-S, DRS-R98, MDAS. We do this in the context of a single clinical research study, where a team of trained lay interviewers administered each instrument along with supporting stimulus assessments in the same group of patients.
 
+Note: In writing the paper, use the term "features" instead of "signs/symptoms".
+
 ## Summary of Results So Far
-### IRT Models Estimated for All Three Instruments: CAM-S, DRS, MDAS
+### IRT Models (dichotomous outcomes) estimated for all three instruments: CAM-S, DRS, MDAS
 
-Fit to 6 or 7 core items per instrument is good. The core items include Sleep disturbance, Perceptual disturbance, Psychomotor agitation/retardation, Orientation, Attention, and Memory impairment. 
+The instrument item responses were dichtomized into "none" vs "any" symptom.
 
-Fit to expanded item sets is unacceptably bad. That is an interesting result. 
+The model fit to 6 or 7 core items per instrument is good. The core items include Sleep disturbance, Perceptual disturbance, Psychomotor agitation/retardation, Orientation, Attention, and Memory impairment. 
 
-But we may need to re-estimate co-calibration models with better fitting models. In particular, we might want to omit sleep/wake disturbance which is decidedly not related to delirium severity despite being present on all item sets.
+Initially the fit to the expanded item sets was unacceptably bad. Then we recoded the sleep disturbance item, combining the "none" and "mild" categories.  The model fit was then acceptable.  
 
-*TODO:* Examine misfit, residuals, try to improve models
 
-## Item Parameters have been co-calibrated
+### Item Parameters have been co-calibrated
 
-But we might want to re-do this with better fitting IRT models. Or at least omitting sleep disturbance. 
+The MDAS and CAM-S items have been equated to the DRS.  
 
-*TODO:* Estimate all thresholds for all items, and link these parameters.
+The items used to link the MDAS to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Short term memory impairment, and Delusions.
 
-*TODO:* Update expected-score vs latent trait curve (this is the cross-walk) with all thresholds estimated, and perhaps on a better fitting set of models (maybe omitting sleep disturbance).
+The items used to link the CAM-S to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Psychomotor agitiation, Psychomotor retardation, and Attention.
 
-Note: In writing the paper, use the term "features" instead of "symptoms".
+### Created item response theory plots for the dichotomous outcome models
+
+Created plots for: Test Information function, Item characteristic curves, Test characteristic curves, and density plots of estimated latent scores.
+
+### Estimated threholds for polytomous outcomes for all three instruments: CAM-S, DRS, MDAS
+
+Used the equated item parameters from the previous step to estimate the thresholds for the polytomous outcomes.
+
+Note: Some thresholds are missing for some items since the highest categories weren't observed.
+
+### Created item response theory plots for the polytomous outcome models
+
+Created plots for: Test Information function, Item characteristic curves, Test characteristic curves, and density plots of estimated latent scores.
+
+### Created the proposed tables/figures for the manuscript
+
+The tables are the typical Table 1 and a table of model fit statistics.  The figures include a plot showing the item thresholds, a scatter plot of the scores for the three instruments, a test information curve, and a test characteristic curve that can create a crosswalk between instruments.
+
+### Created nomograms for the appendix
+
+The figures currently aren't good.  I'm open to suggestions to improve them.
+
+### Examined the difference in information provided using polytomous versus dichotomous outcomes
+
+We were interested in whether we could use the items as dichotomous outcomes in the new instrument since it would make training to use the instrument easier.  However, the higher category outcomes provide a lot of information at higher "Delirium Intensity" levels.  We felt this would be needed for a severity instrument.
+
+
+
