@@ -94,7 +94,6 @@ basil3 %>%
 ```
 
 ### DRS CFA model with polytomous outcome
-Need to check the coding for rdrs06.
 ```{r}
 ### 2PL model
 
@@ -173,9 +172,10 @@ drs.par.poly <- drs.par.poly %>%
 
 drs.par.poly %>%
   select(-itemnum) %>%
-  kable(digits = 2, col.names = c("Item", "A", "B1", "B2", "B3")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+  kable(digits = 2, col.names = c("Item", "A", "B1", "B2", "B3")) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
 
 
 
@@ -183,7 +183,6 @@ drs.par.poly %>%
 
 
 ### MDAS CFA model with polytomous outcome
-Need to check the coding of rmdas06
 ```{r}
 ### 2PL model
 
@@ -265,10 +264,11 @@ mdas.par.poly <- mdas.par.poly %>%
 
 mdas.par.poly %>%
   select(-itemnum) %>%
-  kable(digits = 2, col.names = c("Item", "A", "B1", "B2", "B3")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
-    
+  kable(digits = 2, col.names = c("Item", "A", "B1", "B2", "B3")) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
+#     
 ```
 
 ### CAM-S CFA model with polytomous outcome
@@ -353,10 +353,11 @@ cam.par.poly <- cam.par.poly %>%
 
 cam.par.poly %>%
   select(-itemnum) %>%
-  kable(digits = 2, col.names = c("Item", "A", "B1", "B2")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
-    
+  kable(digits = 2, col.names = c("Item", "A", "B1", "B2")) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
+#     
 ```
 
 

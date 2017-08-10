@@ -78,9 +78,10 @@ cam.par.dich$itemnum <- c(22, 10, 24, 25, 9, 26, 2, 7, 8, 1)
 drs.par.dich %>%
   select(-C.drs, -itemnum) %>%
   arrange(desc(A.drs)) %>%
-  kable(digits=2) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+  kable(digits=2) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
 ```
 
 ### MDAS item parameters
@@ -88,9 +89,10 @@ drs.par.dich %>%
 mdas.par.dich %>%
   select(-C.mdas, -itemnum) %>%
   arrange(desc(A.mdas)) %>%
-  kable(digits=2) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+  kable(digits=2) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
 ```
 
 ### CAM-S item parameters
@@ -98,9 +100,10 @@ mdas.par.dich %>%
 cam.par.dich %>%
   select(-C.cam, -itemnum) %>%
   arrange(desc(A.cam)) %>%
-  kable(digits=2) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+  kable(digits=2) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
 
 ```
 
@@ -133,9 +136,10 @@ mdas.par.dich %>%
   select(item, A.mdas, B.mdas, A.l.mdas, B.l.mdas) %>%
   kable(digits = 2,
         col.names = c("Item", "A (original)", "B (original)", 
-                      "A (linked)", "B (linked)")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                      "A (linked)", "B (linked)")) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
 
 ```
 
@@ -216,9 +220,10 @@ cam.par.dich %>%
   select(item, A.cam, B.cam, A.l.cam, B.l.cam) %>%
   kable(digits = 2,
         col.names = c("Item", "A (original)", "B (original)", 
-                      "A (linked)", "B (linked)")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                      "A (linked)", "B (linked)")) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
 
 ```
 

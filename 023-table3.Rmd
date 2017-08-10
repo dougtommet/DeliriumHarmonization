@@ -23,10 +23,11 @@ readModels("cfa-drs-wlsmv-1.out")$summaries %>%
   select(CFI, RMSEA_Estimate) %>%
   mutate(model = "CAM-S (Model using all features)")) %>%
   select(model, CFI, RMSEA_Estimate) %>%
-  kable(digits = 2, col.names = c("Delirium Instrument", "CFI", "RMSEA")) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center") %>%
-    add_footnote(c("CFI = Confirmatory Fit Index, RMSEA = Root Mean Squared Error of Approximation", 
-                   "Values indicating good fit are: CFI>.9, RMSEA<.06"), notation = "symbol")
+  kable(digits = 2, col.names = c("Delirium Instrument", "CFI", "RMSEA")) 
+# %>%
+#     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center") %>%
+#     add_footnote(c("CFI = Confirmatory Fit Index, RMSEA = Root Mean Squared Error of Approximation", 
+#                    "Values indicating good fit are: CFI>.9, RMSEA<.06"), notation = "symbol")
 
 
 ```

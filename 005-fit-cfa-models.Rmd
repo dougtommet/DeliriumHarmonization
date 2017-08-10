@@ -238,19 +238,21 @@ Model 1
 ```{r}
 readModels("cfa-drs-wlsmv-1.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
 ```
 
 Model 2
 ```{r}
 readModels("cfa-drs-wlsmv-2.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
-  
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
+#   
 
 ```
 
@@ -484,10 +486,12 @@ Model 1
 ```{r}
 readModels("cfa-mdas-wlsmv-1.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
-  
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) 
+
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
+#   
 
 ```
 
@@ -495,10 +499,11 @@ Model 2
 ```{r}
 readModels("cfa-mdas-wlsmv-2.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
-  
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
+#   
 
 ```
 
@@ -736,9 +741,10 @@ Model 1
 ```{r}
 readModels("cfa-cam-wlsmv-1.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
   
 
 ```
@@ -747,10 +753,11 @@ Model 2
 ```{r}
 readModels("cfa-cam-wlsmv-2.out")$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
-  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
-  
+  kable(digits=2, col.names = c("N", "CFI", "RMSEA")) 
+# %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "center")
+#   
 
 ```
 
