@@ -2047,6 +2047,7 @@ This section contains tables/figures for the appendix.
 
 
 #### Figure A1a: CAM-S nomogram
+
 ![](master_files/figure-html/unnamed-chunk-97-1.png)<!-- -->
 
 #### Figure A1b: MDAS nomogram
