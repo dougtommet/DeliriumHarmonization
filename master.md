@@ -14,7 +14,7 @@ Note: In writing the paper, use the term "features" instead of "signs/symptoms".
 ## Summary of Results So Far
 ### IRT Models (dichotomous outcomes) estimated for all three instruments: CAM-S, DRS, MDAS
 
-The instrument item responses were dichtomized into "none" vs "any" symptom.
+The instrument item responses were dichotomized into "none" vs "any" symptom.
 
 The model fit to 6 or 7 core items per instrument is good. The core items include Sleep disturbance, Perceptual disturbance, Psychomotor agitation/retardation, Orientation, Attention, and Memory impairment. 
 
@@ -27,13 +27,13 @@ The MDAS and CAM-S items have been equated to the DRS.
 
 The items used to link the MDAS to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Short term memory impairment, and Delusions.
 
-The items used to link the CAM-S to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Psychomotor agitiation, Psychomotor retardation, and Attention.
+The items used to link the CAM-S to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Psychomotor agitation, Psychomotor retardation, and Attention.
 
 ### Created item response theory plots for the dichotomous outcome models
 
 Created plots for: Test Information function, Item characteristic curves, Test characteristic curves, and density plots of estimated latent scores.
 
-### Estimated threholds for polytomous outcomes for all three instruments: CAM-S, DRS, MDAS
+### Estimated thresholds for polytomous outcomes for all three instruments: CAM-S, DRS, MDAS
 
 Used the equated item parameters from the previous step to estimate the thresholds for the polytomous outcomes.
 
@@ -89,7 +89,7 @@ This analysis will only use baseline hospital visits and daily hospital visits. 
 
 ### Data recode
 
-The items that were coded as Don't Know, Refused, Uncertain were set to missing, and the response options were reordered such that no symptoms was 0 and any symptoms were positive values.
+The items that were coded as Don't Know, Refused, Uncertain were set to missing, and the response options were reordered such that no symptoms were 0 and any symptoms were positive values.
 
 
   
@@ -1140,7 +1140,7 @@ Using the SNSequate package to equate item parameters.
 
 The items used to link the MDAS to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Short term memory impairment, and Delusions.
 
-The items used to link the CAM-S to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Psychomotor agitiation, Psychomotor retardation, and Attention.
+The items used to link the CAM-S to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Psychomotor agitation, Psychomotor retardation, and Attention.
 
 
 
@@ -1319,7 +1319,6 @@ The items used to link the CAM-S to the DRS are: Disorientation, Perceptual dist
 
 
 ### DRS CFA model with polytomous outcome
-Need to check the coding for rdrs06.
 
 ```
 ## Reading model:  cfa-drs-2.out
@@ -1410,7 +1409,6 @@ Need to check the coding for rdrs06.
 
 
 ### MDAS CFA model with polytomous outcome
-Need to check the coding of rmdas06
 
 ```
 ## Reading model:  cfa-mdas-2.out

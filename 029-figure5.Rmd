@@ -26,7 +26,7 @@ testscore %>%
   select(-hoo.cam, -ioo.cam, -camscore, -theta) %>%
   mutate(score = goo.cam) %>%
   select(goo.cam, mdasscore, drsscore) %>%
-  kable(format = "html", digits = c(0, 1, 1), col.names= c("CAM-S", "MDAS", "DRS"), caption = "CAM-S to MDAS and DRS") %>%
+  kable(digits = c(0, 1, 1), col.names= c("CAM-S", "MDAS", "DRS"), caption = "CAM-S to MDAS and DRS") %>%
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
 ```
 

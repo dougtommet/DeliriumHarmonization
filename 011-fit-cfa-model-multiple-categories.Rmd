@@ -94,7 +94,6 @@ basil3 %>%
 ```
 
 ### DRS CFA model with polytomous outcome
-Need to check the coding for rdrs06.
 ```{r}
 ### 2PL model
 
@@ -183,7 +182,6 @@ drs.par.poly %>%
 
 
 ### MDAS CFA model with polytomous outcome
-Need to check the coding of rmdas06
 ```{r}
 ### 2PL model
 

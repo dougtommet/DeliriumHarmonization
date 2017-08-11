@@ -107,7 +107,7 @@ cam.par.dich %>%
 
 The items used to link the MDAS to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Short term memory impairment, and Delusions.
 
-The items used to link the CAM-S to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Psychomotor agitiation, Psychomotor retardation, and Attention.
+The items used to link the CAM-S to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Psychomotor agitation, Psychomotor retardation, and Attention.
 
 ```{r}
 par.drs.mdas <- full_join(drs.par.dich, mdas.par.dich, by = "itemnum") %>%
