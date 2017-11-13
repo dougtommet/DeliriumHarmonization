@@ -28,7 +28,7 @@ text.drs.camlf <- paste("r = ", round(cor.drs.camlf, 2))
 text.drs.camsf <- paste("r = ", round(cor.drs.camsf, 2))
 text.camlf.mdas <- paste("r = ", round(cor.camlf.mdas, 2))
 text.camsf.mdas <- paste("r = ", round(cor.camsf.mdas, 2))
-text.camsf.camlf <- paste("r = ", round(cor.camsf.camlf, 2))
+text.camsf.camlf <- paste("r = ", sprintf("%.2f", round(cor.camsf.camlf, 2)))
 
 plot1 <- ggplot(basil, aes(x = vddrs , y = vddrs)) +
   scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
@@ -105,19 +105,19 @@ plot13 <- ggplot(basil, aes(x = vddrs, y = vdcamseveritysf)) +
   geom_point() +
   scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
   scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) + 
-  annotate("text", x = 21, y = 2, hjust=0, label = text.drs.camsf) +
+  annotate("text", x = 21, y = 1, hjust=0, label = text.drs.camsf) +
   theme_doug()
 plot14 <- ggplot(basil, aes(x = vdmdas, y = vdcamseveritysf)) +
   geom_point() +
   scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
   scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) + 
-  annotate("text", x = 16, y = 2, hjust=0, label = text.camsf.mdas) +
+  annotate("text", x = 16, y = 1, hjust=0, label = text.camsf.mdas) +
   theme_doug()
 plot15 <- ggplot(basil, aes(x = vdcamseveritylf , y = vdcamseveritysf)) +
   geom_point() +
   scale_x_continuous(limits = camlf.lim, breaks = camlf.seq) +
   scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) +
-  annotate("text", x = 16, y = 2, hjust=0, label = text.camsf.camlf) +
+  annotate("text", x = 14, y = 1, hjust=0, label = text.camsf.camlf) +
   theme_doug()
 plot16 <- ggplot(basil, aes(x = vdcamseveritysf , y = vdcamseveritysf)) +
   scale_x_continuous(limits = camsf.lim, breaks = camsf.seq) +

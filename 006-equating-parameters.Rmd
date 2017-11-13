@@ -176,8 +176,8 @@ hoo <- paste(paste0("[[f", 1:dim(goo)[1], "s]];"), collapse = " \n ")
 model.linked.mdas <- loopReplace(hoo, myParam)
 
 cfa.mdas.link.body <- mplusObject(
-  ANALYSIS = "estimator = mlr; link=logit;",
-  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  ANALYSIS = "estimator = mlr; link=logit; type=complex;",
+  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
   MODEL = model.linked.mdas,
   OUTPUT = "",
   SAVEDATA = "save = fscores; file = fscores-mdas-linked.dat;",
@@ -259,8 +259,8 @@ hoo <- paste(paste0("[[f", 1:dim(goo)[1], "s]];"), collapse = " \n ")
 model.linked.cam <- loopReplace(hoo, myParam)
 
 cfa.cam.link.body <- mplusObject(
-  ANALYSIS = "estimator = mlr; link=logit;",
-  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  ANALYSIS = "estimator = mlr; link=logit; type=complex;",
+  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
   MODEL = model.linked.cam,
   OUTPUT = "",
   SAVEDATA = "save = fscores; file = fscores-cam-linked.dat;",

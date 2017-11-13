@@ -133,8 +133,8 @@ model.drs.3 <- loopReplace(goo, myParam)
 model.drs.3 <- paste(model.drs.3, "\n", "[rdrs06$2*5];")
 
 cfa.drs.3.body <- mplusObject(
-  ANALYSIS = "estimator = mlr; link=logit;",
-  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  ANALYSIS = "estimator = mlr; link=logit; type=complex;",
+  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
   MODEL = model.drs.3,
   OUTPUT = "",
   SAVEDATA = "save = fscores; file = fscores-drs-poly.dat;",
@@ -223,8 +223,8 @@ model.mdas.3 <- paste(model.mdas.3, "\n", "[rmdas01$2*5];")
 model.mdas.3 <- paste(model.mdas.3, "\n", "[rmdas06$3*6];")
 
 cfa.mdas.3.body <- mplusObject(
-  ANALYSIS = "estimator = mlr; link=logit;",
-  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  ANALYSIS = "estimator = mlr; link=logit; type=complex;",
+  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
   MODEL = model.mdas.3,
   OUTPUT = "",
   SAVEDATA = "save = fscores; file = fscores-mdas-poly.dat;",
@@ -311,8 +311,8 @@ model.cam.3 <- paste(model.cam.3, "\n", "[rcamlf4a$2*5];")
 
 
 cfa.cam.3.body <- mplusObject(
-  ANALYSIS = "estimator = mlr; link=logit;",
-  VARIABLE = "idvariable = recordid; CATEGORICAL ARE all;",
+  ANALYSIS = "estimator = mlr; link=logit; type=complex;",
+  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
   MODEL = model.cam.3,
   OUTPUT = "",
   SAVEDATA = "save = fscores; file = fscores-cam-poly.dat;",
