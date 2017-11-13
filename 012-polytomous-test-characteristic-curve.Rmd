@@ -307,7 +307,7 @@ theta <- seq(-4, 8, by= .01)
 hoo <- data.frame(theta)
 
 my.par <- cam.par.poly[,c("A.cam", "B1.cam", "B2.cam")]
-cam.info.poly <- hoo %>%
+camlf.info.poly <- hoo %>%
   mutate(p1.0 = 1,
          p2.0 = 1,
          p3.0 = 1,
@@ -416,6 +416,58 @@ cam.info.poly <- hoo %>%
 
 ```
 
+```{r}
+theta <- seq(-4, 8, by= .01)
+hoo <- data.frame(theta)
+
+my.par <- cam.par.poly[,c("A.cam", "B1.cam", "B2.cam")]
+camsf.info.poly <- hoo %>%
+  mutate(p1.0 = 1,
+         p2.0 = 1,
+         p3.0 = 1,
+         p4.0 = 1,
+         p1.1 = (exp(my.par[1,1]*(theta-my.par[1,2]))/(1+exp(my.par[1,1]*(theta-my.par[1,2])))),
+         p2.1 = (exp(my.par[2,1]*(theta-my.par[2,2]))/(1+exp(my.par[2,1]*(theta-my.par[2,2])))),
+         p3.1 = (exp(my.par[3,1]*(theta-my.par[3,2]))/(1+exp(my.par[3,1]*(theta-my.par[3,2])))),
+         p4.1 = (exp(my.par[4,1]*(theta-my.par[4,2]))/(1+exp(my.par[4,1]*(theta-my.par[4,2])))),
+         p1.2 = 0,
+         p2.2 = (exp(my.par[2,1]*(theta-my.par[2,3]))/(1+exp(my.par[2,1]*(theta-my.par[2,3])))),
+         p3.2 = (exp(my.par[3,1]*(theta-my.par[3,3]))/(1+exp(my.par[3,1]*(theta-my.par[3,3])))),
+         p4.2 = (exp(my.par[4,1]*(theta-my.par[4,3]))/(1+exp(my.par[4,1]*(theta-my.par[4,3])))),
+         p2.3 = 0,
+         p3.3 = 0,
+         p4.3 = 0,
+         i1 = my.par[1,1]^2 * (  ((p1.0*(1-p1.0)) - (p1.1*(1-p1.1)))^2/(p1.0-p1.1) + 
+                                 ((p1.1*(1-p1.1)) - (p1.2*(1-p1.2)))^2/(p1.1-p1.2)),
+         i2 = my.par[2,1]^2 * (  ((p2.0*(1-p2.0)) - (p2.1*(1-p2.1)))^2/(p2.0-p2.1) +
+                                 ((p2.1*(1-p2.1)) - (p2.2*(1-p2.2)))^2/(p2.1-p2.2) +
+                                 ((p2.2*(1-p2.2)) - (p2.3*(1-p2.3)))^2/(p2.2-p2.3)),
+         i3 = my.par[3,1]^2 * (  ((p3.0*(1-p3.0)) - (p3.1*(1-p3.1)))^2/(p3.0-p3.1) +
+                                 ((p3.1*(1-p3.1)) - (p3.2*(1-p3.2)))^2/(p3.1-p3.2) +
+                                 ((p3.2*(1-p3.2)) - (p3.3*(1-p3.3)))^2/(p3.2-p3.3)),
+         i4 = my.par[4,1]^2 * (  ((p4.0*(1-p4.0)) - (p4.1*(1-p4.1)))^2/(p4.0-p4.1) +
+                                 ((p4.1*(1-p4.1)) - (p4.2*(1-p4.2)))^2/(p4.1-p4.2) +
+                                 ((p4.2*(1-p4.2)) - (p4.3*(1-p4.3)))^2/(p4.2-p4.3)),
+         es1 = p1.1, 
+         es2 = p2.1 + p2.2, 
+         es3 = p3.1 + p3.2, 
+         es4 = p4.1 + p4.2, 
+         i1.sens = my.par[1,1]^2 * (  ((p1.0*(1-p1.0)) - (p1.1*(1-p1.1)))^2/(p1.0-p1.1) + 
+                                      ((p1.1*(1-p1.1)) - (p1.2*(1-p1.2)))^2/(p1.1-p1.2)),
+         i2.sens = my.par[2,1]^2 * (  ((p2.0*(1-p2.0)) - (p2.1*(1-p2.1)))^2/(p2.0-p2.1) +
+                                      ((p2.1*(1-p2.1)) - (p2.3*(1-p2.3)))^2/(p2.1-p2.3)),
+         i3.sens = my.par[3,1]^2 * (  ((p3.0*(1-p3.0)) - (p3.1*(1-p3.1)))^2/(p3.0-p3.1) +
+                                      ((p3.1*(1-p3.1)) - (p3.3*(1-p3.3)))^2/(p3.1-p3.3)),
+         i4.sens = my.par[4,1]^2 * (  ((p4.0*(1-p4.0)) - (p4.1*(1-p4.1)))^2/(p4.0-p4.1) +
+                                      ((p4.1*(1-p4.1)) - (p4.3*(1-p4.3)))^2/(p4.1-p4.3)),
+         testscore = es1 + es2 + es3 + es4,
+         info = i1 + i2 + i3 + i4,
+         info.sens = i1.sens + i2.sens + i3.sens + i4.sens,
+         info.diff = info - info.sens,
+         sem = info^(-.5),
+         sem.sens = info.sens^(-.5))
+
+```
 ## Plots for the polytomous model
 
 ```{r}
@@ -426,10 +478,13 @@ testscore <- drs.info.poly %>%
   left_join(mdas.info.poly %>% 
               select(theta, testscore) %>%
               rename(mdasscore = testscore), by="theta") %>%
-  left_join(cam.info.poly %>%
+  left_join(camlf.info.poly %>%
               select(theta, testscore) %>%
-              rename(camscore = testscore), by="theta") %>%
-  gather(test, score, 2:4)
+              rename(camlfscore = testscore), by="theta") %>%
+  left_join(camsf.info.poly %>%
+              select(theta, testscore) %>%
+              rename(camsfscore = testscore), by="theta") %>%
+  gather(test, score, 2:5)
 
 
 
@@ -437,8 +492,8 @@ ggplot(testscore, aes(theta, score, group=test, color=test)) +
   geom_line() +
   scale_color_brewer(palette = "Dark2", 
                      name = "Delirium Instrument",
-                     breaks = c("drsscore", "mdasscore", "camscore"),
-                     labels = c("DRS", "MDAS", "CAM-S")) + 
+                     breaks = c("drsscore", "mdasscore", "camlfscore", "camsfscore"),
+                     labels = c("DRS", "MDAS", "CAM-S LF", "CAM-S SF")) + 
   scale_y_continuous("Expected Total Score", breaks=seq(0,40,2)) +
   scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
   ggtitle("Test Characteristic Curves (Polytomous CFA)") +
@@ -456,10 +511,13 @@ testinfo <- drs.info.poly %>%
   left_join(mdas.info.poly %>% 
               select(theta, info) %>%
               rename(mdasinfo = info), by="theta") %>%
-  left_join(cam.info.poly %>%
+  left_join(camlf.info.poly %>%
               select(theta, info) %>%
-              rename(caminfo = info), by="theta") %>%
-  gather(test, info, 2:4)
+              rename(camlfinfo = info), by="theta") %>%
+  left_join(camsf.info.poly %>%
+              select(theta, info) %>%
+              rename(camsfinfo = info), by="theta") %>%
+  gather(test, info, 2:5)
 
 
 
@@ -467,8 +525,8 @@ ggplot(testinfo, aes(theta, info, group=test, color=test)) +
   geom_line() +
   scale_color_brewer(palette = "Dark2", 
                      name = "Delirium Instrument",
-                     breaks = c("drsinfo", "mdasinfo", "caminfo"),
-                     labels = c("DRS", "MDAS", "CAM-S")) + 
+                     breaks = c("drsinfo", "mdasinfo", "camlfinfo", "camsfinfo"),
+                     labels = c("DRS", "MDAS", "CAM-S LF", "CAM-S SF")) + 
   scale_y_continuous("Information", breaks=seq(0,12,2)) +
   scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
   ggtitle("Test Information Curves (Polytomous CFA)") +

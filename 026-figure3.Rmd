@@ -6,77 +6,152 @@
 
 ### Figure 3
 ```{r}
-inhosp.delirium <- inhosp %>%
-  select("vddrs", "vdmdas", "vdcamseveritylf")
+# basil <- basil %>%
+#   select("vddrs", "vdmdas", "vdcamseveritylf")
 
 drs.lim <- c(0, 30)
 drs.seq <- seq(0, 30, by = 5)
 mdas.lim <- c(0, 25)
 mdas.seq <- seq(0, 25, by = 5)
-cam.lim <- c(0, 20)
-cam.seq <- seq(0, 20, by = 5)
-cor.drs.mdas <- with(inhosp.delirium, cor(vddrs, vdmdas, use="complete.obs"))
-cor.drs.cam <- with(inhosp.delirium, cor(vddrs, vdcamseveritylf, use="complete.obs"))
-cor.cam.mdas <- with(inhosp.delirium, cor(vdcamseveritylf, vdmdas, use="complete.obs"))
+camlf.lim <- c(0, 20)
+camlf.seq <- seq(0, 20, by = 5)
+camsf.lim <- c(0, 8)
+camsf.seq <- seq(0, 8, by = 1)
+cor.drs.mdas <- with(basil, cor(vddrs, vdmdas, use="complete.obs"))
+cor.drs.camlf <- with(basil, cor(vddrs, vdcamseveritylf, use="complete.obs"))
+cor.drs.camsf <- with(basil, cor(vddrs, vdcamseveritysf, use="complete.obs"))
+cor.camlf.mdas <- with(basil, cor(vdcamseveritylf, vdmdas, use="complete.obs"))
+cor.camsf.mdas <- with(basil, cor(vdcamseveritysf, vdmdas, use="complete.obs"))
+cor.camsf.camlf <- with(basil, cor(vdcamseveritylf, vdcamseveritysf, use="complete.obs"))
 text.drs.mdas <- paste("r = ", round(cor.drs.mdas, 2))
-text.drs.cam <- paste("r = ", round(cor.drs.cam, 2))
-text.cam.mdas <- paste("r = ", round(cor.cam.mdas, 2))
+text.drs.camlf <- paste("r = ", round(cor.drs.camlf, 2))
+text.drs.camsf <- paste("r = ", round(cor.drs.camsf, 2))
+text.camlf.mdas <- paste("r = ", round(cor.camlf.mdas, 2))
+text.camsf.mdas <- paste("r = ", round(cor.camsf.mdas, 2))
+text.camsf.camlf <- paste("r = ", round(cor.camsf.camlf, 2))
 
-plot1 <- ggplot(inhosp.delirium, aes(x = vddrs , y = vddrs)) +
+plot1 <- ggplot(basil, aes(x = vddrs , y = vddrs)) +
   scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
   scale_y_continuous(limits = drs.lim, breaks = drs.seq) +
   theme_doug()
-plot2 <- ggplot(inhosp.delirium, aes(x = vdmdas , y = vddrs)) +
+plot2 <- ggplot(basil, aes(x = vdmdas , y = vddrs)) +
   geom_point() +
   scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
   scale_y_continuous(limits = drs.lim, breaks = drs.seq) + 
   annotate("text", x = 16, y = 6, hjust = 0, label = text.drs.mdas) +
   theme_doug()
-plot3 <- ggplot(inhosp.delirium, aes(x = vdcamseveritylf, y = vddrs)) +
+plot3 <- ggplot(basil, aes(x = vdcamseveritylf, y = vddrs)) +
   geom_point()+
-  scale_x_continuous(limits = cam.lim, breaks = cam.seq) +
+  scale_x_continuous(limits = camlf.lim, breaks = camlf.seq) +
   scale_y_continuous(limits = drs.lim, breaks = drs.seq) + 
-  annotate("text", x = 14, y = 6, hjust=0, label = text.drs.cam) +
+  annotate("text", x = 14, y = 6, hjust=0, label = text.drs.camlf) +
   theme_doug()
-plot4 <- ggplot(inhosp.delirium, aes(x = vddrs, y = vdmdas)) +
+plot4 <- ggplot(basil, aes(x = vdcamseveritysf, y = vddrs)) +
+  geom_point()+
+  scale_x_continuous(limits = camsf.lim, breaks = camsf.seq) +
+  scale_y_continuous(limits = drs.lim, breaks = drs.seq) + 
+  annotate("text", x = 14, y = 6, hjust=0, label = text.drs.camsf) +
+  theme_doug()
+
+
+plot5 <- ggplot(basil, aes(x = vddrs, y = vdmdas)) +
   geom_point() +
   scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
   scale_y_continuous(limits = mdas.lim, breaks = mdas.seq) + 
   annotate("text", x = 21, y = 6, hjust=0, label = text.drs.mdas) +
   theme_doug()
-plot5 <- ggplot(inhosp.delirium, aes(x = vdmdas , y = vdmdas)) +
+plot6 <- ggplot(basil, aes(x = vdmdas , y = vdmdas)) +
   scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
   scale_y_continuous(limits = mdas.lim, breaks = mdas.seq) +
   theme_doug()
-plot6 <- ggplot(inhosp.delirium, aes(x = vdcamseveritylf, y = vdmdas)) +
+plot7 <- ggplot(basil, aes(x = vdcamseveritylf, y = vdmdas)) +
   geom_point() +
-  scale_x_continuous(limits = cam.lim, breaks = cam.seq) +
+  scale_x_continuous(limits = camlf.lim, breaks = camlf.seq) +
   scale_y_continuous(limits = mdas.lim, breaks = mdas.seq) + 
-  annotate("text", x = 14, y = 6, hjust=0, label = text.cam.mdas) +
+  annotate("text", x = 14, y = 6, hjust=0, label = text.camlf.mdas) +
   theme_doug()
-plot7 <- ggplot(inhosp.delirium, aes(x = vddrs, y = vdcamseveritylf)) +
+plot8 <- ggplot(basil, aes(x = vdcamseveritysf, y = vdmdas)) +
+  geom_point() +
+  scale_x_continuous(limits = camsf.lim, breaks = camsf.seq) +
+  scale_y_continuous(limits = mdas.lim, breaks = mdas.seq) + 
+  annotate("text", x = 14, y = 6, hjust=0, label = text.camsf.mdas) +
+  theme_doug()
+
+
+plot9 <- ggplot(basil, aes(x = vddrs, y = vdcamseveritylf)) +
   geom_point() +
   scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
-  scale_y_continuous(limits = cam.lim, breaks = cam.seq) + 
-  annotate("text", x = 21, y = 4, hjust=0, label = text.drs.cam) +
+  scale_y_continuous(limits = camlf.lim, breaks = camlf.seq) + 
+  annotate("text", x = 21, y = 4, hjust=0, label = text.drs.camlf) +
   theme_doug()
-plot8 <- ggplot(inhosp.delirium, aes(x = vdmdas, y = vdcamseveritylf)) +
+plot10 <- ggplot(basil, aes(x = vdmdas, y = vdcamseveritylf)) +
   geom_point() +
   scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
-  scale_y_continuous(limits = cam.lim, breaks = cam.seq) + 
-  annotate("text", x = 16, y = 4, hjust=0, label = text.cam.mdas) +
+  scale_y_continuous(limits = camlf.lim, breaks = camlf.seq) + 
+  annotate("text", x = 16, y = 4, hjust=0, label = text.camlf.mdas) +
   theme_doug()
-plot9 <- ggplot(inhosp.delirium, aes(x = vdcamseveritylf , y = vdcamseveritylf)) +
-  scale_x_continuous(limits = cam.lim, breaks = cam.seq) +
-  scale_y_continuous(limits = cam.lim, breaks = cam.seq) +
+plot11 <- ggplot(basil, aes(x = vdcamseveritylf , y = vdcamseveritylf)) +
+  scale_x_continuous(limits = camlf.lim, breaks = camlf.seq) +
+  scale_y_continuous(limits = camlf.lim, breaks = camlf.seq) +
+  theme_doug()
+plot12 <- ggplot(basil, aes(x = vdcamseveritysf , y = vdcamseveritylf)) +
+  geom_point() +
+  scale_x_continuous(limits = camsf.lim, breaks = camsf.seq) +
+  scale_y_continuous(limits = camlf.lim, breaks = camlf.seq) +
+  annotate("text", x = 16, y = 4, hjust=0, label = text.camsf.mdas) +
   theme_doug()
 
+plot13 <- ggplot(basil, aes(x = vddrs, y = vdcamseveritysf)) +
+  geom_point() +
+  scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
+  scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) + 
+  annotate("text", x = 21, y = 2, hjust=0, label = text.drs.camsf) +
+  theme_doug()
+plot14 <- ggplot(basil, aes(x = vdmdas, y = vdcamseveritysf)) +
+  geom_point() +
+  scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
+  scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) + 
+  annotate("text", x = 16, y = 2, hjust=0, label = text.camsf.mdas) +
+  theme_doug()
+plot15 <- ggplot(basil, aes(x = vdcamseveritylf , y = vdcamseveritysf)) +
+  geom_point() +
+  scale_x_continuous(limits = camlf.lim, breaks = camlf.seq) +
+  scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) +
+  annotate("text", x = 16, y = 2, hjust=0, label = text.camsf.camlf) +
+  theme_doug()
+plot16 <- ggplot(basil, aes(x = vdcamseveritysf , y = vdcamseveritysf)) +
+  scale_x_continuous(limits = camsf.lim, breaks = camsf.seq) +
+  scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) +
+  theme_doug()
 
+plot1 <- ggplot(basil, aes(x = vddrs , y = vddrs)) +
+  theme(panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+plot2 <- plot1
+plot3 <- plot1
+plot4 <- plot1
+plot6 <- plot1
+plot7 <- plot1
+plot8 <- plot1
+plot11 <- plot1
+plot12 <- plot1
+plot16 <- plot1
 
-ggmatrix(list(plot1, plot2, plot3, plot4, plot5, plot6, plot7, plot8, plot9), 
+# ggmatrix(list(plot1,  plot2,  plot3,  plot4, 
+#               plot5,  plot6,  plot7,  plot8, 
+#               plot9,  plot10, plot11, plot12,
+#               plot13, plot14, plot15, plot16), 
+#          nrow = 4, ncol = 4,
+#          xAxisLabels = c("DRS", "MDAS", "CAM-S LF", "CAM-S SF"), 
+#          yAxisLabels = c("DRS", "MDAS", "CAM-S LF", "CAM-S SF")) + theme_bw()
+
+ggmatrix(list(plot5,  plot6,  plot7,   
+              plot9,  plot10, plot11, 
+              plot13, plot14, plot15), 
          nrow = 3, ncol = 3,
-         xAxisLabels = c("DRS", "MDAS", "CAM-S"), 
-         yAxisLabels = c("DRS", "MDAS", "CAM-S")) + theme_bw()
+         xAxisLabels = c("DRS", "MDAS", "CAM-S LF"), 
+         yAxisLabels = c("MDAS", "CAM-S LF", "CAM-S SF")) 
 
 ggsave("Figure3.pdf")
 

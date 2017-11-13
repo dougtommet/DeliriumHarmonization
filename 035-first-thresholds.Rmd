@@ -13,9 +13,9 @@ testinfo <- drs.info.poly %>%
   left_join(mdas.info.poly %>% 
               select(theta, info.sens) %>%
               rename(mdasinfo = info.sens), by="theta") %>%
-  left_join(cam.info.poly %>%
+  left_join(camlf.info.poly %>%
               select(theta, info.sens) %>%
-              rename(caminfo = info.sens), by="theta") %>%
+              rename(camlfinfo = info.sens), by="theta") %>%
   gather(test, info, 2:4)
 
 
@@ -24,8 +24,8 @@ ggplot(testinfo, aes(theta, info, group=test, color=test)) +
   geom_line() +
   scale_color_brewer(palette = "Dark2", 
                      name = "Delirium Instrument",
-                     breaks = c("drsinfo", "mdasinfo", "caminfo"),
-                     labels = c("DRS", "MDAS", "CAM-S")) + 
+                     breaks = c("drsinfo", "mdasinfo", "camlfinfo"),
+                     labels = c("DRS", "MDAS", "CAM-S LF")) + 
   scale_y_continuous("Information", breaks=seq(0,12,2)) +
   scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
   ggtitle("Test Information Curves (Polytomous CFA, first threshold only)") +
@@ -42,9 +42,9 @@ testinfo <- drs.info.poly %>%
   left_join(mdas.info.poly %>% 
               select(theta, info.diff) %>%
               rename(mdasinfo = info.diff), by="theta") %>%
-  left_join(cam.info.poly %>%
+  left_join(camlf.info.poly %>%
               select(theta, info.diff) %>%
-              rename(caminfo = info.diff), by="theta") %>%
+              rename(camlfinfo = info.diff), by="theta") %>%
   gather(test, info, 2:4)
 
 
@@ -53,8 +53,8 @@ ggplot(testinfo, aes(theta, info, group=test, color=test)) +
   geom_line() +
   scale_color_brewer(palette = "Dark2", 
                      name = "Delirium Instrument",
-                     breaks = c("drsinfo", "mdasinfo", "caminfo"),
-                     labels = c("DRS", "MDAS", "CAM-S")) + 
+                     breaks = c("drsinfo", "mdasinfo", "camlfinfo"),
+                     labels = c("DRS", "MDAS", "CAM-S LF")) + 
   scale_y_continuous("Information", breaks=seq(0,12,2)) +
   scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
   ggtitle("Difference in Test Information Curves") +
@@ -77,11 +77,11 @@ fscores.dich.mdas <- getSavedata_Data("cfa-mdas-link.out") %>%
   rename(f.dich.mdas = f,
          f_se.dich.mdas = f_se)
 
-fscores.dich.cam <- getSavedata_Data("cfa-cam-link.out") %>%
+fscores.dich.camlf <- getSavedata_Data("cfa-cam-link.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
-  rename(f.dich.cam = f,
-         f_se.dich.cam = f_se)
+  rename(f.dich.camlf = f,
+         f_se.dich.camlf = f_se)
 
 fscores.poly.drs <- getSavedata_Data("cfa-drs-3.out") %>%
   setNames(tolower(names(.))) %>%
@@ -95,49 +95,49 @@ fscores.poly.mdas <- getSavedata_Data("cfa-mdas-3.out") %>%
   rename(f.poly.mdas = f,
          f_se.poly.mdas = f_se)
 
-fscores.poly.cam <- getSavedata_Data("cfa-cam-3.out") %>%
+fscores.poly.camlf <- getSavedata_Data("cfa-cam-3.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
-  rename(f.poly.cam = f,
-         f_se.poly.cam = f_se)
+  rename(f.poly.camlf = f,
+         f_se.poly.camlf = f_se)
 
 
 fscores <- fscores.dich.drs %>%
   left_join(fscores.dich.mdas, by = "recordid") %>%
-  left_join(fscores.dich.cam,  by = "recordid") %>%
+  left_join(fscores.dich.camlf,  by = "recordid") %>%
   left_join(fscores.poly.drs,  by = "recordid") %>%
   left_join(fscores.poly.mdas, by = "recordid") %>%
-  left_join(fscores.poly.cam,  by = "recordid") %>%
+  left_join(fscores.poly.camlf,  by = "recordid") %>%
   mutate(se.diff.drs = f_se.dich.drs - f_se.poly.drs, 
          se.diff.mdas = f_se.dich.mdas - f_se.poly.mdas, 
-         se.diff.cam = f_se.dich.cam - f_se.poly.cam)
+         se.diff.camlf = f_se.dich.camlf - f_se.poly.camlf)
 
 goo1 <- fscores %>%
-  select(recordid, f.poly.drs, f.poly.mdas, f.poly.cam) %>%
+  select(recordid, f.poly.drs, f.poly.mdas, f.poly.camlf) %>%
   gather(test, f.poly, 2:4) %>%
   separate(test, sep="f.poly.", into = c("foo1", "test")) %>%
   select(-foo1)
 
 goo2 <- fscores %>%
-  select(recordid, se.diff.drs, se.diff.mdas, se.diff.cam) %>%
+  select(recordid, se.diff.drs, se.diff.mdas, se.diff.camlf) %>%
   gather(test, se.diff, 2:4) %>%
   separate(test, sep="se.diff.", into = c("foo1", "test")) %>%
   select(-foo1) 
 
 goo3 <- fscores %>%
-  select(recordid, f_se.dich.drs, f_se.dich.mdas, f_se.dich.cam) %>%
+  select(recordid, f_se.dich.drs, f_se.dich.mdas, f_se.dich.camlf) %>%
   gather(test, se.dich, 2:4) %>%
   separate(test, sep="f_se.dich.", into = c("foo1", "test")) %>%
   select(-foo1) 
 
 goo4 <- fscores %>%
-  select(recordid, f_se.poly.drs, f_se.poly.mdas, f_se.poly.cam) %>%
+  select(recordid, f_se.poly.drs, f_se.poly.mdas, f_se.poly.camlf) %>%
   gather(test, se.poly, 2:4) %>%
   separate(test, sep="f_se.poly.", into = c("foo1", "test")) %>%
   select(-foo1) 
 
 goo5 <- fscores %>%
-  select(recordid, f.dich.drs, f.dich.mdas, f.dich.cam) %>%
+  select(recordid, f.dich.drs, f.dich.mdas, f.dich.camlf) %>%
   gather(test, f.dich, 2:4) %>%
   separate(test, sep="f.dich.", into = c("foo1", "test")) %>%
   select(-foo1)
@@ -155,8 +155,8 @@ goo %>%
     geom_point(alpha=.5) +
     scale_color_brewer(palette = "Dark2", 
                       name = "Delirium Scale",
-                      breaks = c("drs", "mdas", "cam"),
-                      labels = c("DRS", "MDAS", "CAM-S")) + 
+                      breaks = c("drs", "mdas", "camlf"),
+                      labels = c("DRS", "MDAS", "CAM-S LF")) + 
   ylab("Difference in SEM (Dich - Poly)") +
   scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1), limits =c(-4, 8)) +
   ggtitle("Difference in Standard Error of Measurement") +
@@ -176,8 +176,8 @@ goo %>%
     geom_boxplot(outlier.shape = NA,outlier.colour = NA) +
     scale_color_brewer(palette = "Dark2", 
                       name = "Delirium Scale",
-                      breaks = c("drs", "mdas", "cam"),
-                      labels = c("DRS", "MDAS", "CAM-S")) + 
+                      breaks = c("drs", "mdas", "camlf"),
+                      labels = c("DRS", "MDAS", "CAM-S LF")) + 
     scale_x_discrete("Delirium Intensity", labels = seq(-2, 3, by=.2)) +
     scale_y_continuous("SEM (Dich)", limits = c(.25, 1)) +
     ggtitle("Standard Error of Measurement for dichotomous model (from Mplus)") +
@@ -196,8 +196,8 @@ goo %>%
     geom_boxplot(outlier.shape = NA,outlier.colour = NA) +
     scale_color_brewer(palette = "Dark2", 
                       name = "Delirium Scale",
-                      breaks = c("drs", "mdas", "cam"),
-                      labels = c("DRS", "MDAS", "CAM-S")) + 
+                      breaks = c("drs", "mdas", "camlf"),
+                      labels = c("DRS", "MDAS", "CAM-S LF")) + 
     scale_x_discrete("Delirium Intensity", labels = seq(-2, 3, by=.2)) +
     scale_y_continuous("SEM (Poly)", limits = c(.25, 1)) +
     ggtitle("Standard Error of Measurement for polytomous model (from Mplus)") +
@@ -216,9 +216,9 @@ testinfo <- drs.info.poly %>%
   left_join(mdas.info.poly %>% 
               select(theta, sem.sens) %>%
               rename(mdassem = sem.sens), by="theta") %>%
-  left_join(cam.info.poly %>%
+  left_join(camlf.info.poly %>%
               select(theta, sem.sens) %>%
-              rename(camsem = sem.sens), by="theta") %>%
+              rename(camlfsem = sem.sens), by="theta") %>%
   gather(test, sem, 2:4)
 
 testinfo %>%
@@ -226,8 +226,8 @@ testinfo %>%
     geom_line() +
     scale_color_brewer(palette = "Dark2", 
                      name = "Delirium Instrument",
-                     breaks = c("drssem", "mdassem", "camsem"),
-                     labels = c("DRS", "MDAS", "CAM-S")) + 
+                     breaks = c("drssem", "mdassem", "camlfsem"),
+                     labels = c("DRS", "MDAS", "CAM-S LF")) + 
     scale_y_continuous("SEM", limits = c(0, 2), breaks=seq(0, 1, .2)) +
     scale_x_continuous("Delirium Intensity", limits = c(-2, 3), breaks=seq(-2, 3, 1)) +
     ggtitle("Standard Error of Measurement for dichotomous model (from Information function)")+
@@ -247,9 +247,9 @@ testinfo <- drs.info.poly %>%
   left_join(mdas.info.poly %>% 
               select(theta, sem) %>%
               rename(mdassem = sem), by="theta") %>%
-  left_join(cam.info.poly %>%
+  left_join(camlf.info.poly %>%
               select(theta, sem) %>%
-              rename(camsem = sem), by="theta") %>%
+              rename(camlfsem = sem), by="theta") %>%
   gather(test, sem, 2:4)
 
 testinfo %>%
@@ -257,8 +257,8 @@ testinfo %>%
     geom_line() +
     scale_color_brewer(palette = "Dark2", 
                      name = "Delirium Instrument",
-                     breaks = c("drssem", "mdassem", "camsem"),
-                     labels = c("DRS", "MDAS", "CAM-S")) + 
+                     breaks = c("drssem", "mdassem", "camlfsem"),
+                     labels = c("DRS", "MDAS", "CAM-S LF")) + 
     scale_y_continuous("SEM", limits = c(0, 2), breaks=seq(0, 1, .2)) +
     scale_x_continuous("Delirium Intensity", limits = c(-2, 3), breaks=seq(-2, 3, 1)) +
     ggtitle("Standard Error of Measurement for polytomous model (from Information function)") +

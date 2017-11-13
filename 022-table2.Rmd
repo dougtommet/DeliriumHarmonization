@@ -4,25 +4,31 @@
 ### Table 2
 Summary of delirium severity instruments from all hospital interviews.
 ```{r}
-inhosp %>%
+basil %>%
   summarise(N_DRS = sum(!is.na(vddrs)),
             N_MDAS = sum(!is.na(vdmdas)),
-            N_CAMS = sum(!is.na(vdcamseveritylf)),
+            N_CAMS.LF = sum(!is.na(vdcamseveritylf)),
+            N_CAMS.SF = sum(!is.na(vdcamseveritysf)),
             mean_DRS = mean(vddrs, na.rm=T), 
             mean_MDAS = mean(vdmdas, na.rm=T), 
-            mean_CAMS = mean(vdcamseveritylf, na.rm=T),
+            mean_CAMS.LF = mean(vdcamseveritylf, na.rm=T),
+            mean_CAMS.SF = mean(vdcamseveritysf, na.rm=T),
             sd_DRS = sd(vddrs, na.rm=T),
             sd_MDAS = sd(vdmdas, na.rm=T),
-            sd_CAMS = sd(vdcamseveritylf, na.rm=T),
+            sd_CAMS.LF = sd(vdcamseveritylf, na.rm=T),
+            sd_CAMS.SF = sd(vdcamseveritysf, na.rm=T),
             min_DRS = min(vddrs, na.rm=T), 
             min_MDAS = min(vdmdas, na.rm=T), 
-            min_CAMS = min(vdcamseveritylf, na.rm=T),
+            min_CAMS.LF = min(vdcamseveritylf, na.rm=T),
+            min_CAMS.SF = min(vdcamseveritysf, na.rm=T),
             p50_DRS = quantile(vddrs, probs=c(.5), na.rm=T), 
             p50_MDAS = quantile(vdmdas, probs=c(.5),na.rm=T), 
-            p50_CAMS = quantile(vdcamseveritylf, probs=c(.5), na.rm=T),
+            p50_CAMS.LF = quantile(vdcamseveritylf, probs=c(.5), na.rm=T),
+            p50_CAMS.SF = quantile(vdcamseveritysf, probs=c(.5), na.rm=T),
             max_DRS = max(vddrs, na.rm=T), 
             max_MDAS = max(vdmdas, na.rm=T), 
-            max_CAMS = max(vdcamseveritylf, na.rm=T)) %>%
+            max_CAMS.LF = max(vdcamseveritylf, na.rm=T),
+            max_CAMS.SF = max(vdcamseveritysf, na.rm=T)) %>%
   gather(Name, Value) %>%
   separate(Name, c("stat", "var"), "_") %>%
   spread(stat, Value) %>%

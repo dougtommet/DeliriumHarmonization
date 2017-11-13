@@ -10,23 +10,28 @@ testscore <- drs.info.poly %>%
   left_join(mdas.info.poly %>% 
               select(theta, testscore) %>%
               rename(mdasscore = testscore), by="theta") %>%
-  left_join(cam.info.poly %>%
+  left_join(camlf.info.poly %>%
               select(theta, testscore) %>%
-              rename(camscore = testscore), by="theta") 
+              rename(camlfscore = testscore), by="theta") %>%
+  left_join(camsf.info.poly %>%
+              select(theta, testscore) %>%
+              rename(camsfscore = testscore), by="theta")
 ```
 
-#### Table A1a: CAM-S table
+#### Table A1a: CAM-S LF table
 ```{r}
 testscore %>%
-  mutate(goo.cam = round(camscore)) %>%
-  group_by(goo.cam) %>%
-  mutate(hoo.cam = abs(camscore-goo.cam),
-         ioo.cam = min(hoo.cam)) %>%
-  filter(hoo.cam==ioo.cam) %>%
-  select(-hoo.cam, -ioo.cam, -camscore, -theta) %>%
-  mutate(score = goo.cam) %>%
-  select(goo.cam, mdasscore, drsscore) %>%
-  kable(digits = c(0, 1, 1), col.names= c("CAM-S", "MDAS", "DRS"), caption = "CAM-S to MDAS and DRS") %>%
+  mutate(goo.camlf = round(camlfscore)) %>%
+  group_by(goo.camlf) %>%
+  mutate(hoo.camlf = abs(camlfscore-goo.camlf),
+         ioo.camlf = min(hoo.camlf)) %>%
+  filter(hoo.camlf==ioo.camlf) %>%
+  select(-hoo.camlf, -ioo.camlf, -camlfscore, -theta) %>%
+  mutate(score = goo.camlf) %>%
+  select(goo.camlf, mdasscore, drsscore, camsfscore) %>%
+  kable(digits = c(0, 1, 1, 1), 
+        col.names= c("CAM-S LF", "MDAS", "DRS", "CAM-S SF"), 
+        caption = "CAM-S LF to MDAS, DRS, CAM-S SF") %>%
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
 ```
 
@@ -41,8 +46,10 @@ testscore %>%
   filter(hoo.mdas==ioo.mdas) %>%
   select(-hoo.mdas, -ioo.mdas, -mdasscore, -theta) %>%
   mutate(score = goo.mdas) %>%
-  select(goo.mdas, camscore, drsscore) %>% 
-  kable(digits = c(0, 1, 1), col.names = c("MDAS", "CAM-S", "DRS"), caption = "MDAS to CAM-S and DRS") %>%
+  select(goo.mdas, camlfscore, drsscore, camsfscore) %>% 
+  kable(digits = c(0, 1, 1, 1), 
+        col.names = c("MDAS", "CAM-S LF", "DRS", "CAM-S SF"), 
+        caption = "MDAS to CAM-S LF, DRS and CAM-S SF") %>%
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
 ```
 
@@ -56,24 +63,43 @@ testscore %>%
   filter(hoo.drs==ioo.drs) %>%
   select(-hoo.drs, -ioo.drs, -drsscore, -theta) %>%
   mutate(score = goo.drs) %>%
-  select(goo.drs, camscore, mdasscore) %>%
-  kable(digits = c(0, 1, 1), col.names = c("DRS", "CAM-S", "MDAS"), caption = "DRS to CAM-S and MDAS") %>%
+  select(goo.drs, camlfscore, mdasscore, camsfscore) %>%
+  kable(digits = c(0, 1, 1, 1), 
+        col.names = c("DRS", "CAM-S LF", "MDAS", "CAM-S SF"), 
+        caption = "DRS to CAM-S LF, MDAS and CAM-S SF") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
 ```
 
+#### Table A1d: CAM-S SF table
+```{r}
+testscore %>%
+  mutate(goo.camsf = round(camsfscore)) %>%
+  group_by(goo.camsf) %>%
+  mutate(hoo.camsf = abs(camsfscore-goo.camsf),
+         ioo.camsf = min(hoo.camsf)) %>%
+  filter(hoo.camsf==ioo.camsf) %>%
+  select(-hoo.camsf, -ioo.camsf, -camsfscore, -theta) %>%
+  mutate(score = goo.camsf) %>%
+  select(goo.camsf, mdasscore, drsscore, camlfscore) %>%
+  kable(digits = c(0, 1, 1, 1), 
+        col.names= c("CAM-S SF", "MDAS", "DRS", "CAM-S LF"), 
+        caption = "CAM-S SF to MDAS, DRS, CAM-S LF") %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
+```
 
-#### Figure A1a: CAM-S nomogram
+#### Figure A1a: CAM-S LF ~~nomogram~~ with MDAS and DRS
 
 ```{r, fig.height=8}
 
 foo <- testscore %>%
-  mutate(goo.cam = round(camscore)) %>%
-  group_by(goo.cam) %>%
-  mutate(hoo.cam = abs(camscore-goo.cam),
-         ioo.cam = min(hoo.cam)) %>%
-  filter(hoo.cam==ioo.cam) %>%
-  select(-hoo.cam, -ioo.cam, -camscore, -theta) %>%
-  mutate(score = goo.cam) %>%
+  mutate(goo.camlf = round(camlfscore)) %>%
+  group_by(goo.camlf) %>%
+  mutate(hoo.camlf = abs(camlfscore-goo.camlf),
+         ioo.camlf = min(hoo.camlf)) %>%
+  filter(hoo.camlf==ioo.camlf) %>%
+  select(-hoo.camlf, -ioo.camlf, -camlfscore, -theta) %>%
+  mutate(score = goo.camlf) %>%
+  select(-camsfscore) %>%
   gather(test, value, 1:3) %>%
   mutate(value.lab = round(value, 0),
          labelx = ifelse(test=="drsscore", 1,
@@ -82,7 +108,7 @@ foo <- testscore %>%
   arrange(score) 
 
 foo %>%
-  filter(test=="goo.cam") %>%
+  filter(test=="goo.camlf") %>%
   mutate(dup = 1) %>%
   bind_rows(foo) %>%
   arrange(score, labelx, dup) %>%
@@ -99,11 +125,11 @@ foo %>%
     geom_label(aes(x=labelx), label.size = NA) +
     scale_x_discrete("Delirium Instrument", 
                      labels = c("drsscore" = "DRS", 
-                                "goo.cam"= "CAM-S", 
+                                "goo.camlf"= "CAM-S LF", 
                                 "mdasscore"="MDAS"),
-                     limits = c("drsscore", "goo.cam", "mdasscore")) +
+                     limits = c("drsscore", "goo.camlf", "mdasscore")) +
     scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
-    ggtitle("Nomogram linking CAM-S with DRS and MDAS") +
+    ggtitle("~~Nomogram~~ linking CAM-S LF with DRS and MDAS") +
     theme_doug() +
     theme(panel.grid.minor = element_blank(),
           panel.grid.major = element_blank(),
@@ -113,11 +139,126 @@ foo %>%
           axis.line = element_blank(),
           plot.title = element_text(hjust = .5))  
   
-ggsave("nomogram-cam.pdf", height = 20, units="cm")
+# ggsave("nomogram-camlf-1a.pdf", height = 20, units="cm")
+ggsave("nomogram-camlf-1a.png", height = 20, units="cm")
 
 ```
 
-#### Figure A1b: MDAS nomogram
+#### Figure A1b: CAM-S LF ~~nomogram~~ with CAM-S SF and DRS
+
+```{r, fig.height=8}
+
+foo <- testscore %>%
+  mutate(goo.camlf = round(camlfscore)) %>%
+  group_by(goo.camlf) %>%
+  mutate(hoo.camlf = abs(camlfscore-goo.camlf),
+         ioo.camlf = min(hoo.camlf)) %>%
+  filter(hoo.camlf==ioo.camlf) %>%
+  select(-hoo.camlf, -ioo.camlf, -camlfscore, -theta) %>%
+  mutate(score = goo.camlf) %>%
+  select(-mdasscore) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = round(value, 0),
+         labelx = ifelse(test=="drsscore", 1,
+                  ifelse(test=="camsfscore", 3, 2 )),
+         dup = 0) %>%
+  arrange(score) 
+
+foo %>%
+  filter(test=="goo.camlf") %>%
+  mutate(dup = 1) %>%
+  bind_rows(foo) %>%
+  arrange(score, labelx, dup) %>%
+  mutate(pointx = ifelse(labelx==3, 2.9,
+                  ifelse(labelx==1, 1.1,
+                  ifelse(labelx==2 & dup==0, 1.9, 2.1))),
+         tmp = ifelse(labelx==1 & dup==0, 0,
+                ifelse(labelx==2 & dup==0, 0,
+                ifelse(labelx==2 & dup==1, 1, 1))),
+         g.new = factor(paste(score, tmp))) %>%
+  select(-test, -value, -dup) %>%
+  ggplot(aes(x=pointx, y=value.lab, group=g.new, label = value.lab)) +
+    geom_line() +
+    geom_label(aes(x=labelx), label.size = NA) +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("drsscore" = "DRS", 
+                                "goo.camlf"= "CAM-S LF", 
+                                "camsfscore"="CAM-S SF"),
+                     limits = c("drsscore", "goo.camlf", "camsfscore")) +
+    scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
+    ggtitle("~~Nomogram~~ linking CAM-S LF with DRS and CAM-S SF") +
+    theme_doug() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          axis.line = element_blank(),
+          plot.title = element_text(hjust = .5))  
+  
+# ggsave("nomogram-camlf-1b.pdf", height = 20, units="cm")
+ggsave("nomogram-camlf-1b.png", height = 20, units="cm")
+
+```
+
+#### Figure A1c: CAM-S LF ~~nomogram~~ with CAM-S SF and MDAS
+
+```{r, fig.height=8}
+
+foo <- testscore %>%
+  mutate(goo.camlf = round(camlfscore)) %>%
+  group_by(goo.camlf) %>%
+  mutate(hoo.camlf = abs(camlfscore-goo.camlf),
+         ioo.camlf = min(hoo.camlf)) %>%
+  filter(hoo.camlf==ioo.camlf) %>%
+  select(-hoo.camlf, -ioo.camlf, -camlfscore, -theta) %>%
+  mutate(score = goo.camlf) %>%
+  select(-drsscore) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = round(value, 0),
+         labelx = ifelse(test=="mdasscore", 1,
+                  ifelse(test=="camsfscore", 3, 2 )),
+         dup = 0) %>%
+  arrange(score) 
+
+foo %>%
+  filter(test=="goo.camlf") %>%
+  mutate(dup = 1) %>%
+  bind_rows(foo) %>%
+  arrange(score, labelx, dup) %>%
+  mutate(pointx = ifelse(labelx==3, 2.9,
+                  ifelse(labelx==1, 1.1,
+                  ifelse(labelx==2 & dup==0, 1.9, 2.1))),
+         tmp = ifelse(labelx==1 & dup==0, 0,
+                ifelse(labelx==2 & dup==0, 0,
+                ifelse(labelx==2 & dup==1, 1, 1))),
+         g.new = factor(paste(score, tmp))) %>%
+  select(-test, -value, -dup) %>%
+  ggplot(aes(x=pointx, y=value.lab, group=g.new, label = value.lab)) +
+    geom_line() +
+    geom_label(aes(x=labelx), label.size = NA) +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("mdasscore" = "MDAS", 
+                                "goo.camlf"= "CAM-S LF", 
+                                "camsfscore"="CAM-S SF"),
+                     limits = c("drsscore", "goo.camlf", "camsfscore")) +
+    scale_y_continuous("Value", limits = c(0, 28), breaks = seq(0, 28, by = 2)) +
+    ggtitle("~~Nomogram~~ linking CAM-S LF with MDAS and CAM-S SF") +
+    theme_doug() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          axis.line = element_blank(),
+          plot.title = element_text(hjust = .5))  
+  
+# ggsave("nomogram-camlf-1c.pdf", height = 20, units="cm")
+ggsave("nomogram-camlf-1c.png", height = 20, units="cm")
+
+```
+
+#### Figure A2a: MDAS ~~nomogram~~ with CAM-S LF and DRS
 ```{r, fig.height=8}
 
 foo <- testscore %>%
@@ -128,10 +269,11 @@ foo <- testscore %>%
   filter(hoo.mdas==ioo.mdas) %>%
   select(-hoo.mdas, -ioo.mdas, -mdasscore, -theta) %>%
   mutate(score = goo.mdas) %>%
+  select(-camsfscore) %>%
   gather(test, value, 1:3) %>%
   mutate(value.lab = round(value, 0),
          labelx = ifelse(test=="drsscore", 3,
-                  ifelse(test=="camscore", 1, 2 )),
+                  ifelse(test=="camlfscore", 1, 2 )),
          dup = 0) %>%
   arrange(score) 
 
@@ -154,10 +296,10 @@ foo %>%
     scale_x_discrete("Delirium Instrument", 
                      labels = c("drsscore" = "DRS", 
                                 "goo.mdas"= "MDAS", 
-                                "camscore"="CAM-S"), 
-                     limits = c("camscore", "goo.mdas", "drsscore")) +
+                                "camlfscore"="CAM-S LF"), 
+                     limits = c("camlfscore", "goo.mdas", "drsscore")) +
     scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
-    ggtitle("Nomogram linking MDAS with DRS and CAM-S") +
+    ggtitle("~~Nomogram~~ linking MDAS with DRS and CAM-S LF") +
     theme_doug() +
     theme(panel.grid.minor = element_blank(),
           panel.grid.major = element_blank(),
@@ -167,10 +309,124 @@ foo %>%
           axis.line = element_blank(),
           plot.title = element_text(hjust = .5))  
   
-ggsave("nomogram-mdas.pdf", height = 20, units="cm")
+# ggsave("nomogram-mdas-2a.pdf", height = 20, units="cm")
+ggsave("nomogram-mdas-2a.png", height = 20, units="cm")
+
 ```
 
-#### Figure A1c: DRS nomogram
+#### Figure A2b: MDAS ~~nomogram~~ with CAM-S SF and DRS
+```{r, fig.height=8}
+
+foo <- testscore %>%
+  mutate(goo.mdas = round(mdasscore)) %>%
+  group_by(goo.mdas) %>%
+  mutate(hoo.mdas = abs(mdasscore-goo.mdas),
+         ioo.mdas = min(hoo.mdas)) %>%
+  filter(hoo.mdas==ioo.mdas) %>%
+  select(-hoo.mdas, -ioo.mdas, -mdasscore, -theta) %>%
+  mutate(score = goo.mdas) %>%
+  select(-camlfscore) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = round(value, 0),
+         labelx = ifelse(test=="drsscore", 3,
+                  ifelse(test=="camsfscore", 1, 2 )),
+         dup = 0) %>%
+  arrange(score) 
+
+foo %>%
+  filter(test=="goo.mdas") %>%
+  mutate(dup = 1) %>%
+  bind_rows(foo) %>%
+  arrange(score, labelx, dup) %>%
+  mutate(pointx = ifelse(labelx==3, 2.9,
+                  ifelse(labelx==1, 1.1,
+                  ifelse(labelx==2 & dup==0, 1.9, 2.1))),
+         tmp = ifelse(labelx==1 & dup==0, 0,
+                ifelse(labelx==2 & dup==0, 0,
+                ifelse(labelx==2 & dup==1, 1, 1))),
+         g.new = factor(paste(score, tmp))) %>%
+  select(-test, -value, -dup) %>%
+  ggplot(aes(x=pointx, y=value.lab, group=g.new, label = value.lab)) +
+    geom_line() +
+    geom_label(aes(x=labelx), label.size = NA) +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("drsscore" = "DRS", 
+                                "goo.mdas"= "MDAS", 
+                                "camsfscore"="CAM-S SF"), 
+                     limits = c("camsfscore", "goo.mdas", "drsscore")) +
+    scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
+    ggtitle("~~Nomogram~~ linking MDAS with DRS and CAM-S SF") +
+    theme_doug() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          axis.line = element_blank(),
+          plot.title = element_text(hjust = .5))  
+  
+# ggsave("nomogram-mdas-2b.pdf", height = 20, units="cm")
+ggsave("nomogram-mdas-2b.png", height = 20, units="cm")
+
+```
+
+#### Figure A2c: MDAS ~~nomogram~~ with CAM-S SF and CAM-S LF
+```{r, fig.height=8}
+
+foo <- testscore %>%
+  mutate(goo.mdas = round(mdasscore)) %>%
+  group_by(goo.mdas) %>%
+  mutate(hoo.mdas = abs(mdasscore-goo.mdas),
+         ioo.mdas = min(hoo.mdas)) %>%
+  filter(hoo.mdas==ioo.mdas) %>%
+  select(-hoo.mdas, -ioo.mdas, -mdasscore, -theta) %>%
+  mutate(score = goo.mdas) %>%
+  select(-drsscore) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = round(value, 0),
+         labelx = ifelse(test=="camlfscore", 3,
+                  ifelse(test=="camsfscore", 1, 2 )),
+         dup = 0) %>%
+  arrange(score) 
+
+foo %>%
+  filter(test=="goo.mdas") %>%
+  mutate(dup = 1) %>%
+  bind_rows(foo) %>%
+  arrange(score, labelx, dup) %>%
+  mutate(pointx = ifelse(labelx==3, 2.9,
+                  ifelse(labelx==1, 1.1,
+                  ifelse(labelx==2 & dup==0, 1.9, 2.1))),
+         tmp = ifelse(labelx==1 & dup==0, 0,
+                ifelse(labelx==2 & dup==0, 0,
+                ifelse(labelx==2 & dup==1, 1, 1))),
+         g.new = factor(paste(score, tmp))) %>%
+  select(-test, -value, -dup) %>%
+  ggplot(aes(x=pointx, y=value.lab, group=g.new, label = value.lab)) +
+    geom_line() +
+    geom_label(aes(x=labelx), label.size = NA) +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("camlfscore" = "CAM-S LF", 
+                                "goo.mdas"= "MDAS", 
+                                "camsfscore"="CAM-S SF"), 
+                     limits = c("camlfscore", "goo.mdas", "camsfscore")) +
+    scale_y_continuous("Value", limits = c(0, 28), breaks = seq(0, 28, by = 2)) +
+    ggtitle("~~Nomogram~~ linking MDAS with CAM-S LF and CAM-S SF") +
+    theme_doug() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          axis.line = element_blank(),
+          plot.title = element_text(hjust = .5))  
+  
+# ggsave("nomogram-mdas-2c.pdf", height = 20, units="cm")
+ggsave("nomogram-mdas-2c.png", height = 20, units="cm")
+
+```
+
+#### Figure A3a: DRS ~~nomogram~~ with MDAS and CAM-S LF
 ```{r, fig.height=8}
 foo <- testscore %>%
   mutate(goo.drs = round(drsscore)) %>%
@@ -180,10 +436,11 @@ foo <- testscore %>%
   filter(hoo.drs==ioo.drs) %>%
   select(-hoo.drs, -ioo.drs, -drsscore, -theta) %>%
   mutate(score = goo.drs) %>%
+  select(-camsfscore) %>%
   gather(test, value, 1:3) %>%
   mutate(value.lab = round(value, 0),
          labelx = ifelse(test=="mdasscore", 3,
-                  ifelse(test=="camscore", 1, 2 )),
+                  ifelse(test=="camlfscore", 1, 2 )),
          dup = 0) %>%
   arrange(score) 
 
@@ -206,10 +463,10 @@ foo %>%
     scale_x_discrete("Delirium Instrument", 
                      labels = c("mdasscore" = "MDAS", 
                                 "goo.drs"= "DRS", 
-                                "camscore"="CAM-S"), 
-                     limits = c("camscore", "goo.drs", "mdasscore")) +
+                                "camlfscore"="CAM-S LF"), 
+                     limits = c("camlfscore", "goo.drs", "mdasscore")) +
     scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
-    ggtitle("Nomogram linking DRS with MDAS and CAM-S") +
+    ggtitle("~~Nomogram~~ linking DRS with MDAS and CAM-S LF") +
     theme_doug() +
     theme(panel.grid.minor = element_blank(),
           panel.grid.major = element_blank(),
@@ -220,7 +477,290 @@ foo %>%
           plot.title = element_text(hjust = .5))
   
 
-ggsave("nomogram-drs.pdf", height = 30, units="cm")
+# ggsave("nomogram-drs-3a.pdf", height = 30, units="cm")
+ggsave("nomogram-drs-3a.png", height = 30, units="cm")
 
 ```
 
+#### Figure A3b: DRS ~~nomogram~~ with MDAS and CAM-S SF
+```{r, fig.height=8}
+foo <- testscore %>%
+  mutate(goo.drs = round(drsscore)) %>%
+  group_by(goo.drs) %>%
+  mutate(hoo.drs = abs(drsscore-goo.drs),
+         ioo.drs = min(hoo.drs)) %>%
+  filter(hoo.drs==ioo.drs) %>%
+  select(-hoo.drs, -ioo.drs, -drsscore, -theta) %>%
+  mutate(score = goo.drs) %>%
+  select(-camlfscore) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = round(value, 0),
+         labelx = ifelse(test=="mdasscore", 3,
+                  ifelse(test=="camsfscore", 1, 2 )),
+         dup = 0) %>%
+  arrange(score) 
+
+foo %>%
+  filter(test=="goo.drs") %>%
+  mutate(dup = 1) %>%
+  bind_rows(foo) %>%
+  arrange(score, labelx, dup) %>%
+  mutate(pointx = ifelse(labelx==3, 2.9,
+                  ifelse(labelx==1, 1.1,
+                  ifelse(labelx==2 & dup==0, 1.9, 2.1))),
+         tmp = ifelse(labelx==1 & dup==0, 0,
+                ifelse(labelx==2 & dup==0, 0,
+                ifelse(labelx==2 & dup==1, 1, 1))),
+         g.new = factor(paste(score, tmp))) %>%
+  select(-test, -value, -dup) %>%
+  ggplot(aes(x=pointx, y=value.lab, group=g.new, label = value.lab)) +
+    geom_line() +
+    geom_label(aes(x=labelx), label.size = NA) +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("mdasscore" = "MDAS", 
+                                "goo.drs"= "DRS", 
+                                "camsfscore"="CAM-S SF"), 
+                     limits = c("camsfscore", "goo.drs", "mdasscore")) +
+    scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
+    ggtitle("~~Nomogram~~ linking DRS with MDAS and CAM-S SF") +
+    theme_doug() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          axis.line = element_blank(),
+          plot.title = element_text(hjust = .5))
+  
+
+# ggsave("nomogram-drs-3b.pdf", height = 30, units="cm")
+ggsave("nomogram-drs-3b.png", height = 30, units="cm")
+
+```
+
+#### Figure A3c: DRS ~~nomogram~~ with CAM-S LF and CAM-S SF
+```{r, fig.height=8}
+foo <- testscore %>%
+  mutate(goo.drs = round(drsscore)) %>%
+  group_by(goo.drs) %>%
+  mutate(hoo.drs = abs(drsscore-goo.drs),
+         ioo.drs = min(hoo.drs)) %>%
+  filter(hoo.drs==ioo.drs) %>%
+  select(-hoo.drs, -ioo.drs, -drsscore, -theta) %>%
+  mutate(score = goo.drs) %>%
+  select(-mdasscore) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = round(value, 0),
+         labelx = ifelse(test=="camlfscore", 3,
+                  ifelse(test=="camsfscore", 1, 2 )),
+         dup = 0) %>%
+  arrange(score) 
+
+foo %>%
+  filter(test=="goo.drs") %>%
+  mutate(dup = 1) %>%
+  bind_rows(foo) %>%
+  arrange(score, labelx, dup) %>%
+  mutate(pointx = ifelse(labelx==3, 2.9,
+                  ifelse(labelx==1, 1.1,
+                  ifelse(labelx==2 & dup==0, 1.9, 2.1))),
+         tmp = ifelse(labelx==1 & dup==0, 0,
+                ifelse(labelx==2 & dup==0, 0,
+                ifelse(labelx==2 & dup==1, 1, 1))),
+         g.new = factor(paste(score, tmp))) %>%
+  select(-test, -value, -dup) %>%
+  ggplot(aes(x=pointx, y=value.lab, group=g.new, label = value.lab)) +
+    geom_line() +
+    geom_label(aes(x=labelx), label.size = NA) +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("camlfscore" = "CAM-S LF", 
+                                "goo.drs"= "DRS", 
+                                "camsfscore"="CAM-S SF"), 
+                     limits = c("camsfscore", "goo.drs", "camlfscore")) +
+    scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
+    ggtitle("~~Nomogram~~ linking DRS with CAM-S LF and CAM-S SF") +
+    theme_doug() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          axis.line = element_blank(),
+          plot.title = element_text(hjust = .5))
+  
+
+# ggsave("nomogram-drs-3c.pdf", height = 30, units="cm")
+ggsave("nomogram-drs-3c.png", height = 30, units="cm")
+
+```
+
+#### Figure A4a: CAM-S SF ~~nomogram~~ with MDAS and DRS
+
+```{r, fig.height=8}
+
+foo <- testscore %>%
+  mutate(goo.camsf = round(camsfscore)) %>%
+  group_by(goo.camsf) %>%
+  mutate(hoo.camsf = abs(camsfscore-goo.camsf),
+         ioo.camsf = min(hoo.camsf)) %>%
+  filter(hoo.camsf==ioo.camsf) %>%
+  select(-hoo.camsf, -ioo.camsf, -camsfscore, -theta) %>%
+  mutate(score = goo.camsf) %>%
+  select(-camlfscore) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = round(value, 0),
+         labelx = ifelse(test=="drsscore", 1,
+                  ifelse(test=="mdasscore", 3, 2 )),
+         dup = 0) %>%
+  arrange(score) 
+
+foo %>%
+  filter(test=="goo.camsf") %>%
+  mutate(dup = 1) %>%
+  bind_rows(foo) %>%
+  arrange(score, labelx, dup) %>%
+  mutate(pointx = ifelse(labelx==3, 2.9,
+                  ifelse(labelx==1, 1.1,
+                  ifelse(labelx==2 & dup==0, 1.9, 2.1))),
+         tmp = ifelse(labelx==1 & dup==0, 0,
+                ifelse(labelx==2 & dup==0, 0,
+                ifelse(labelx==2 & dup==1, 1, 1))),
+         g.new = factor(paste(score, tmp))) %>%
+  select(-test, -value, -dup) %>%
+  ggplot(aes(x=pointx, y=value.lab, group=g.new, label = value.lab)) +
+    geom_line() +
+    geom_label(aes(x=labelx), label.size = NA) +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("drsscore" = "DRS", 
+                                "goo.camsf"= "CAM-S SF", 
+                                "mdasscore"="MDAS"),
+                     limits = c("drsscore", "goo.camsf", "mdasscore")) +
+    scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
+    ggtitle("~~Nomogram~~ linking CAM-S SF with DRS and MDAS") +
+    theme_doug() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          axis.line = element_blank(),
+          plot.title = element_text(hjust = .5))  
+  
+# ggsave("nomogram-camsf-4a.pdf", height = 20, units="cm")
+ggsave("nomogram-camsf-4a.png", height = 20, units="cm")
+
+```
+
+#### Figure A4b: CAM-S SF ~~nomogram~~ with MDAS and CAM-S LF
+
+```{r, fig.height=8}
+
+foo <- testscore %>%
+  mutate(goo.camsf = round(camsfscore)) %>%
+  group_by(goo.camsf) %>%
+  mutate(hoo.camsf = abs(camsfscore-goo.camsf),
+         ioo.camsf = min(hoo.camsf)) %>%
+  filter(hoo.camsf==ioo.camsf) %>%
+  select(-hoo.camsf, -ioo.camsf, -camsfscore, -theta) %>%
+  mutate(score = goo.camsf) %>%
+  select(-drsscore) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = round(value, 0),
+         labelx = ifelse(test=="camlfscore", 1,
+                  ifelse(test=="mdasscore", 3, 2 )),
+         dup = 0) %>%
+  arrange(score) 
+
+foo %>%
+  filter(test=="goo.camsf") %>%
+  mutate(dup = 1) %>%
+  bind_rows(foo) %>%
+  arrange(score, labelx, dup) %>%
+  mutate(pointx = ifelse(labelx==3, 2.9,
+                  ifelse(labelx==1, 1.1,
+                  ifelse(labelx==2 & dup==0, 1.9, 2.1))),
+         tmp = ifelse(labelx==1 & dup==0, 0,
+                ifelse(labelx==2 & dup==0, 0,
+                ifelse(labelx==2 & dup==1, 1, 1))),
+         g.new = factor(paste(score, tmp))) %>%
+  select(-test, -value, -dup) %>%
+  ggplot(aes(x=pointx, y=value.lab, group=g.new, label = value.lab)) +
+    geom_line() +
+    geom_label(aes(x=labelx), label.size = NA) +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("camlfscore" = "CAM-S LF", 
+                                "goo.camsf"= "CAM-S SF", 
+                                "mdasscore"="MDAS"),
+                     limits = c("camlfscore", "goo.camsf", "mdasscore")) +
+    scale_y_continuous("Value", limits = c(0, 28), breaks = seq(0, 28, by = 2)) +
+    ggtitle("~~Nomogram~~ linking CAM-S SF with CAM-S LF and MDAS") +
+    theme_doug() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          axis.line = element_blank(),
+          plot.title = element_text(hjust = .5))  
+  
+# ggsave("nomogram-camsf-4b.pdf", height = 20, units="cm")
+ggsave("nomogram-camsf-4b.png", height = 20, units="cm")
+
+```
+
+#### Figure A4c: CAM-S SF ~~nomogram~~ with DRS and CAM-S LF
+
+```{r, fig.height=8}
+
+foo <- testscore %>%
+  mutate(goo.camsf = round(camsfscore)) %>%
+  group_by(goo.camsf) %>%
+  mutate(hoo.camsf = abs(camsfscore-goo.camsf),
+         ioo.camsf = min(hoo.camsf)) %>%
+  filter(hoo.camsf==ioo.camsf) %>%
+  select(-hoo.camsf, -ioo.camsf, -camsfscore, -theta) %>%
+  mutate(score = goo.camsf) %>%
+  select(-mdasscore) %>%
+  gather(test, value, 1:3) %>%
+  mutate(value.lab = round(value, 0),
+         labelx = ifelse(test=="camlfscore", 1,
+                  ifelse(test=="drsscore", 3, 2 )),
+         dup = 0) %>%
+  arrange(score) 
+
+foo %>%
+  filter(test=="goo.camsf") %>%
+  mutate(dup = 1) %>%
+  bind_rows(foo) %>%
+  arrange(score, labelx, dup) %>%
+  mutate(pointx = ifelse(labelx==3, 2.9,
+                  ifelse(labelx==1, 1.1,
+                  ifelse(labelx==2 & dup==0, 1.9, 2.1))),
+         tmp = ifelse(labelx==1 & dup==0, 0,
+                ifelse(labelx==2 & dup==0, 0,
+                ifelse(labelx==2 & dup==1, 1, 1))),
+         g.new = factor(paste(score, tmp))) %>%
+  select(-test, -value, -dup) %>%
+  ggplot(aes(x=pointx, y=value.lab, group=g.new, label = value.lab)) +
+    geom_line() +
+    geom_label(aes(x=labelx), label.size = NA) +
+    scale_x_discrete("Delirium Instrument", 
+                     labels = c("camlfscore" = "CAM-S LF", 
+                                "goo.camsf"= "CAM-S SF", 
+                                "drsscore"="DRS"),
+                     limits = c("camlfscore", "goo.camsf", "drsscore")) +
+    scale_y_continuous("Value", limits = c(0, 36), breaks = seq(0, 36, by = 2)) +
+    ggtitle("~~Nomogram~~ linking CAM-S SF with CAM-S LF and DRS") +
+    theme_doug() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          axis.line = element_blank(),
+          plot.title = element_text(hjust = .5))  
+  
+# ggsave("nomogram-camsf-4c.pdf", height = 20, units="cm")
+ggsave("nomogram-camsf-4c.png", height = 20, units="cm")
+
+```

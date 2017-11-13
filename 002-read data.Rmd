@@ -2,36 +2,65 @@
 ## Data Processing
 ### Read Data
 
-The datafile is */POSTED/DATA/DERIVED/clean/processing/Basil-Hospital-Patient-Assessment.dta*.  
+The data comes from */BASIL/POSTED/DATA/DERIVED/clean/current/*.  On 9-17-2017, the data was copied to the folder  */BASIL/Projects/DeliriumHarmonization/POSTED/DATA/DERIVED/clean/current/* to make the results reproducible.
 
-This analysis will only use baseline hospital visits and daily hospital visits.  Interviews that are not complete are dropped.
 
 ```{r}
 # dataprocessing <- "R:/POSTED/DATA/DERIVED/clean/processing/"
-dataprocessing <- "/Users/douglastommet/Documents/dwork/BASIL/POSTED/DATA/DERIVED/clean/processing/"
+# dataprocessing <- "/Users/douglastommet/Documents/dwork/BASIL/POSTED/DATA/DERIVED/clean/processing/"
+dataprocessing <- "/Users/douglastommet/Documents/dwork/BASIL/Projects/DeliriumHarmonization/POSTED/DATA/DERIVED/clean/current/"
 
-inhosp <- read_dta(paste0(dataprocessing, "BASIL-Hospital-Patient-Data-Analysis-File.dta"))
+# This data file contains the delirium severity assessments
+inhosp <- read_dta(paste0(dataprocessing, "BASIL-Hospital-Patient-Data-Analysis-File-20170917.dta"))
 
-patientinterview <- read_dta(paste0(dataprocessing, "BASIL-Patient-Interview-Data-Analysis-File.dta")) %>%
+# This data file contains the vds variables for table 1
+patientinterview <- read_dta(paste0(dataprocessing, "BASIL-Patient-Interview-Data-Analysis-File-20170917.dta")) %>%
   filter(timefr==0) %>%
-  select(studyid, timefr, starts_with("vd"))
+  select(studyid, timefr, starts_with("vd")) %>%
+  select(-vdcamseveritylf, -vdcamseveritysf, -vdmdas, -vddrs)
 
-medical <- read_dta(paste0(dataprocessing, "BASIL-Medical-Record-Data-Analysis-File.dta")) %>%
+# This data file contains additional variables for table 1
+medical <- read_dta(paste0(dataprocessing, "BASIL-Medical-Record-Data-Analysis-File-20170917.dta")) %>%
   select(studyid, vddementia, vdsurgical)
 
-patientinterview <- patientinterview %>%
+basil <- inhosp %>%
+  full_join(patientinterview, by = "studyid") %>%
   full_join(medical, by = "studyid")
 
+foo <- basil %>% select(studyid) %>% dim()
+ninterviews <- foo[1]
+foo <- basil %>% select(studyid) %>% distinct() %>% dim()
+nsubjects <- foo[1]
+```
+
+The file has `r nsubjects` subjects and `r ninterviews` interviews.
+
+```{r}
 
 # select baseline hospital visits (cvpg4==1) and daily hospital visits (cvpg4==2)
-basil <- inhosp %>%
+basil <- basil %>%
   filter(cvpg4==1 | cvpg4==2)
 
 # select complete interviews
 basil <- basil %>%
   filter(b_end_of_interview_complete==2)
 
+# select records that are not missing on vds for CAM, MDAS, and DRS
+basil <- basil %>%
+  filter(!is.na(vdcamseveritylf) & !is.na(vdmdas) & !is.na(vddrs))
+
+# # 11-9-2017 decision: Don't exclude these three subjects.
+# # These participants de-enrolled from the study: BD001401, BD000919, BD001102
+# basil <- basil %>%
+#   filter(!(studyid %in% c("BD001401", "BD000919", "BD001102")))
+
+foo <- basil %>% select(studyid) %>% dim()
+ninterviews <- foo[1]
+foo <- basil %>% select(studyid) %>% distinct() %>% dim()
+nsubjects <- foo[1]
 ```
+
+This analysis will only use baseline hospital visits and daily hospital visits.  Interviews that are not complete are dropped.  Interviews that are missing the CAM-S vds, the DRS vds, or the MDAS vds are dropped.  ~~There are three subjects that de-enrolled from the study and are dropped from the analysis.~~ [11-9-2017 decision: Do not exclude these three subjecs.]  After applying these filters there are `r nsubjects` subjects and `r ninterviews` interviews remaining in the datafile.
 
 
 

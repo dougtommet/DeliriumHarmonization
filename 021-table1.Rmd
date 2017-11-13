@@ -2,7 +2,10 @@
 ### Table 1
 
 ```{r}
-patientinterview %>%
+basil %>%
+  group_by(studyid) %>%
+  slice(1) %>%
+  ungroup() %>%
   summarise(N_age = sum(!is.na(vdage)),
             N_female = sum(!is.na(vdfemale)),
             N_nonwhite = sum(!is.na(vdnonwhite)),
@@ -35,7 +38,7 @@ patientinterview %>%
   kable(digits=1, col.names=c("Variable", "N", "Mean", "SD", "Count", "Percent")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
                 full_width = F, position = "center")
-
+  
 
  
 
