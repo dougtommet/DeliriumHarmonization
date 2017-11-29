@@ -1,7 +1,7 @@
 
 
 ```{r}
-fscores.drs <- getSavedata_Data("cfa-drs-2.out") %>%
+fscores.drs <- getSavedata_Data("cfa-drs-2-1-2pl.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(f.drs = f)

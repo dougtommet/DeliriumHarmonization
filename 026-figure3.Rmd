@@ -153,7 +153,7 @@ ggmatrix(list(plot5,  plot6,  plot7,
          xAxisLabels = c("DRS", "MDAS", "CAM-S LF"), 
          yAxisLabels = c("MDAS", "CAM-S LF", "CAM-S SF")) 
 
-ggsave("Figure3.pdf")
+ggsave("Figure3.png")
 
 ```
 

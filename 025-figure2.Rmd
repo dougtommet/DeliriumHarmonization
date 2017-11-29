@@ -29,6 +29,6 @@ ggplot(testinfo, aes(theta, info, group=test, color=test)) +
   theme_doug()
 
 
-ggsave("Figure2.pdf")
+ggsave("Figure2.png")
 
 ```

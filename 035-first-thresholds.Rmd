@@ -65,7 +65,7 @@ ggplot(testinfo, aes(theta, info, group=test, color=test)) +
 #### Figure S3: Difference in measurement error between dichotomous and polytomous outcomes
 
 ```{r}
-fscores.dich.drs <- getSavedata_Data("cfa-drs-2.out") %>%
+fscores.dich.drs <- getSavedata_Data("cfa-drs-2-1-2pl.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
   rename(f.dich.drs = f,

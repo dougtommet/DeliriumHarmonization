@@ -31,11 +31,11 @@ model.drs.1 <- " f by  rdrs01* rdrs02 rdrs07 rdrs08 rdrs09 rdrs10 rdrs11 ;
                f @1; "
 cfa.drs.1.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.drs.1,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
+  usevariables = c("recordid", "studyidnum", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
                    "rdrs09", "rdrs10", "rdrs11"),
   rdata = basil2
 )
@@ -80,11 +80,11 @@ model.drs.2 <- paste(model.drs.2, "\n", drs.varlist.collapsed)
 
 cfa.drs.2.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.drs.2,
   OUTPUT = "",
   SAVEDATA = "save = fscores; file = fscores-drs.dat;",
-  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
+  usevariables = c("recordid", "studyidnum", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
                    "rdrs09", "rdrs10", "rdrs11", "rdrs03", 
                    "rdrs04", "rdrs05", "rdrs06", "rdrs12", "rdrs13"),
   rdata = basil2)
@@ -103,11 +103,11 @@ model.drs.1.3pl <- " f by  rdrs01* rdrs02 rdrs07 rdrs08 rdrs09 rdrs10 rdrs11 ;
 "
 cfa.drs.1.3pl.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all (3pl);",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all (3pl);",
   MODEL = model.drs.1.3pl,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
+  usevariables = c("recordid", "studyidnum", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
                    "rdrs09", "rdrs10", "rdrs11"),
   rdata = basil2
 )
@@ -153,11 +153,11 @@ model.drs.2.3pl <- paste(model.drs.2.3pl, "\n", drs.varlist.collapsed)
 
 cfa.drs.2.3pl.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all (3pl);",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all (3pl);",
   MODEL = model.drs.2.3pl,
   OUTPUT = "",
   SAVEDATA = "save = fscores; file = fscores-drs.dat;",
-  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08",
+  usevariables = c("recordid", "studyidnum", "rdrs01", "rdrs02", "rdrs07", "rdrs08",
                    "rdrs09", "rdrs10", "rdrs11", "rdrs03",
                    "rdrs04", "rdrs05", "rdrs06", "rdrs12", "rdrs13"),
   rdata = basil2)
@@ -169,11 +169,11 @@ cfa.drs.2.3pl.fit <- mplusModeler(cfa.drs.2.3pl.body,
 ### WLSMV model for fit statistics
 cfa.drs.wlsmv.1.body <- mplusObject(
   ANALYSIS = "estimator = wlsmv; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.drs.1,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
+  usevariables = c("recordid", "studyidnum", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
                    "rdrs09", "rdrs10", "rdrs11"),
   rdata = basil2
 )
@@ -219,11 +219,11 @@ model.drs.2 <- paste(model.drs.2, "\n", drs.varlist.collapsed)
 
 cfa.drs.wlsmv.2.body <- mplusObject(
   ANALYSIS = "estimator = wlsmv; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.drs.2,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
+  usevariables = c("recordid", "studyidnum", "rdrs01", "rdrs02", "rdrs07", "rdrs08", 
                    "rdrs09", "rdrs10", "rdrs11", "rdrs03", 
                    "rdrs04", "rdrs05", "rdrs06", "rdrs12", "rdrs13"),
   rdata = basil2)
@@ -274,11 +274,11 @@ model.mdas.1 <- "f by rmdas10* rmdas07 rmdas09 rmdas02 rmdas04 rmdas05 rmdas03 ;
                f @1; "
 cfa.mdas.1.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.mdas.1,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
+  usevariables = c("recordid", "studyidnum", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
                    "rmdas07", "rmdas09", "rmdas10"),
   rdata = basil2
 )
@@ -323,11 +323,11 @@ model.mdas.2 <- paste(model.mdas.2, "\n", mdas.varlist.collapsed)
 
 cfa.mdas.2.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.mdas.2,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rmdas01", "rmdas02", "rmdas03", 
+  usevariables = c("recordid", "studyidnum", "rmdas01", "rmdas02", "rmdas03", 
                    "rmdas04", "rmdas05", "rmdas06", "rmdas07", 
                    "rmdas08", "rmdas09", "rmdas10"),
   rdata = basil2)
@@ -347,11 +347,11 @@ model.mdas.1.3pl <- "f by rmdas02* rmdas03 rmdas04 rmdas05  rmdas07 rmdas09 rmda
                a1-a7 ~ N(1.386, 1);"
 cfa.mdas.1.3pl.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all (3pl);",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all (3pl);",
   MODEL = model.mdas.1.3pl,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
+  usevariables = c("recordid", "studyidnum", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
                    "rmdas07", "rmdas09", "rmdas10"),
   rdata = basil2
 )
@@ -397,11 +397,11 @@ model.mdas.2.3pl <- paste(model.mdas.2.3pl, "\n", mdas.varlist.collapsed)
 
 cfa.mdas.2.3pl.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all (3pl);",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all (3pl);",
   MODEL = model.mdas.2.3pl,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rmdas01", "rmdas02", "rmdas03", 
+  usevariables = c("recordid", "studyidnum", "rmdas01", "rmdas02", "rmdas03", 
                    "rmdas04", "rmdas05", "rmdas06", "rmdas07", 
                    "rmdas08", "rmdas09", "rmdas10"),
   rdata = basil2)
@@ -415,11 +415,11 @@ cfa.mdas.2.3pl.fit <- mplusModeler(cfa.mdas.2.3pl.body,
 ### WLSMV model for fit statistics
 cfa.mdas.wlsmv.1.body <- mplusObject(
   ANALYSIS = "estimator = wlsmv; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.mdas.1,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
+  usevariables = c("recordid", "studyidnum", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
                    "rmdas07", "rmdas09", "rmdas10"),
   rdata = basil2
 )
@@ -464,11 +464,11 @@ model.mdas.2 <- paste(model.mdas.2, "\n", mdas.varlist.collapsed)
 
 cfa.mdas.wlsmv.2.body <- mplusObject(
   ANALYSIS = "estimator = wlsmv; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.mdas.2,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rmdas01", "rmdas02", "rmdas03", 
+  usevariables = c("recordid", "studyidnum", "rmdas01", "rmdas02", "rmdas03", 
                    "rmdas04", "rmdas05", "rmdas06", "rmdas07", 
                    "rmdas08", "rmdas09", "rmdas10"),
   rdata = basil2)
@@ -520,11 +520,11 @@ model.cam.1 <- "f by rcamlf9a* rcamlf7a rcamlf8a rcamlf8d rcamlf5a rcamlf2a rcam
                f @1; "
 cfa.cam.1.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.cam.1,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rcamlf2a", "rcamlf5a",
+  usevariables = c("recordid", "studyidnum", "rcamlf2a", "rcamlf5a",
                    "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
                    "rcamlf9a"),
   rdata = basil2
@@ -570,11 +570,11 @@ model.cam.2 <- paste(model.cam.2, "\n", cam.varlist.collapsed)
 
 cfa.cam.2.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.cam.2,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rcamlf1a", "rcamlf2a", "rcamlf3a", 
+  usevariables = c("recordid", "studyidnum", "rcamlf1a", "rcamlf2a", "rcamlf3a", 
                    "rcamlf4a", "rcamlf5a",
                    "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
                    "rcamlf9a"),
@@ -594,11 +594,11 @@ model.cam.1.3pl <- "f by rcamlf9a* rcamlf7a rcamlf8a rcamlf8d rcamlf5a rcamlf2a 
                a1-a7 ~ N(1.386, 1);"
 cfa.cam.1.3pl.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all (3pl);",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all (3pl);",
   MODEL = model.cam.1.3pl,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rcamlf2a", "rcamlf5a",
+  usevariables = c("recordid", "studyidnum", "rcamlf2a", "rcamlf5a",
                    "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
                    "rcamlf9a"),
   rdata = basil2
@@ -645,11 +645,11 @@ model.cam.2.3pl <- paste(model.cam.2.3pl, "\n", cam.varlist.collapsed)
 
 cfa.cam.2.3pl.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all (3pl);",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all (3pl);",
   MODEL = model.cam.2.3pl,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rcamlf1a", "rcamlf2a", "rcamlf3a", 
+  usevariables = c("recordid", "studyidnum", "rcamlf1a", "rcamlf2a", "rcamlf3a", 
                    "rcamlf4a", "rcamlf5a",
                    "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
                    "rcamlf9a"),
@@ -665,11 +665,11 @@ cfa.cam.2.3pl.fit <- mplusModeler(cfa.cam.2.3pl.body,
 ### WLSMV model for fit statistics
 cfa.cam.wlsmv.1.body <- mplusObject(
   ANALYSIS = "estimator = wlsmv; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.cam.1,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rcamlf2a", "rcamlf5a",
+  usevariables = c("recordid", "studyidnum", "rcamlf2a", "rcamlf5a",
                    "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
                    "rcamlf9a"),
   rdata = basil2
@@ -715,11 +715,11 @@ model.cam.2 <- paste(model.cam.2, "\n", cam.varlist.collapsed)
 
 cfa.cam.wlsmv.2.body <- mplusObject(
   ANALYSIS = "estimator = wlsmv; type=complex;",
-  VARIABLE = "cluster = recordid; CATEGORICAL ARE all;",
+  VARIABLE = "idvariable = recordid; cluster = studyidnum; CATEGORICAL ARE all;",
   MODEL = model.cam.2,
   OUTPUT = "",
   SAVEDATA = "",
-  usevariables = c("recordid", "rcamlf1a", "rcamlf2a", "rcamlf3a", 
+  usevariables = c("recordid", "studyidnum", "rcamlf1a", "rcamlf2a", "rcamlf3a", 
                    "rcamlf4a", "rcamlf5a",
                    "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d",   
                    "rcamlf9a"),

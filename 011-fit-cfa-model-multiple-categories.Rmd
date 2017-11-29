@@ -97,7 +97,7 @@ basil3 %>%
 ```{r}
 ### 2PL model
 
-param <- readModels("cfa-drs-2.out")$parameters$unstandardized
+param <- readModels("cfa-drs-2-1-2pl.out")$parameters$unstandardized
 mc.param <- param %>%
   filter(paramHeader=="F.BY" | 
          paramHeader=="Thresholds" |
@@ -185,7 +185,7 @@ drs.par.poly %>%
 ```{r}
 ### 2PL model
 
-param <- readModels("cfa-mdas-2.out")$parameters$unstandardized
+param <- readModels("cfa-mdas-2-1-2pl.out")$parameters$unstandardized
 mc.param <- param %>%
   filter(paramHeader=="F.BY" | 
          paramHeader=="Thresholds" |
@@ -273,7 +273,7 @@ mdas.par.poly %>%
 ```{r}
 ### 2PL model
 
-param <- readModels("cfa-cam-2.out")$parameters$unstandardized
+param <- readModels("cfa-cam-2-1-2pl.out")$parameters$unstandardized
 mc.param <- param %>%
   filter(paramHeader=="F.BY" | 
          paramHeader=="Thresholds" |

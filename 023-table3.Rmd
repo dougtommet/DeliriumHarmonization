@@ -4,22 +4,22 @@
 ### Table 3
 ```{r}
 
-readModels("cfa-drs-wlsmv-1.out")$summaries %>%
+readModels("cfa-drs-1-1-wlsmv.out")$summaries %>%
   select(CFI, RMSEA_Estimate) %>%
   mutate(model = "DRS (Model using only common features)") %>%
-  bind_rows(readModels("cfa-drs-wlsmv-2.out")$summaries %>%
+  bind_rows(readModels("cfa-drs-2-1-wlsmv.out")$summaries %>%
   select(CFI, RMSEA_Estimate) %>%
   mutate(model = "DRS (Model using all features)")) %>%
-  bind_rows(readModels("cfa-mdas-wlsmv-1.out")$summaries %>%
+  bind_rows(readModels("cfa-mdas-1-1-wlsmv.out")$summaries %>%
   select(CFI, RMSEA_Estimate) %>%
   mutate(model = "MDAS (Model using only common features)")) %>%
-  bind_rows(readModels("cfa-mdas-wlsmv-2.out")$summaries %>%
+  bind_rows(readModels("cfa-mdas-2-1-wlsmv.out")$summaries %>%
   select(CFI, RMSEA_Estimate) %>%
   mutate(model = "MDAS (Model using all features)")) %>%
-  bind_rows(readModels("cfa-cam-wlsmv-1.out")$summaries %>%
+  bind_rows(readModels("cfa-cam-1-1-wlsmv.out")$summaries %>%
   select(CFI, RMSEA_Estimate) %>%
   mutate(model = "CAM-S (Model using only common features)")) %>%
-  bind_rows(readModels("cfa-cam-wlsmv-2.out")$summaries %>%
+  bind_rows(readModels("cfa-cam-2-1-wlsmv.out")$summaries %>%
   select(CFI, RMSEA_Estimate) %>%
   mutate(model = "CAM-S (Model using all features)")) %>%
   select(model, CFI, RMSEA_Estimate) %>%

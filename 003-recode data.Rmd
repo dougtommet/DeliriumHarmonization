@@ -4,9 +4,12 @@
 The items that were coded as Don't Know, Refused, Uncertain were set to missing, and the response options were reordered such that no symptoms were 0 and any symptoms were positive values.
 
 ```{r}
+basil$studyidnum <- basil %>%
+  group_indices(studyid)
 
 basil <- basil %>%
-  mutate(recordid = row_number(),
+  arrange(studyid, cvpg3a) %>% 
+  mutate(recordid = row_number(studyid),
          rdsi1 = recode(dsi1, "2=1; 1=2; 7=NA; 8=NA; 9=NA;"),
          rdsi1a = recode(dsi1a, "2=1; 1=2; 7=NA; 8=NA; 9=NA;"),
          rdsi2 = recode(dsi2, "2=1; 1=2; 7=NA; 8=NA; 9=NA;"),

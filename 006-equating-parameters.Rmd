@@ -3,75 +3,113 @@ Using the SNSequate package to equate item parameters.
 
 
 ```{r}
-drs.par.dich <- readModels("cfa-drs-2.out")$parameters$unstandardized
-
-drs.par.dich <- drs.par.dich %>%
-      filter(paramHeader=="F.BY" | 
-           paramHeader=="Thresholds") %>%
-    mutate(est = as.numeric(est),
-           item = ifelse(paramHeader=="Thresholds", 
-                        str_split_fixed(param, "\\$1", 2), param),
-           parameter = ifelse(paramHeader=="Thresholds", "T", "FL")) %>%
-    select(parameter, item, est) %>%
-    mutate_all(funs(tolower))
-  drs.par.dich <- drs.par.dich[1:26,1:3]
-  drs.par.dich$est <- as.numeric(drs.par.dich$est)
-  
-drs.par.dich <- drs.par.dich %>% 
-  spread(parameter, est) %>%
-  mutate(B.drs = t/fl,
-         A.drs = fl,
-         C.drs = 0,
-         itemnum = row_number()) %>%
-  select(item, itemnum, A.drs, B.drs, C.drs)
-      
-
-mdas.par.dich <- readModels("cfa-mdas-2.out")$parameters$unstandardized
-
-mdas.par.dich <- mdas.par.dich %>%
-      filter(paramHeader=="F.BY" | 
-           paramHeader=="Thresholds") %>%
-    mutate(est = as.numeric(est),
-           item = ifelse(paramHeader=="Thresholds", 
-                        str_split_fixed(param, "\\$1", 2), param),
-           parameter = ifelse(paramHeader=="Thresholds", "T", "FL")) %>%
-    select(parameter, item, est) %>%
-    mutate_all(funs(tolower))
-  mdas.par.dich <- mdas.par.dich[1:20,1:3]
-  mdas.par.dich$est <- as.numeric(mdas.par.dich$est)
-  
-mdas.par.dich <- mdas.par.dich %>% 
-  spread(parameter, est) %>%
-  mutate(B.mdas = t/fl,
-         A.mdas = fl,
-         C.mdas = 0) %>%
-  select(item, A.mdas, B.mdas, C.mdas)
-mdas.par.dich$itemnum <- c(14, 9, 11, 16, 17, 18, 2, 3, 21, 1)
-
-
-cam.par.dich <- readModels("cfa-cam-2.out")$parameters$unstandardized
-
-cam.par.dich <- cam.par.dich %>%
-      filter(paramHeader=="F.BY" | 
-           paramHeader=="Thresholds") %>%
-    mutate(est = as.numeric(est),
-           item = ifelse(paramHeader=="Thresholds", 
-                        str_split_fixed(param, "\\$1", 2), param),
-           parameter = ifelse(paramHeader=="Thresholds", "T", "FL")) %>%
-    select(parameter, item, est) %>%
-    mutate_all(funs(tolower))
-  cam.par.dich <- cam.par.dich[1:20,1:3]
-  cam.par.dich$est <- as.numeric(cam.par.dich$est)
-  
-cam.par.dich <- cam.par.dich %>% 
-  spread(parameter, est) %>%
-  mutate(B.cam = t/fl,
-         A.cam = fl,
-         C.cam = 0,
-         itemnum = row_number()) %>%
-  select(item, itemnum, A.cam, B.cam, C.cam)
-cam.par.dich$itemnum <- c(22, 10, 24, 25, 9, 26, 2, 7, 8, 1)
+# drs.par.dich <- readModels("cfa-drs-2-1-2pl.out")$parameters$unstandardized
+# 
+# drs.par.dich <- drs.par.dich %>%
+#       filter(paramHeader=="F.BY" | 
+#            paramHeader=="Thresholds") %>%
+#     mutate(est = as.numeric(est),
+#            item = ifelse(paramHeader=="Thresholds", 
+#                         str_split_fixed(param, "\\$1", 2), param),
+#            parameter = ifelse(paramHeader=="Thresholds", "T", "FL")) %>%
+#     select(parameter, item, est) %>%
+#     mutate_all(funs(tolower))
+#   drs.par.dich <- drs.par.dich[1:26,1:3]
+#   drs.par.dich$est <- as.numeric(drs.par.dich$est)
+#   
+# drs.par.dich <- drs.par.dich %>% 
+#   spread(parameter, est) %>%
+#   mutate(B.drs = t/fl,
+#          A.drs = fl,
+#          C.drs = 0,
+#          itemnum = row_number()) %>%
+#   select(item, itemnum, A.drs, B.drs, C.drs)
+#       
+# 
+# mdas.par.dich <- readModels("cfa-mdas-2-1-2pl.out")$parameters$unstandardized
+# 
+# mdas.par.dich <- mdas.par.dich %>%
+#       filter(paramHeader=="F.BY" | 
+#            paramHeader=="Thresholds") %>%
+#     mutate(est = as.numeric(est),
+#            item = ifelse(paramHeader=="Thresholds", 
+#                         str_split_fixed(param, "\\$1", 2), param),
+#            parameter = ifelse(paramHeader=="Thresholds", "T", "FL")) %>%
+#     select(parameter, item, est) %>%
+#     mutate_all(funs(tolower))
+#   mdas.par.dich <- mdas.par.dich[1:20,1:3]
+#   mdas.par.dich$est <- as.numeric(mdas.par.dich$est)
+#   
+# mdas.par.dich <- mdas.par.dich %>% 
+#   spread(parameter, est) %>%
+#   mutate(B.mdas = t/fl,
+#          A.mdas = fl,
+#          C.mdas = 0) %>%
+#   select(item, A.mdas, B.mdas, C.mdas)
+# mdas.par.dich$itemnum <- c(14, 9, 11, 16, 17, 18, 2, 3, 21, 1)
+# 
+# 
+# cam.par.dich <- readModels("cfa-cam-2-1-2pl.out")$parameters$unstandardized
+# 
+# cam.par.dich <- cam.par.dich %>%
+#       filter(paramHeader=="F.BY" | 
+#            paramHeader=="Thresholds") %>%
+#     mutate(est = as.numeric(est),
+#            item = ifelse(paramHeader=="Thresholds", 
+#                         str_split_fixed(param, "\\$1", 2), param),
+#            parameter = ifelse(paramHeader=="Thresholds", "T", "FL")) %>%
+#     select(parameter, item, est) %>%
+#     mutate_all(funs(tolower))
+#   cam.par.dich <- cam.par.dich[1:20,1:3]
+#   cam.par.dich$est <- as.numeric(cam.par.dich$est)
+#   
+# cam.par.dich <- cam.par.dich %>% 
+#   spread(parameter, est) %>%
+#   mutate(B.cam = t/fl,
+#          A.cam = fl,
+#          C.cam = 0,
+#          itemnum = row_number()) %>%
+#   select(item, itemnum, A.cam, B.cam, C.cam)
+# cam.par.dich$itemnum <- c(22, 10, 24, 25, 9, 26, 2, 7, 8, 1)
                      
+
+getIRTparam <- function(filename, instrument, itemnum) {
+  par.dich <- readModels(filename)$parameters$unstandardized
+
+  par.dich <- par.dich %>%
+    filter(paramHeader=="F.BY" | 
+           paramHeader=="Thresholds") %>%
+    mutate(est = as.numeric(est),
+           item = ifelse(paramHeader=="Thresholds", 
+                        str_split_fixed(param, "\\$1", 2), param),
+           parameter = ifelse(paramHeader=="Thresholds", "T", "FL")) %>%
+    select(parameter, item, est) %>%
+    mutate_all(funs(tolower))
+
+  par.dich$est <- as.numeric(par.dich$est)
+  
+  
+  par.dich <- par.dich %>% 
+    spread(parameter, est) %>%
+    mutate(B = t/fl,
+           A = fl,
+           C = 0) %>%
+    select(item, A, B, C)
+  par.dich$itemnum <- itemnum
+  
+  par.names <- c("item", paste0("A.", instrument), paste0("B.", instrument), paste0("C.", instrument), "itemnum")
+  names(par.dich) <- par.names
+  
+  return(par.dich)
+}
+
+drs.par.dich <- getIRTparam("cfa-drs-2-1-2pl.out", "drs", 1:13)
+mdas.par.dich <- getIRTparam("cfa-mdas-2-1-2pl.out", "mdas", c(14, 9, 11, 16, 17, 18, 2, 3, 21, 1))
+cam.par.dich <- getIRTparam("cfa-cam-2-1-2pl.out", "cam", c(22, 10, 24, 25, 9, 26, 2, 7, 8, 1))
+
+
+
+
 ```
 ### DRS item parameters
 ```{r}

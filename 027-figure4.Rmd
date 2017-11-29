@@ -31,6 +31,6 @@ ggplot(testscore, aes(theta, score, group=test, color=test)) +
   ggtitle("Test Characteristic Curves")  +
   theme_doug()
 
-ggsave("Figure4.pdf")
+ggsave("Figure4.png")
 
 ```
