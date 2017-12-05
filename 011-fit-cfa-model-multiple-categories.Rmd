@@ -130,7 +130,7 @@ for (i in 1:dim(mc.param)[1]) {
 
 goo <- paste(paste0("[[f", 1:dim(mc.param)[1], "s]];"), collapse = " \n ")
 model.drs.3 <- loopReplace(goo, myParam)
-model.drs.3 <- paste(model.drs.3, "\n", "[rdrs06$2*5];")
+model.drs.3 <- paste(model.drs.3, "\n", "[rdrs06$2*5];", "\n", "[rdrs02$2*2.5];")
 
 cfa.drs.3.body <- mplusObject(
   ANALYSIS = "estimator = mlr; link=logit; type=complex;",
@@ -185,7 +185,7 @@ drs.par.poly %>%
 ```{r}
 ### 2PL model
 
-param <- readModels("cfa-mdas-2-1-2pl.out")$parameters$unstandardized
+param <- readModels("cfa-mdas-link-1.out")$parameters$unstandardized
 mc.param <- param %>%
   filter(paramHeader=="F.BY" | 
          paramHeader=="Thresholds" |
@@ -273,7 +273,7 @@ mdas.par.poly %>%
 ```{r}
 ### 2PL model
 
-param <- readModels("cfa-cam-2-1-2pl.out")$parameters$unstandardized
+param <- readModels("cfa-cam-link-1.out")$parameters$unstandardized
 mc.param <- param %>%
   filter(paramHeader=="F.BY" | 
          paramHeader=="Thresholds" |

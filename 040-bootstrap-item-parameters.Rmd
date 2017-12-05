@@ -1,0 +1,176 @@
+
+## Sensitivity analysis for the non-independence of observations
+This sensitivity analysis addresses concerns of the non-independence of multiple observations across subjects.  In this analysis we randomly sampled one observation for each subject and then refit the first two CFA models.  This was repeated 100 times.  The parameter estimates from the n=1178 observations are then compared to this bootstrap-like distribution of parameter estimates.
+
+```{r}
+index_list <- 1:100
+sim_list<- list()
+
+nested_basil2 <- basil2 %>%
+    group_by(studyidnum) %>%   
+    nest() %>%              
+    mutate(n = 1)
+
+for (i in index_list) {
+  sim_list[[i]] <- nested_basil2 %>%
+    mutate(samp = map2(data, n, sample_n)) %>% 
+    select(studyidnum, samp) %>%
+    unnest()
+  
+}
+
+
+# foo <- split(basil2, basil2$studyid)
+# df2 <- lapply(split(df, df$color),
+#    function(subdf) subdf[sample(1:nrow(subdf), 3),]
+# )
+# 
+# df2 <- map(foo, function(subdf) subdf[sample(1:nrow(subdf), 1),])
+
+
+# df1 <- basil2 %>% group_by(studyid) %>% sample_n(1) %>% ungroup()
+# df2 <- basil2 %>% group_by(studyid) %>% sample_n(1) %>% ungroup()
+# df3 <- basil2 %>% group_by(studyid) %>% sample_n(1) %>% ungroup()
+# sim_list <- list(df1, df2, df3)
+
+
+
+# for (i in index_list) {
+#   sim_list[[i]] <- basil2 %>% group_by(studyid) %>% sample_n(1) %>% ungroup()
+#   
+# }
+
+
+
+### Fit a 2PL model
+foo<- map2(sim_list, index_list, fit.2pl, 
+           instrument = "drs-boot", 
+           modeltype = "2pl",
+           use.variables1 = use.variables1.drs,
+           use.variables2 = use.variables2.drs,
+           st.analysis = mplus.analysis.2pl,
+           st.variable = mplus.variable,
+           savefscores = FALSE)
+
+## MDAS
+# use.variables1.mdas <- c("recordid", "studyidnum", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
+#                         "rmdas07", "rmdas09", "rmdas10")
+# use.variables2.mdas <- c("rmdas01", "rmdas06", "rmdas08")
+
+### Fit a 2PL model
+foo<- map2(sim_list, index_list, fit.2pl, 
+           instrument = "mdas-boot", 
+           modeltype = "2pl",
+           use.variables1 = use.variables1.mdas,
+           use.variables2 = use.variables2.mdas,
+           st.analysis = mplus.analysis.2pl,
+           st.variable = mplus.variable,
+           savefscores = FALSE)
+
+## CAM
+# use.variables1.cam <- c("recordid", "studyidnum", "rcamlf2a", "rcamlf5a", "rcamlf6a", 
+#                         "rcamlf7a", "rcamlf8a", "rcamlf8d", "rcamlf9a")
+# use.variables2.cam <- c("rcamlf1a", "rcamlf3a", "rcamlf4a")
+
+### Fit a 2PL model
+foo<- map2(sim_list, index_list, fit.2pl, 
+           instrument = "cam-boot", 
+           modeltype = "2pl",
+           use.variables1 = use.variables1.cam,
+           use.variables2 = use.variables2.cam,
+           st.analysis = mplus.analysis.2pl,
+           st.variable = mplus.variable,
+           savefscores = FALSE)
+```
+
+```{r}
+
+bootSummaryTable <- function(boot.df, param.df, instrument.name, par, par.name){
+  
+  foo <- boot.df[, c("item", paste(par))]
+  colnames(foo) <- c("item", "par")
+  summary.table <- foo %>%
+    group_by(item) %>%
+    summarize(A.mean = mean(par),
+              A.sd   = sd(par),
+              A.0    = quantile(par, 0),
+              A.25   = quantile(par, 0.25),
+              A.50   = quantile(par, 0.50),
+              A.75   = quantile(par, 0.75),
+              A.100  = quantile(par, 1))
+  
+  param.df[, c("item", paste(par))] %>%
+    left_join(summary.table, by = "item") %>%
+    kable(caption = paste("Summary of", par.name, "parameters for the", instrument.name),
+          col.names= c("Item", "Full sample parameter estimate", "Mean", "SD", "Min", "p25", "Median", "p75", "Max"),
+          digits = c(0, 2, rep(2, 7))) %>%
+    column_spec(2, width = "10em")
+  
+}
+
+bootSummaryPlot <- function(boot.df, param.df, instrument.name, par, par.name, ylim){
+  ggplot(boot.df, aes_string(x = "item", y = par)) + 
+  geom_boxplot() +
+  coord_cartesian(ylim = ylim) +
+  geom_point(data = param.df, aes_string(x = "item", y = par), color="red", size=2) +
+  labs(x = "Item", 
+       y = paste(par.name, "parameter"), 
+       title = paste("Summary plot of", par.name, "parameters for", instrument.name))
+
+  
+}
+
+
+```
+
+```{r}
+
+
+files.drs <- list.files(pattern = "drs-boot-2-([0-9]|[0-9][0-9]|[0-9][0-9][0-9])-2pl.out") 
+dat2.drs <- map(files.drs, getIRTparam, "drs", 1:13)
+dat2DF.drs <- map2_df(dat2.drs, files.drs, ~update_list(.x, file = .y))
+
+### Summary tables for DRS
+bootSummaryTable(dat2DF.drs, drs.par.dich, "DRS", "A.drs")
+bootSummaryTable(dat2DF.drs, drs.par.dich, "DRS", "B.drs")
+
+### Summary plots for DRS
+bootSummaryPlot(dat2DF.drs, drs.par.dich, "DRS", "A.drs", "A", c(0, 7))
+bootSummaryPlot(dat2DF.drs, drs.par.dich, "DRS", "B.drs", "B", c(-2, 8))
+
+
+```
+
+```{r}
+
+files.mdas <- list.files(pattern = "mdas-boot-2-([0-9]|[0-9][0-9]|[0-9][0-9][0-9])-2pl.out") 
+dat2.mdas <- map(files.mdas, getIRTparam, "mdas", c(14, 9, 11, 16, 17, 18, 2, 3, 21, 1))
+dat2DF.mdas <- map2_df(dat2.mdas, files.mdas, ~update_list(.x, file = .y))
+
+### Summary tables for MDAS
+bootSummaryTable(dat2DF.mdas, mdas.par.dich, "MDAS", "A.mdas")
+bootSummaryTable(dat2DF.mdas, mdas.par.dich, "MDAS", "B.mdas")
+ 
+### Summary plots for MDAS
+bootSummaryPlot(dat2DF.mdas, mdas.par.dich, "MDAS", "A.mdas", "A", c(0, 7))
+bootSummaryPlot(dat2DF.mdas, mdas.par.dich, "MDAS", "B.mdas", "B", c(-2, 8))
+
+
+```
+
+```{r}
+
+files.cam <- list.files(pattern = "cam-boot-2-([0-9]|[0-9][0-9]|[0-9][0-9][0-9])-2pl.out") 
+dat2.cam <- map(files.cam, getIRTparam, "cam", c(22, 10, 24, 25, 9, 26, 2, 7, 8, 1))
+dat2DF.cam <- map2_df(dat2.cam, files.cam, ~update_list(.x, file = .y))
+
+### Summary tables for CAM
+bootSummaryTable(dat2DF.cam, cam.par.dich, "CAM", "A.cam")
+bootSummaryTable(dat2DF.cam, cam.par.dich, "CAM", "B.cam")
+
+### Summary plots for CAM
+bootSummaryPlot(dat2DF.cam, cam.par.dich, "CAM", "A.cam", "A", c(0, 7))
+bootSummaryPlot(dat2DF.cam, cam.par.dich, "CAM", "B.cam", "B", c(-2, 8))
+
+
+```

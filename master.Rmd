@@ -101,7 +101,7 @@ This section contains tables/figures for the appendix.
  
 ```
 
-```{r, child="040-bootstrap-item-parameters.Rmd"}
+```{r, child="040-bootstrap-item-parameters.Rmd", eval=TRUE}
  
 ```
 
