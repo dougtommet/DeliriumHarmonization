@@ -94,4 +94,53 @@ item.parameter.table <- function(filename, nitems) {
 ```
 
 
+```{r}
+item.parameter.df.poly <- function(filename, maxThresh, instrument.name) {
+  param <- readModels(filename)$parameters$unstandardized
+  
+  mc.param <- param %>%
+    filter(paramHeader=="F.BY" | 
+           paramHeader=="Thresholds") %>%
+    separate(param, c("item", "cat"), "\\$", fill="right", 
+           remove=FALSE, convert=TRUE) %>%
+    mutate(parameter = ifelse(paramHeader=="F.BY", "FL", paste0("T", cat))) %>%
+    select(parameter, item, est) %>%
+    mutate_all(funs(tolower))
+  
+  mc.param$est <- as.numeric(mc.param$est)
+
+  mc.param <- mc.param %>%
+    spread(parameter, est) 
+  
+  mc.param[[paste0("A.", instrument.name)]] <- mc.param$fl
+  for(i in 1:maxThresh) {
+    mc.param[[paste0("B",i, ".", instrument.name)]] <- mc.param[[paste0("t",i)]]/mc.param[["fl"]]
+  }
+  mc.param <- mc.param %>%
+    mutate(itemnum = row_number())
+  
+  mc.param %>%
+    select(item, itemnum, starts_with("A"), starts_with("B"))
+ 
+}
+
+item.parameter.table.poly <- function(df, maxThresh, instrument.name) {
+  if(maxThresh>1) {
+    outcome.type <- "polytomous"
+  } 
+  else {
+    outcome.type <- "dichotomous"
+  }
+  df %>%
+    select(item, starts_with("A"), starts_with("B")) %>%
+    kable(digits = 2, 
+          col.names = c("Item", "A", paste0("B", 1:maxThresh)),
+          caption = paste("Item parameters for", instrument.name, "with", outcome.type, "outcomes")) %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
+}
+
+```
+
+
 

@@ -3,20 +3,20 @@
 
 ```{r, fig.height=10}
 
- 
+
 ## Data for thresholds  
 foo.drs<-  drs.par.poly %>%
   gather(B, est, 4:6) %>%
   arrange(itemnum, B) %>%
   rename(A = A.drs) %>%
-  mutate(gr.order = recode(itemnum, "1=1; 10=2; 12=3; 11=4; 9=7; 6=8; 5=9; 13=10; 2=12; 7=14; 8=15; 3=16; 4=17;"),
+  mutate(gr.order = recode(itemnum, "1=1; 10=2; 12=3; 11=4; 9=7; 6=8; 5=9; 13=10; 2=12; 7=15; 8=16; 3=13; 4=17;"),
          test = "DRS") 
 
 foo.mdas<-  mdas.par.poly %>%
   gather(B, est, 4:6) %>%
   arrange(itemnum, B) %>%
   rename(A = A.mdas) %>%
-  mutate(gr.order = recode(itemnum, "10=1; 5=2; 3=4; 4=5; 2=7; 6=8; 1=11; 7=12; 9=13; 8=16;"),
+  mutate(gr.order = recode(itemnum, "10=1; 5=2; 3=4; 4=5; 2=7; 6=8; 1=11; 7=12; 9=14; 8=13;"),
          gr.order = gr.order+.25,
          test = "MDAS",
          itemnum = itemnum+20) 
@@ -25,7 +25,7 @@ foo.cam<-  cam.par.poly %>%
   gather(B, est, 4:5) %>%
   arrange(itemnum, B) %>%
   rename(A = A.cam) %>%
-  mutate(gr.order = recode(itemnum, "10=1; 2=2; 6=4; 1=6; 5=7; 3=8; 4=11; 7=12; 8=14; 9=15;"),
+  mutate(gr.order = recode(itemnum, "10=1; 2=2; 6=4; 1=6; 5=7; 3=8; 4=11; 7=12; 8=15; 9=16;"),
          gr.order = gr.order+.5,
          test = "CAM",
          itemnum = itemnum+30) 
@@ -33,17 +33,17 @@ foo.cam<-  cam.par.poly %>%
 
 ## Data for rug plots
 ## (using geom_point instead of geom_rug so that the instruments can be on their own line.)
-fscores.drs <- getSavedata_Data("cfa-drs-3.out") %>%
+fscores.drs <- getSavedata_Data("cfa-drs-3-1.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(DRS = f)
 
-fscores.mdas <- getSavedata_Data("cfa-mdas-3.out") %>%
+fscores.mdas <- getSavedata_Data("cfa-mdas-3-1.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(MDAS = f)
 
-fscores.cam <- getSavedata_Data("cfa-cam-3.out") %>%
+fscores.cam <- getSavedata_Data("cfa-cam-3-1.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(CAM = f)
@@ -63,12 +63,12 @@ pos2 <- 8.1
 labsize <- 2
 d1.loc <- 10
 d2.loc <- 120
-d3.loc <- 160
+d3.loc <- 130
 d4.loc <- 170
 d5.loc <- 90
 d6.loc <- 80
-d7.loc <- 140
-d8.loc <- 150
+d7.loc <- 150
+d8.loc <- 160
 d9.loc <- 70
 d10.loc <- 20
 d11.loc <- 40
@@ -81,8 +81,8 @@ m4.loc <- 52.5
 m5.loc <- 22.5
 m6.loc <- 82.5
 m7.loc <- 122.5
-m8.loc <- 162.5
-m9.loc <- 132.5
+m8.loc <- 132.5
+m9.loc <- 142.5
 m10.loc <- 12.5
 c1.loc <- 65
 c2.loc <- 25
@@ -91,8 +91,8 @@ c4.loc <- 115
 c5.loc <- 75
 c6.loc <- 45
 c7.loc <- 125
-c8.loc <- 145
-c9.loc <- 155
+c8.loc <- 155
+c9.loc <- 165
 c10.loc <- 15
 sleep.loc <- mean(c(d1.loc, m10.loc, c10.loc))
 attention.loc <- mean(c(d10.loc, m5.loc, c2.loc))

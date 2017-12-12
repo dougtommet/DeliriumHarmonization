@@ -6,12 +6,12 @@ fscores.drs <- getSavedata_Data("cfa-drs-2-1-2pl.out") %>%
   select(recordid, f) %>%
   rename(f.drs = f)
 
-fscores.mdas <- getSavedata_Data("cfa-mdas-link.out") %>%
+fscores.mdas <- getSavedata_Data("cfa-mdas-link-1.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(f.mdas = f)
 
-fscores.cam <- getSavedata_Data("cfa-cam-link.out") %>%
+fscores.cam <- getSavedata_Data("cfa-cam-link-1.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(f.cam = f)

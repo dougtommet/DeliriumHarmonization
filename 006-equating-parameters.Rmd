@@ -116,39 +116,27 @@ cam.par.dich <- getIRTparam("cfa-cam-2-1-2pl.out", "cam", c(22, 10, 6, 25, 9, 26
 
 
 ```
-```{r} 
-item.parameter.table2 <- function(param.table, instrument.name){
-  foo <- param.table %>%
-    select(-starts_with("C"), -itemnum) 
-  
-  colnames(foo) <- c("item", "A", "B")
-  
-  foo %>%
-    arrange(desc(A)) %>%
-    kable(digits=2,
-          col.names = c("Item", "A", "B"),
-          caption = paste("Item parameters for", instrument.name)) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                  full_width = F, position = "center")
-  
-}
 
-
-```
 
 ### DRS item parameters
 ```{r}
-item.parameter.table2(drs.par.dich, "DRS")
+drs.par.foo <- item.parameter.df.poly("cfa-drs-2-1-2pl.out", 1, "drs")
+item.parameter.table.poly(drs.par.foo, 1, "DRS")
+
 ```
 
 ### MDAS item parameters
 ```{r}
-item.parameter.table2(mdas.par.dich, "MDAS")
+mdas.par.foo <- item.parameter.df.poly("cfa-mdas-2-1-2pl.out", 1, "mdas")
+item.parameter.table.poly(mdas.par.foo, 1, "MDAS")
+
 ```
 
 ### CAM-S item parameters
 ```{r}
-item.parameter.table2(cam.par.dich, "CAM")
+cam.par.foo <- item.parameter.df.poly("cfa-cam-2-1-2pl.out", 1, "cam")
+item.parameter.table.poly(cam.par.foo, 1, "CAM")
+
 ```
 
 

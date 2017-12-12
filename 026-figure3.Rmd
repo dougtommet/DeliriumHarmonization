@@ -1,13 +1,121 @@
-
-
-
-
-
-
-### Figure 3
 ```{r}
-# basil <- basil %>%
-#   select("vddrs", "vdmdas", "vdcamseveritylf")
+myScatterPlot <- function(df, x, y, cor.text, 
+                          xlim = c(-2, 4), xbreaks = seq(-2, 4, by = 1), 
+                          ylim = c(-2, 4), ybreaks= seq(-2, 4, by = 1),  
+                          points=TRUE,
+                          xtext = 2, ytext = -1){
+  plot <- ggplot(df, aes_string(x = x , y = y)) +
+    scale_x_continuous(limits = xlim, breaks = xbreaks) +
+    scale_y_continuous(limits = ylim, breaks = ybreaks) +
+    theme_doug()
+  
+  if(points==TRUE) {
+    plot <- plot +
+      geom_point() +
+      annotate("text", x = xtext, y = ytext, hjust = 0, label = cor.text)
+  }
+  plot
+}
+
+```
+### Figure 3
+
+```{r}
+fscores.poly.drs <- getSavedata_Data("cfa-drs-3-1.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f, f_se) %>%
+  rename(f.poly.drs = f,
+         f_se.poly.drs = f_se)
+
+fscores.poly.mdas <- getSavedata_Data("cfa-mdas-3-1.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f, f_se) %>%
+  rename(f.poly.mdas = f,
+         f_se.poly.mdas = f_se)
+
+fscores.poly.camlf <- getSavedata_Data("cfa-cam-3-1.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f, f_se) %>%
+  rename(f.poly.camlf = f,
+         f_se.poly.camlf = f_se)
+
+fscores.poly.camsf <- getSavedata_Data("cfa-camsf-3-1.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f, f_se) %>%
+  rename(f.poly.camsf = f,
+         f_se.poly.camsf = f_se)
+
+fscores <- fscores.poly.drs %>%
+  left_join(fscores.poly.mdas, by = "recordid") %>%
+  left_join(fscores.poly.camlf, by = "recordid") %>%
+  left_join(fscores.poly.camsf, by = "recordid")
+
+cor.drs.mdas    <- with(fscores, cor(f.poly.drs, f.poly.mdas, use="complete.obs"))
+cor.drs.camlf   <- with(fscores, cor(f.poly.drs, f.poly.camlf, use="complete.obs"))
+cor.drs.camsf   <- with(fscores, cor(f.poly.drs, f.poly.camsf, use="complete.obs"))
+cor.camlf.mdas  <- with(fscores, cor(f.poly.camlf, f.poly.mdas, use="complete.obs"))
+cor.camsf.mdas  <- with(fscores, cor(f.poly.camsf, f.poly.mdas, use="complete.obs"))
+cor.camsf.camlf <- with(fscores, cor(f.poly.camlf, f.poly.camsf, use="complete.obs"))
+text.drs.mdas    <- paste("r = ", round(cor.drs.mdas, 2))
+text.drs.camlf   <- paste("r = ", round(cor.drs.camlf, 2))
+text.drs.camsf   <- paste("r = ", round(cor.drs.camsf, 2))
+text.camlf.mdas  <- paste("r = ", round(cor.camlf.mdas, 2))
+text.camsf.mdas  <- paste("r = ", round(cor.camsf.mdas, 2))
+text.camsf.camlf <- paste("r = ", round(cor.camsf.camlf, 2))
+
+
+
+plot1 <- myScatterPlot(fscores, "f.poly.drs", "f.poly.drs", points = FALSE)
+plot2 <- myScatterPlot(fscores, "f.poly.mdas", "f.poly.drs", text.drs.mdas)
+plot3 <- myScatterPlot(fscores, "f.poly.camlf", "f.poly.drs", text.drs.camlf)
+plot4 <- myScatterPlot(fscores, "f.poly.camsf", "f.poly.drs", text.drs.camsf)
+
+plot5 <- myScatterPlot(fscores, "f.poly.drs", "f.poly.mdas", text.drs.mdas)
+plot6 <- myScatterPlot(fscores, "f.poly.mdas", "f.poly.mdas", points = FALSE)
+plot7 <- myScatterPlot(fscores, "f.poly.camlf", "f.poly.mdas", text.camlf.mdas)
+plot8 <- myScatterPlot(fscores, "f.poly.camsf", "f.poly.mdas", text.camsf.mdas)
+
+plot9  <- myScatterPlot(fscores, "f.poly.drs", "f.poly.camlf", text.drs.camlf)
+plot10 <- myScatterPlot(fscores, "f.poly.mdas", "f.poly.camlf", text.camlf.mdas)
+plot11 <- myScatterPlot(fscores, "f.poly.camlf", "f.poly.camlf", points = FALSE)
+plot12 <- myScatterPlot(fscores, "f.poly.camsf", "f.poly.camlf", text.camsf.camlf)
+
+plot13 <- myScatterPlot(fscores, "f.poly.drs", "f.poly.camsf", text.drs.camsf)
+plot14 <- myScatterPlot(fscores, "f.poly.mdas", "f.poly.camsf", text.camsf.mdas)
+plot15 <- myScatterPlot(fscores, "f.poly.camlf", "f.poly.camsf", text.camsf.camlf)
+plot16 <- myScatterPlot(fscores, "f.poly.camsf", "f.poly.camsf", points = FALSE)
+
+plot1 <- ggplot(basil, aes(x = vddrs , y = vddrs)) +
+  theme(panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+plot2 <- plot1
+plot3 <- plot1
+plot4 <- plot1
+plot6 <- plot1
+plot7 <- plot1
+plot8 <- plot1
+plot11 <- plot1
+plot12 <- plot1
+plot16 <- plot1
+
+ggmatrix(list(plot5,  plot6,  plot7,   
+              plot9,  plot10, plot11, 
+              plot13, plot14, plot15), 
+         nrow = 3, ncol = 3,
+         xAxisLabels = c("DRS", "MDAS", "CAM-S LF"), 
+         yAxisLabels = c("MDAS", "CAM-S LF", "CAM-S SF")) 
+
+ggsave("Figure3.png")
+
+```
+
+
+
+
+
+
+```{r, eval = FALSE}
 
 drs.lim <- c(0, 30)
 drs.seq <- seq(0, 30, by = 5)
@@ -30,99 +138,41 @@ text.camlf.mdas <- paste("r = ", round(cor.camlf.mdas, 2))
 text.camsf.mdas <- paste("r = ", round(cor.camsf.mdas, 2))
 text.camsf.camlf <- paste("r = ", sprintf("%.2f", round(cor.camsf.camlf, 2)))
 
-plot1 <- ggplot(basil, aes(x = vddrs , y = vddrs)) +
-  scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
-  scale_y_continuous(limits = drs.lim, breaks = drs.seq) +
-  theme_doug()
-plot2 <- ggplot(basil, aes(x = vdmdas , y = vddrs)) +
-  geom_point() +
-  scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
-  scale_y_continuous(limits = drs.lim, breaks = drs.seq) + 
-  annotate("text", x = 16, y = 6, hjust = 0, label = text.drs.mdas) +
-  theme_doug()
-plot3 <- ggplot(basil, aes(x = vdcamseveritylf, y = vddrs)) +
-  geom_point()+
-  scale_x_continuous(limits = camlf.lim, breaks = camlf.seq) +
-  scale_y_continuous(limits = drs.lim, breaks = drs.seq) + 
-  annotate("text", x = 14, y = 6, hjust=0, label = text.drs.camlf) +
-  theme_doug()
-plot4 <- ggplot(basil, aes(x = vdcamseveritysf, y = vddrs)) +
-  geom_point()+
-  scale_x_continuous(limits = camsf.lim, breaks = camsf.seq) +
-  scale_y_continuous(limits = drs.lim, breaks = drs.seq) + 
-  annotate("text", x = 14, y = 6, hjust=0, label = text.drs.camsf) +
-  theme_doug()
+plot1 <- myScatterPlot(basil, "vddrs", "vddrs", points = FALSE)
+plot2 <- myScatterPlot(basil, "vdmdas", "vddrs", text.drs.mdas, 
+                       xlim=mdas.lim, xbreaks=mdas.seq, ylim=drs.lim, ybreaks = drs.seq, xtext = 16, ytext = 6)
+plot3 <- myScatterPlot(basil, "vdcamseveritylf", "vddrs", text.drs.camlf, 
+                       xlim=camlf.lim, xbreaks=camlf.seq, ylim=drs.lim, ybreaks = drs.seq, xtext = 14, ytext = 6)
+plot4 <- myScatterPlot(basil, "vdcamseveritysf", "vddrs", text.drs.camsf, 
+                       xlim=camsf.lim, xbreaks=camsf.seq, ylim=drs.lim, ybreaks = drs.seq, xtext = 14, ytext = 6)
+
+plot5 <- myScatterPlot(basil, "vddrs", "vdmdas", text.drs.mdas, 
+                       xlim=drs.lim, xbreaks=drs.seq, ylim=mdas.lim, ybreaks = mdas.seq, xtext = 21, ytext = 6)
+plot6 <- myScatterPlot(basil, "vdmdas", "vdmdas", points=FALSE)
+plot7 <- myScatterPlot(basil, "vdcamseveritylf", "vdmdas", text.camlf.mdas, 
+                       xlim=camlf.lim, xbreaks=camlf.seq, ylim=mdas.lim, ybreaks = mdas.seq, xtext = 14, ytext = 6)
+plot8 <- myScatterPlot(basil, "vdcamseveritysf", "vdmdas", text.camsf.mdas, 
+                       xlim=camsf.lim, xbreaks=camsf.seq, ylim=mdas.lim, ybreaks = mdas.seq, xtext = 14, ytext = 6)
 
 
-plot5 <- ggplot(basil, aes(x = vddrs, y = vdmdas)) +
-  geom_point() +
-  scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
-  scale_y_continuous(limits = mdas.lim, breaks = mdas.seq) + 
-  annotate("text", x = 21, y = 6, hjust=0, label = text.drs.mdas) +
-  theme_doug()
-plot6 <- ggplot(basil, aes(x = vdmdas , y = vdmdas)) +
-  scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
-  scale_y_continuous(limits = mdas.lim, breaks = mdas.seq) +
-  theme_doug()
-plot7 <- ggplot(basil, aes(x = vdcamseveritylf, y = vdmdas)) +
-  geom_point() +
-  scale_x_continuous(limits = camlf.lim, breaks = camlf.seq) +
-  scale_y_continuous(limits = mdas.lim, breaks = mdas.seq) + 
-  annotate("text", x = 14, y = 6, hjust=0, label = text.camlf.mdas) +
-  theme_doug()
-plot8 <- ggplot(basil, aes(x = vdcamseveritysf, y = vdmdas)) +
-  geom_point() +
-  scale_x_continuous(limits = camsf.lim, breaks = camsf.seq) +
-  scale_y_continuous(limits = mdas.lim, breaks = mdas.seq) + 
-  annotate("text", x = 14, y = 6, hjust=0, label = text.camsf.mdas) +
-  theme_doug()
+plot9 <- myScatterPlot(basil, "vddrs", "vdcamseveritylf", text.drs.camlf, 
+                       xlim=drs.lim, xbreaks=drs.seq, ylim=camlf.lim, ybreaks = camlf.seq, xtext = 21, ytext = 4)
+plot10 <- myScatterPlot(basil, "vdmdas", "vdcamseveritylf", text.camlf.mdas, 
+                       xlim=mdas.lim, xbreaks=mdas.seq, ylim=camlf.lim, ybreaks = camlf.seq, xtext = 16, ytext = 4)
+plot11 <- myScatterPlot(basil, "vdcamseveritylf", "vdcamseveritylf", points = FALSE)
+plot12 <- myScatterPlot(basil, "vdcamseveritysf", "vdcamseveritylf", text.camsf.camlf, 
+                       xlim=camsf.lim, xbreaks=camsf.seq, ylim=camlf.lim, ybreaks = camlf.seq, xtext = 16, ytext = 4)
 
 
-plot9 <- ggplot(basil, aes(x = vddrs, y = vdcamseveritylf)) +
-  geom_point() +
-  scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
-  scale_y_continuous(limits = camlf.lim, breaks = camlf.seq) + 
-  annotate("text", x = 21, y = 4, hjust=0, label = text.drs.camlf) +
-  theme_doug()
-plot10 <- ggplot(basil, aes(x = vdmdas, y = vdcamseveritylf)) +
-  geom_point() +
-  scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
-  scale_y_continuous(limits = camlf.lim, breaks = camlf.seq) + 
-  annotate("text", x = 16, y = 4, hjust=0, label = text.camlf.mdas) +
-  theme_doug()
-plot11 <- ggplot(basil, aes(x = vdcamseveritylf , y = vdcamseveritylf)) +
-  scale_x_continuous(limits = camlf.lim, breaks = camlf.seq) +
-  scale_y_continuous(limits = camlf.lim, breaks = camlf.seq) +
-  theme_doug()
-plot12 <- ggplot(basil, aes(x = vdcamseveritysf , y = vdcamseveritylf)) +
-  geom_point() +
-  scale_x_continuous(limits = camsf.lim, breaks = camsf.seq) +
-  scale_y_continuous(limits = camlf.lim, breaks = camlf.seq) +
-  annotate("text", x = 16, y = 4, hjust=0, label = text.camsf.mdas) +
-  theme_doug()
+plot13 <- myScatterPlot(basil, "vddrs", "vdcamseveritysf", text.drs.camsf, 
+                       xlim=drs.lim, xbreaks=drs.seq, ylim=camsf.lim, ybreaks = camsf.seq, xtext = 21, ytext = 1)
+plot14 <- myScatterPlot(basil, "vdmdas", "vdcamseveritysf", text.camsf.mdas, 
+                       xlim=mdas.lim, xbreaks=mdas.seq, ylim=camsf.lim, ybreaks = camsf.seq, xtext = 16, ytext = 1)
+plot15 <- myScatterPlot(basil, "vdcamseveritylf", "vdcamseveritysf", text.camsf.camlf, 
+                       xlim=camlf.lim, xbreaks=camlf.seq, ylim=camsf.lim, ybreaks = camsf.seq, xtext = 14, ytext = 1)
+plot16 <- myScatterPlot(basil, "vdcamseveritysf", "vdcamseveritysf", points = FALSE)
 
-plot13 <- ggplot(basil, aes(x = vddrs, y = vdcamseveritysf)) +
-  geom_point() +
-  scale_x_continuous(limits = drs.lim, breaks = drs.seq) +
-  scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) + 
-  annotate("text", x = 21, y = 1, hjust=0, label = text.drs.camsf) +
-  theme_doug()
-plot14 <- ggplot(basil, aes(x = vdmdas, y = vdcamseveritysf)) +
-  geom_point() +
-  scale_x_continuous(limits = mdas.lim, breaks = mdas.seq) +
-  scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) + 
-  annotate("text", x = 16, y = 1, hjust=0, label = text.camsf.mdas) +
-  theme_doug()
-plot15 <- ggplot(basil, aes(x = vdcamseveritylf , y = vdcamseveritysf)) +
-  geom_point() +
-  scale_x_continuous(limits = camlf.lim, breaks = camlf.seq) +
-  scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) +
-  annotate("text", x = 14, y = 1, hjust=0, label = text.camsf.camlf) +
-  theme_doug()
-plot16 <- ggplot(basil, aes(x = vdcamseveritysf , y = vdcamseveritysf)) +
-  scale_x_continuous(limits = camsf.lim, breaks = camsf.seq) +
-  scale_y_continuous(limits = camsf.lim, breaks = camsf.seq) +
-  theme_doug()
+
 
 plot1 <- ggplot(basil, aes(x = vddrs , y = vddrs)) +
   theme(panel.background = element_blank(),
@@ -153,7 +203,7 @@ ggmatrix(list(plot5,  plot6,  plot7,
          xAxisLabels = c("DRS", "MDAS", "CAM-S LF"), 
          yAxisLabels = c("MDAS", "CAM-S LF", "CAM-S SF")) 
 
-ggsave("Figure3.png")
+# ggsave("Figure3.png")
 
 ```
 

@@ -145,6 +145,45 @@ basil2 <- basil %>%
 
 ```
 
+```{r}
+# Used in 011-fit-cfa-model-multiple-categories.Rmd
+basil3 <- basil %>%
+  mutate(rdrs01 = recode(rdrs01, "1=1; 2=2; 3=3; "),
+         rdrs02 = recode(rdrs02, "1=1; 2=2; 3=3; "),
+         rdrs03 = recode(rdrs03, "1=1; 2=2; 3=3; "),
+         rdrs04 = recode(rdrs04, "1=1; 2=2; 3=2; "),
+         rdrs05 = recode(rdrs05, "1=1; 2=2; 3=3; "),
+         rdrs06 = recode(rdrs06, "1=1; 2=2; 3=3; "),
+         rdrs07 = recode(rdrs07, "1=1; 2=2; 3=2; "),
+         rdrs08 = recode(rdrs08, "1=1; 2=2; 3=2; "),
+         rdrs09 = recode(rdrs09, "1=1; 2=2; 3=3; "),
+         rdrs10 = recode(rdrs10, "1=1; 2=2; 3=3; "),
+         rdrs11 = recode(rdrs11, "1=1; 2=2; 3=3; "),
+         rdrs12 = recode(rdrs12, "1=1; 2=2; 3=3; "),
+         rdrs13 = recode(rdrs13, "1=1; 2=2; 3=3; "),
+         rmdas01 = recode(rmdas01, "1=1; 2=2; 3=2; "),
+         rmdas02 = recode(rmdas02, "1=1; 2=2; 3=3; "),
+         rmdas03 = recode(rmdas03, "1=1; 2=2; 3=3; "),
+         rmdas04 = recode(rmdas04, "1=1; 2=2; 3=3; "),
+         rmdas05 = recode(rmdas05, "1=1; 2=2; 3=3; "),
+         rmdas06 = recode(rmdas06, "1=1; 2=2; 3=3; "),
+         rmdas07 = recode(rmdas07, "1=1; 2=2; 3=3; "),
+         rmdas08 = recode(rmdas08, "1=1; 2=2; 3=3; "),
+         rmdas09 = recode(rmdas09, "1=1; 2=2; 3=2; "),
+         rmdas10 = recode(rmdas10, "1=1; 2=2; 3=3; "),
+         rcamlf1a = recode(rcamlf1a, "1=1; 2=1; "),
+         rcamlf2a = recode(rcamlf2a, "1=1; 2=2; "),
+         rcamlf3a = recode(rcamlf3a, "1=1; 2=2; "),
+         rcamlf4a = recode(rcamlf4a, "1=1; 2=2; "),
+         rcamlf5a = recode(rcamlf5a, "1=1; 2=2; "),
+         rcamlf6a = recode(rcamlf6a, "1=1; 2=2; "),
+         rcamlf7a = recode(rcamlf7a, "1=1; 2=2; "),
+         rcamlf8a = recode(rcamlf8a, "1=1; 2=2; "),
+         rcamlf8d = recode(rcamlf8d, "1=1; 2=2; "),
+         rcamlf9a = recode(rcamlf9a, "1=1; 2=2; "))
+
+```
+
 ### Item reference table
 
 This table is a reference for the following tables to link item numbers to item content

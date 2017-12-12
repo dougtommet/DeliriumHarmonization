@@ -1,9 +1,9 @@
 
 ## Sensitivity analysis for the non-independence of observations
-This sensitivity analysis addresses concerns of the non-independence of multiple observations across subjects.  In this analysis we randomly sampled one observation for each subject and then refit the first two CFA models.  This was repeated 100 times.  The parameter estimates from the n=1178 observations are then compared to this bootstrap-like distribution of parameter estimates.
+This sensitivity analysis addresses concerns of the non-independence of multiple observations across subjects.  In this analysis we randomly sampled one observation for each subject and then refit the first two CFA models.  This was repeated 500 times.  The parameter estimates from the n=1178 observations are then compared to this bootstrap-like distribution of parameter estimates.
 
-```{r}
-index_list <- 1:100
+```{r, eval=FALSE}
+index_list <- 1:500
 sim_list<- list()
 
 nested_basil2 <- basil2 %>%
@@ -131,8 +131,8 @@ dat2.drs <- map(files.drs, getIRTparam, "drs", 1:13)
 dat2DF.drs <- map2_df(dat2.drs, files.drs, ~update_list(.x, file = .y))
 
 ### Summary tables for DRS
-bootSummaryTable(dat2DF.drs, drs.par.dich, "DRS", "A.drs")
-bootSummaryTable(dat2DF.drs, drs.par.dich, "DRS", "B.drs")
+bootSummaryTable(dat2DF.drs, drs.par.dich, "DRS", "A.drs", "A")
+bootSummaryTable(dat2DF.drs, drs.par.dich, "DRS", "B.drs", "B")
 
 ### Summary plots for DRS
 bootSummaryPlot(dat2DF.drs, drs.par.dich, "DRS", "A.drs", "A", c(0, 7))
@@ -148,8 +148,8 @@ dat2.mdas <- map(files.mdas, getIRTparam, "mdas", c(14, 9, 11, 16, 17, 18, 2, 3,
 dat2DF.mdas <- map2_df(dat2.mdas, files.mdas, ~update_list(.x, file = .y))
 
 ### Summary tables for MDAS
-bootSummaryTable(dat2DF.mdas, mdas.par.dich, "MDAS", "A.mdas")
-bootSummaryTable(dat2DF.mdas, mdas.par.dich, "MDAS", "B.mdas")
+bootSummaryTable(dat2DF.mdas, mdas.par.dich, "MDAS", "A.mdas", "A")
+bootSummaryTable(dat2DF.mdas, mdas.par.dich, "MDAS", "B.mdas", "B")
  
 ### Summary plots for MDAS
 bootSummaryPlot(dat2DF.mdas, mdas.par.dich, "MDAS", "A.mdas", "A", c(0, 7))
@@ -165,8 +165,8 @@ dat2.cam <- map(files.cam, getIRTparam, "cam", c(22, 10, 24, 25, 9, 26, 2, 7, 8,
 dat2DF.cam <- map2_df(dat2.cam, files.cam, ~update_list(.x, file = .y))
 
 ### Summary tables for CAM
-bootSummaryTable(dat2DF.cam, cam.par.dich, "CAM", "A.cam")
-bootSummaryTable(dat2DF.cam, cam.par.dich, "CAM", "B.cam")
+bootSummaryTable(dat2DF.cam, cam.par.dich, "CAM", "A.cam", "A")
+bootSummaryTable(dat2DF.cam, cam.par.dich, "CAM", "B.cam", "B")
 
 ### Summary plots for CAM
 bootSummaryPlot(dat2DF.cam, cam.par.dich, "CAM", "A.cam", "A", c(0, 7))

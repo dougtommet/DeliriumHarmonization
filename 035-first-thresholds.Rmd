@@ -71,31 +71,31 @@ fscores.dich.drs <- getSavedata_Data("cfa-drs-2-1-2pl.out") %>%
   rename(f.dich.drs = f,
          f_se.dich.drs = f_se)
 
-fscores.dich.mdas <- getSavedata_Data("cfa-mdas-link.out") %>%
+fscores.dich.mdas <- getSavedata_Data("cfa-mdas-link-1.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
   rename(f.dich.mdas = f,
          f_se.dich.mdas = f_se)
 
-fscores.dich.camlf <- getSavedata_Data("cfa-cam-link.out") %>%
+fscores.dich.camlf <- getSavedata_Data("cfa-cam-link-1.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
   rename(f.dich.camlf = f,
          f_se.dich.camlf = f_se)
 
-fscores.poly.drs <- getSavedata_Data("cfa-drs-3.out") %>%
+fscores.poly.drs <- getSavedata_Data("cfa-drs-3-1.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
   rename(f.poly.drs = f,
          f_se.poly.drs = f_se)
 
-fscores.poly.mdas <- getSavedata_Data("cfa-mdas-3.out") %>%
+fscores.poly.mdas <- getSavedata_Data("cfa-mdas-3-1.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
   rename(f.poly.mdas = f,
          f_se.poly.mdas = f_se)
 
-fscores.poly.camlf <- getSavedata_Data("cfa-cam-3.out") %>%
+fscores.poly.camlf <- getSavedata_Data("cfa-cam-3-1.out") %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
   rename(f.poly.camlf = f,
