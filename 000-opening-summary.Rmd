@@ -1,36 +1,40 @@
 
 # Goal
-The goal of this paper is to describe the level of agreement and a harmonized scale of severity applicable to several commonly used delirium instruments: the CAM-S, DRS-R98, MDAS. We do this in the context of a single clinical research study, where a team of trained lay interviewers administered each instrument along with supporting stimulus assessments in the same group of patients.
+The goal of this paper is to describe the level of agreement and a harmonized scale of severity applicable to several commonly used delirium instruments: the CAM-S, DRS-R-98, MDAS. We do this in the context of a single clinical research study, where a team of trained lay interviewers administered each instrument along with supporting stimulus assessments in the same group of patients.
 
 Note: In writing the paper, use the term "features" instead of "signs/symptoms".
 
 ## Summary of Results So Far
-### IRT Models (dichotomous outcomes) estimated for all three instruments: CAM-S, DRS, MDAS
+### IRT Models (dichotomous outcomes) estimated for all three instruments: CAM-S, DRS-R-98, MDAS
 
 The instrument item responses were dichotomized into "none" vs "any" symptom.
 
-The model fit to 6 or 7 core items per instrument is good. The core items include Sleep disturbance, Perceptual disturbance, Psychomotor agitation/retardation, Orientation, Attention, and Memory impairment. 
+The model fit to 8 core items per instrument is good. The core items include Sleep disturbance, Perceptual disturbance, Psychomotor agitation/retardation, Orientation, Attention, Memory impairment, and Disorganized Thinking. 
 
 Initially the fit to the expanded item sets was unacceptably bad. Then we recoded the sleep disturbance item, combining the "none" and "mild" categories.  The model fit was then acceptable.  
 
 
 ### Item Parameters have been co-calibrated
 
-The MDAS and CAM-S items have been equated to the DRS.  
+The MDAS and CAM-S items have been equated to the DRS-R-98.  
 
-The items used to link the MDAS to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Short term memory impairment, and Delusions.
+The items used to link the MDAS to the DRS-R-98 are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Short term memory impairment, Delusions, and Disorganized Thinking.
 
-The items used to link the CAM-S to the DRS are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Psychomotor agitation, Psychomotor retardation, and Attention.
+The items used to link the CAM-S to the DRS-R-98 are: Disorientation, Perceptual disturbance, Sleep/wake cycle disturbance, Psychomotor agitation, Psychomotor retardation, Attention and Disorganized Thinking.
 
 ### Created item response theory plots for the dichotomous outcome models
 
 Created plots for: Test Information function, Item characteristic curves, Test characteristic curves, and density plots of estimated latent scores.
 
-### Estimated thresholds for polytomous outcomes for all three instruments: CAM-S, DRS, MDAS
+### Estimated thresholds for polytomous outcomes for all three instruments: CAM-S, DRS-R-98, MDAS
 
 Used the equated item parameters from the previous step to estimate the thresholds for the polytomous outcomes.
 
 Note: Some thresholds are missing for some items since the highest categories weren't observed.
+
+### Created model for the CAM-S short form
+
+Took the four items from the CAM-S item parameters estimated for the polytomous outcomes.
 
 ### Created item response theory plots for the polytomous outcome models
 
@@ -38,15 +42,21 @@ Created plots for: Test Information function, Item characteristic curves, Test c
 
 ### Created the proposed tables/figures for the manuscript
 
-The tables are the typical Table 1 and a table of model fit statistics.  The figures include a plot showing the item thresholds, a scatter plot of the scores for the three instruments, a test information curve, and a test characteristic curve that can create a crosswalk between instruments.
+The tables are the typical Table 1 and a table of model fit statistics.  The figures include a plot showing the item thresholds, a test information curve, a scatter plot of the factor scores for the four instruments, and a test characteristic curve that can create a crosswalk between instruments.
 
-### Created nomograms for the appendix
+### Created ~~nomograms~~ crosswalk tables and figures for the appendix
 
-The figures currently aren't good.  I'm open to suggestions to improve them.
+I prefer the tables over the figures because there are only four tables but twelve figures.
 
 ### Examined the difference in information provided using polytomous versus dichotomous outcomes
 
 We were interested in whether we could use the items as dichotomous outcomes in the new instrument since it would make training to use the instrument easier.  However, the higher category outcomes provide a lot of information at higher "Delirium Intensity" levels.  We felt this would be needed for a severity instrument.
+
+### Update 1-8-2018: Test reliability
+
+Added measures of test reliability.  In the descriptive statistics section of the report, added item correlations and Cronbach's alpha.  In the model fitting section of the report, added McDonald's omega.
+
+
 
 
 

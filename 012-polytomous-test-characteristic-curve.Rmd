@@ -487,17 +487,18 @@ testscore <- drs.info.poly %>%
   gather(test, score, 2:5)
 
 
-
-ggplot(testscore, aes(theta, score, group=test, color=test)) +
+plot_test_characteristic_curve <- ggplot(testscore, aes(theta, score, group=test, color=test)) +
   geom_line() +
   scale_color_brewer(palette = "Dark2", 
                      name = "Delirium Instrument",
                      breaks = c("drsscore", "mdasscore", "camlfscore", "camsfscore"),
-                     labels = c("DRS", "MDAS", "CAM-S LF", "CAM-S SF")) + 
+                     labels = c("DRS-R-98", "MDAS", "CAM-S LF", "CAM-S SF")) + 
   scale_y_continuous("Expected Total Score", breaks=seq(0,40,2)) +
-  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
-  ggtitle("Test Characteristic Curves (Polytomous CFA)") +
+  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1))  +
   theme_doug()  
+
+plot_test_characteristic_curve +
+  ggtitle("Test Characteristic Curves (Polytomous CFA)")
 
 ```
 
@@ -520,19 +521,54 @@ testinfo <- drs.info.poly %>%
   gather(test, info, 2:5)
 
 
-
-ggplot(testinfo, aes(theta, info, group=test, color=test)) +
+plot_test_information <- ggplot(testinfo, aes(theta, info, group=test, color=test)) +
   geom_line() +
   scale_color_brewer(palette = "Dark2", 
                      name = "Delirium Instrument",
                      breaks = c("drsinfo", "mdasinfo", "camlfinfo", "camsfinfo"),
-                     labels = c("DRS", "MDAS", "CAM-S LF", "CAM-S SF")) + 
+                     labels = c("DRS-R-98", "MDAS", "CAM-S LF", "CAM-S SF")) + 
   scale_y_continuous("Information", breaks=seq(0,12,2)) +
-  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
-  ggtitle("Test Information Curves (Polytomous CFA)") +
+  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1))  +
   theme_doug() 
 
+plot_test_information +
+  ggtitle("Test Information Curves (Polytomous CFA)")
 ```
 
+```{r}
+
+testrel <- drs.info.poly %>%
+  select(theta, info) %>%
+  rename(drsinfo = info) %>%
+  left_join(mdas.info.poly %>% 
+              select(theta, info) %>%
+              rename(mdasinfo = info), by="theta") %>%
+  left_join(camlf.info.poly %>%
+              select(theta, info) %>%
+              rename(camlfinfo = info), by="theta") %>%
+  left_join(camsf.info.poly %>%
+              select(theta, info) %>%
+              rename(camsfinfo = info), by="theta") %>%
+  gather(test, info, 2:5) %>%
+  mutate(rel = 1 - (1/info)) 
+
+
+%>%
+  select(-info)
+
+
+plot_test_reliability <- ggplot(testrel, aes(theta, rel, group=test, color=test)) +
+  geom_line() +
+  scale_color_brewer(palette = "Dark2", 
+                     name = "Delirium Instrument",
+                     breaks = c("drsinfo", "mdasinfo", "camlfinfo", "camsfinfo"),
+                     labels = c("DRS-R-98", "MDAS", "CAM-S LF", "CAM-S SF")) + 
+  scale_y_continuous("Reliability") +
+  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1))  +
+  theme_doug() 
+
+plot_test_reliability +
+  ggtitle("Test Reliability Curves (Polytomous CFA)")
+```
 
 

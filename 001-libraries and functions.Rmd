@@ -15,6 +15,7 @@ library(RColorBrewer)
 library(GGally)
 library(kableExtra)
 library(purrr)
+# library(corrr)
 ```
 ```{r}
 source("ggplot-theme.r")
@@ -138,6 +139,23 @@ item.parameter.table.poly <- function(df, maxThresh, instrument.name) {
           caption = paste("Item parameters for", instrument.name, "with", outcome.type, "outcomes")) %>% 
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
                 full_width = F, position = "center")
+}
+
+```
+
+```{r}
+# Calculate McDonald's omega statistic
+myomega <- function(filename) {
+  param <- readModels(filename)$parameters$stdyx.standardized
+  mc.param <- param %>%
+    filter(paramHeader=="F.BY") %>%
+    select(param, est) %>%
+    mutate(uniqueness = 1-est^2)
+
+  a <- sum(mc.param$est)
+  b <- sum(mc.param$uniqueness)
+
+  a^2 / (a^2 + b)
 }
 
 ```

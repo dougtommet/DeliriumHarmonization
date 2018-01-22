@@ -2,9 +2,9 @@
 
 ## Descriptive statistics
 
-### Summary table for DRS (N=`r  dim(basil)[1]`)
+### Summary tables/statistics for DRS (N=`r  dim(basil)[1]`)
 
-Original item categories (%)
+#### Original item category frequencies (%)
 ```{r }
 basil %>%
   select(starts_with("rdrs")) %>%
@@ -25,7 +25,7 @@ basil %>%
 
 ```
 
-Dichotomized item categories (%)
+#### Dichotomized item category frequencies (%)
 
 ```{r}
 basil2 %>%
@@ -45,8 +45,52 @@ basil2 %>%
                 full_width = F, position = "center")
 ```
 
-### Summary table for MDAS (N=`r dim(basil)[1]`)
-Original item categories (%)
+#### Item correlations
+
+```{r}
+
+basil2 %>%
+  select(starts_with("rdrs")) %>%
+  corrr::correlate() %>%
+  kable(digits = 2,
+        col.names = c("", "rdrs01", "rdrs02", "rdrs03", "rdrs04", "rdrs05", "rdrs06", "rdrs07", 
+                       "rdrs08", "rdrs09", "rdrs10", "rdrs11", "rdrs12", "rdrs13")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
+```
+
+#### Item - total score correlation
+
+Correlation between the item and the sum of the dichotomous items.
+
+```{r}
+basil2 %>%
+  select(starts_with("rdrs")) %>%
+  rowwise() %>%
+  mutate(score = sum(c(rdrs01, rdrs02, rdrs03, rdrs04, rdrs05, rdrs06, rdrs07, 
+                       rdrs08, rdrs09, rdrs10, rdrs11, rdrs12, rdrs13), na.rm = TRUE)) %>%
+  corrr::correlate() %>%
+  corrr::focus(score) %>%
+  kable(digits = 2,
+        col.names = c("", "total score")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
+```
+
+#### Cronbach's alpha
+
+```{r}
+basil2 %>%
+  select(starts_with("rdrs")) %>%
+  psych::alpha(.)
+
+```
+
+
+
+### Summary tables/statistics for MDAS (N=`r dim(basil)[1]`)
+
+#### Original item category frequencies (%)
 
 ```{r}
 basil %>%
@@ -66,7 +110,7 @@ basil %>%
                 full_width = F, position = "center")
 ```
 
-Dichotomized item categories (%)
+#### Dichotomized item category frequencies (%)
 
 ```{r}
 basil2 %>%
@@ -86,8 +130,50 @@ basil2 %>%
                 full_width = F, position = "center")
 ```
 
-### Summary table for CAM-S (N=`r dim(basil)[1]`)
-Original item categories (%)
+#### Item correlations
+
+```{r}
+
+basil2 %>%
+  select(starts_with("rmdas")) %>%
+  corrr::correlate() %>%
+  kable(digits = 2,
+        col.names = c("", "rmdas01", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
+                      "rmdas06", "rmdas07", "rmdas08", "rmdas09", "rmdas10")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
+```
+
+#### Item - total score correlation
+
+Correlation between the item and the sum of the dichotomous items.
+
+```{r}
+basil2 %>%
+  select(starts_with("rmdas")) %>%
+  rowwise() %>%
+  mutate(score = sum(c(rmdas01, rmdas02, rmdas03, rmdas04, rmdas05, 
+                       rmdas06, rmdas07, rmdas08, rmdas09, rmdas10), na.rm = TRUE)) %>%
+  corrr::correlate() %>%
+  corrr::focus(score) %>%
+  kable(digits = 2,
+        col.names = c("", "total score")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
+```
+
+#### Cronbach's alpha
+
+```{r}
+basil2 %>%
+  select(starts_with("rmdas")) %>%
+  psych::alpha(.)
+
+```
+
+### Summary tables/statistics for CAM-S (N=`r dim(basil)[1]`)
+
+#### Original item category frequencies (%)
 
 ```{r}
 basil %>%
@@ -107,7 +193,7 @@ basil %>%
                 full_width = F, position = "center")
 ```
 
-Dichotomized item categories (%)
+#### Dichotomized item category frequency (%)
 
 ```{r}
 basil2 %>%
@@ -127,3 +213,46 @@ basil2 %>%
                 full_width = F, position = "center")
 
 ```
+
+#### Item correlations
+
+```{r}
+
+basil2 %>%
+  select(starts_with("rcam")) %>%
+  corrr::correlate() %>%
+  kable(digits = 2,
+        col.names = c("", "rcamlf1a", "rcamlf2a", "rcamlf3a", "rcamlf4a", "rcamlf5a", 
+                      "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d", "rcamlf9a")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
+```
+
+#### Item - total score correlation
+
+Correlation between the item and the sum of the dichotomous items.
+
+```{r}
+basil2 %>%
+  select(starts_with("rcam")) %>%
+  rowwise() %>%
+  mutate(score = sum(c(rcamlf1a, rcamlf2a, rcamlf3a, rcamlf4a, rcamlf5a, 
+                       rcamlf6a, rcamlf7a, rcamlf8a, rcamlf8d, rcamlf9a), na.rm = TRUE)) %>%
+  corrr::correlate() %>%
+  corrr::focus(score) %>%
+  kable(digits = 2,
+        col.names = c("", "total score")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "center")
+```
+
+#### Cronbach's alpha
+
+```{r}
+basil2 %>%
+  select(starts_with("rcam")) %>%
+  psych::alpha(.)
+
+```
+
+

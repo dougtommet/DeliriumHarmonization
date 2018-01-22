@@ -103,7 +103,7 @@ ggmatrix(list(plot5,  plot6,  plot7,
               plot9,  plot10, plot11, 
               plot13, plot14, plot15), 
          nrow = 3, ncol = 3,
-         xAxisLabels = c("DRS", "MDAS", "CAM-S LF"), 
+         xAxisLabels = c("DRS-R-98", "MDAS", "CAM-S LF"), 
          yAxisLabels = c("MDAS", "CAM-S LF", "CAM-S SF")) 
 
 ggsave("Figure3.png")

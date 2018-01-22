@@ -4,33 +4,35 @@
 
 ```{r}
 
-testscore <- drs.info.poly %>%
-  select(theta, testscore) %>%
-  rename(drsscore = testscore) %>%
-  left_join(mdas.info.poly %>% 
-              select(theta, testscore) %>%
-              rename(mdasscore = testscore), by="theta") %>%
-  left_join(camlf.info.poly %>%
-              select(theta, testscore) %>%
-              rename(camlfscore = testscore), by="theta") %>%
-  left_join(camsf.info.poly %>%
-              select(theta, testscore) %>%
-              rename(camsfscore = testscore), by="theta") %>%
-  gather(test, score, 2:5)
+# testscore <- drs.info.poly %>%
+#   select(theta, testscore) %>%
+#   rename(drsscore = testscore) %>%
+#   left_join(mdas.info.poly %>% 
+#               select(theta, testscore) %>%
+#               rename(mdasscore = testscore), by="theta") %>%
+#   left_join(camlf.info.poly %>%
+#               select(theta, testscore) %>%
+#               rename(camlfscore = testscore), by="theta") %>%
+#   left_join(camsf.info.poly %>%
+#               select(theta, testscore) %>%
+#               rename(camsfscore = testscore), by="theta") %>%
+#   gather(test, score, 2:5)
+# 
+# 
+# 
+# ggplot(testscore, aes(theta, score, group=test, color=test)) +
+#   geom_line() +
+#   scale_color_brewer(palette = "Dark2", 
+#                      name = "Delirium Instrument",
+#                      breaks = c("drsscore", "mdasscore", "camlfscore", "camsfscore"),
+#                      labels = c("DRS", "MDAS", "CAM-S LF", "CAM-S SF")) + 
+#   scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
+#   scale_y_continuous("Expected Total Score", breaks=seq(0,40,2)) +
+#   ggtitle("Test Characteristic Curves")  +
+#   theme_doug()
 
-
-
-ggplot(testscore, aes(theta, score, group=test, color=test)) +
-  geom_line() +
-  scale_color_brewer(palette = "Dark2", 
-                     name = "Delirium Instrument",
-                     breaks = c("drsscore", "mdasscore", "camlfscore", "camsfscore"),
-                     labels = c("DRS", "MDAS", "CAM-S LF", "CAM-S SF")) + 
-  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1)) +
-  scale_y_continuous("Expected Total Score", breaks=seq(0,40,2)) +
-  ggtitle("Test Characteristic Curves")  +
-  theme_doug()
-
+# From 012-polytomous_test_characteristic-curve.Rmd
+plot_test_characteristic_curve
 ggsave("Figure4.png")
 
 ```

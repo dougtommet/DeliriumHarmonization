@@ -27,7 +27,7 @@ fit.2pl <- function(x, y, instrument, modeltype, use.variables1, use.variables2,
     ANALYSIS = st.analysis,
     VARIABLE = st.variable,
     MODEL = model1,
-    OUTPUT = "",
+    OUTPUT = "standardized;",
     SAVEDATA = "",
     usevariables = use.variables1,
     rdata = x
@@ -84,7 +84,7 @@ fit.2pl <- function(x, y, instrument, modeltype, use.variables1, use.variables2,
     ANALYSIS = st.analysis,
     VARIABLE = st.variable,
     MODEL = model2,
-    OUTPUT = "",
+    OUTPUT = "standardized;",
     SAVEDATA = savedata2,
     usevariables = c(use.variables1, use.variables2),
     rdata = x)
@@ -358,13 +358,21 @@ readModels("cfa-drs-2-1-wlsmv.out")$summaries %>%
 #### Item Parameters
 Model 1
 ```{r}
-item.parameter.table("cfa-drs-1-1-2pl.out", 7)
+item.parameter.table("cfa-drs-1-1-2pl.out", 8)
 ```
 
 Model 2
 ```{r}
 item.parameter.table("cfa-drs-2-1-2pl.out", 13)
 ```
+
+
+
+```{r}
+omega.drs <- myomega("cfa-drs-2-1-2pl.out") %>% round(2)
+
+```
+The McDonald's omega statistic for the DRS is `r  omega.drs`.
 
 ### MDAS Confirmatory Factor Analysis
 #### Fit statistics
@@ -393,13 +401,19 @@ readModels("cfa-mdas-2-1-wlsmv.out")$summaries %>%
 #### Item Parameters
 Model 1
 ```{r}
-item.parameter.table("cfa-mdas-1-1-2pl.out", 7)
+item.parameter.table("cfa-mdas-1-1-2pl.out", 8)
 ```
 
 Model 2
 ```{r}
 item.parameter.table("cfa-mdas-2-1-2pl.out", 10)
 ```
+
+```{r}
+omega.mdas <- myomega("cfa-mdas-2-1-2pl.out") %>% round(2)
+
+```
+The McDonald's omega statistic for the MDAS is `r  omega.mdas`.
 
 ### CAM-S Confirmatory Factor Analysis
 #### Fit statistics
@@ -428,7 +442,8 @@ readModels("cfa-cam-2-1-wlsmv.out")$summaries %>%
 #### Item Parameters
 Model 1
 ```{r}
-item.parameter.table("cfa-cam-1-1-2pl.out", 7)
+item.parameter.table("cfa-cam-1-1-2pl.out", 8)
+
 ```
 
 Model 2
@@ -436,5 +451,10 @@ Model 2
 item.parameter.table("cfa-cam-2-1-2pl.out", 10)
 ```
 
+```{r}
+omega.cam <- myomega("cfa-cam-2-1-2pl.out") %>% round(2)
+
+```
+The McDonald's omega statistic for the CAM-S is `r  omega.cam`.
 
 

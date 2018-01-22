@@ -114,7 +114,7 @@ labaffect.loc <- mean(c(d4.loc))
 awareness.loc <- mean(c(m1.loc, c4.loc))
 
 
-plot2 <-  foo.drs %>%
+plot_thresholds <-  foo.drs %>%
   bind_rows(foo.mdas) %>%
   bind_rows(foo.cam) %>%
   mutate(gr.order = gr.order*10) %>%
@@ -123,10 +123,10 @@ plot2 <-  foo.drs %>%
     geom_line(show.legend = FALSE) +
     geom_point(data=fscores, aes(x=fscore, y=fscore.y, group=NULL, color = test),
                                  shape = 124, alpha = .5, show.legend=FALSE) +
-    scale_color_brewer(palette = "Dark2", 
+    scale_color_manual(values = c("#1b9e77", "#7570b3", "#e7298a"), 
                      name = "Delirium Instrument",
                      breaks = c("DRS", "MDAS", "CAM"),
-                     labels = c("DRS", "MDAS", "CAM-S")) +
+                     labels = c("DRS-R-98", "MDAS", "CAM-S")) +
     scale_x_continuous("Delirium Intensity", limits = c(xmin, xmax), 
                        breaks = seq(-2, 8, by=2)) +
     scale_y_continuous(name=NULL, trans = "reverse") +
@@ -150,31 +150,31 @@ plot2 <-  foo.drs %>%
              size = labsize, fontface =2) +
     annotate("text", x = pos2, y = 5, hjust=0, label = "Feature domain", 
              size = labsize, fontface =2) +
-    annotate("text", x = pos1, y = d1.loc,  hjust=0, label = "DRS 1", 
+    annotate("text", x = pos1, y = d1.loc,  hjust=0, label = "DRS-R-98 1", 
              size = labsize) +
-    annotate("text", x = pos1, y = d2.loc,  hjust=0, label = "DRS 2", 
+    annotate("text", x = pos1, y = d2.loc,  hjust=0, label = "DRS-R-98 2", 
              size = labsize) +
-    annotate("text", x = pos1, y = d3.loc,  hjust=0, label = "DRS 3", 
+    annotate("text", x = pos1, y = d3.loc,  hjust=0, label = "DRS-R-98 3", 
              size = labsize) +
-    annotate("text", x = pos1, y = d4.loc,  hjust=0, label = "DRS 4", 
+    annotate("text", x = pos1, y = d4.loc,  hjust=0, label = "DRS-R-98 4", 
              size = labsize) +
-    annotate("text", x = pos1, y = d5.loc,  hjust=0, label = "DRS 5", 
+    annotate("text", x = pos1, y = d5.loc,  hjust=0, label = "DRS-R-98 5", 
              size = labsize) +
-    annotate("text", x = pos1, y = d6.loc,  hjust=0, label = "DRS 6", 
+    annotate("text", x = pos1, y = d6.loc,  hjust=0, label = "DRS-R-98 6", 
              size = labsize) +
-    annotate("text", x = pos1, y = d7.loc,  hjust=0, label = "DRS 7", 
+    annotate("text", x = pos1, y = d7.loc,  hjust=0, label = "DRS-R-98 7", 
              size = labsize) +
-    annotate("text", x = pos1, y = d8.loc,  hjust=0, label = "DRS 8", 
+    annotate("text", x = pos1, y = d8.loc,  hjust=0, label = "DRS-R-98 8", 
              size = labsize) +
-    annotate("text", x = pos1, y = d9.loc,  hjust=0, label = "DRS 9", 
+    annotate("text", x = pos1, y = d9.loc,  hjust=0, label = "DRS-R-98 9", 
              size = labsize) +
-    annotate("text", x = pos1, y = d10.loc, hjust=0, label = "DRS 10", 
+    annotate("text", x = pos1, y = d10.loc, hjust=0, label = "DRS-R-98 10", 
              size = labsize) +
-    annotate("text", x = pos1, y = d11.loc, hjust=0, label = "DRS 11", 
+    annotate("text", x = pos1, y = d11.loc, hjust=0, label = "DRS-R-98 11", 
              size = labsize) +
-    annotate("text", x = pos1, y = d12.loc, hjust=0, label = "DRS 12", 
+    annotate("text", x = pos1, y = d12.loc, hjust=0, label = "DRS-R-98 12", 
              size = labsize) +
-    annotate("text", x = pos1, y = d13.loc, hjust=0, label = "DRS 13", 
+    annotate("text", x = pos1, y = d13.loc, hjust=0, label = "DRS-R-98 13", 
              size = labsize) +
     annotate("text", x = pos1, y = m1.loc,  hjust=0, label = "MDAS 1", 
              size = labsize) +
@@ -196,25 +196,25 @@ plot2 <-  foo.drs %>%
              size = labsize) +
     annotate("text", x = pos1, y = m10.loc, hjust=0, label = "MDAS 10", 
              size = labsize) +
-    annotate("text", x = pos1, y = c1.loc, hjust=0, label = "CAM 1", 
+    annotate("text", x = pos1, y = c1.loc, hjust=0, label = "CAM-S 1", 
              size = labsize) +
-    annotate("text", x = pos1, y = c2.loc, hjust=0, label = "CAM 2", 
+    annotate("text", x = pos1, y = c2.loc, hjust=0, label = "CAM-S 2", 
              size = labsize) +
-    annotate("text", x = pos1, y = c3.loc, hjust=0, label = "CAM 3", 
+    annotate("text", x = pos1, y = c3.loc, hjust=0, label = "CAM-S 3", 
              size = labsize) +
-    annotate("text", x = pos1, y = c4.loc, hjust=0, label = "CAM 4", 
+    annotate("text", x = pos1, y = c4.loc, hjust=0, label = "CAM-S 4", 
              size = labsize) +
-    annotate("text", x = pos1, y = c5.loc, hjust=0, label = "CAM 5", 
+    annotate("text", x = pos1, y = c5.loc, hjust=0, label = "CAM-S 5", 
              size = labsize) +
-    annotate("text", x = pos1, y = c6.loc, hjust=0, label = "CAM 6", 
+    annotate("text", x = pos1, y = c6.loc, hjust=0, label = "CAM-S 6", 
              size = labsize) +
-    annotate("text", x = pos1, y = c7.loc, hjust=0, label = "CAM 7", 
+    annotate("text", x = pos1, y = c7.loc, hjust=0, label = "CAM-S 7", 
              size = labsize) +
-    annotate("text", x = pos1, y = c8.loc, hjust=0, label = "CAM 8a", 
+    annotate("text", x = pos1, y = c8.loc, hjust=0, label = "CAM-S 8a", 
              size = labsize) +
-    annotate("text", x = pos1, y = c9.loc, hjust=0, label = "CAM 8d", 
+    annotate("text", x = pos1, y = c9.loc, hjust=0, label = "CAM-S 8d", 
              size = labsize) +
-    annotate("text", x = pos1, y = c10.loc, hjust=0, label = "CAM 9", 
+    annotate("text", x = pos1, y = c10.loc, hjust=0, label = "CAM-S 9", 
              size = labsize) +
     annotate("text", x = pos2, y = sleep.loc, hjust=0, 
              label = "Sleep disturbance", size = labsize) +
@@ -251,9 +251,13 @@ plot2 <-  foo.drs %>%
     annotate("text", x = pos2, y = acute.loc, hjust=0, 
              label = "Acute change", size = labsize) 
   
-plot2
+plot_thresholds
 ggsave("Figure1.png", height = 20, units="cm")
 
+
+```
+
+```{r}
 
 ```
 

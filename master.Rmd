@@ -111,4 +111,9 @@ This section contains analyses that are more exploratory in nature, and could be
  
 ```
 
+# For Rich & Alden
+```{r, child="050-figures-for-RNJ-ALG.Rmd"}
+
+```
+
 
