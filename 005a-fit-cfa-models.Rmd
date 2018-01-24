@@ -278,7 +278,7 @@ foo<- map2(sim_list, index_list, fit.2pl,
 ## CAM
 use.variables1.cam <- c("recordid", "studyidnum", "rcamlf2a", "rcamlf3a", "rcamlf5a", "rcamlf6a", 
                         "rcamlf7a", "rcamlf8a", "rcamlf8d", "rcamlf9a")
-use.variables2.cam <- c("rcamlf1a", "rcamlf4a")
+use.variables2.cam <- c("rcamlf1a", "rcamlf4l", "rcamlf4v")
 
 ### Fit a 2PL model
 foo<- map2(sim_list, index_list, fit.2pl, 
@@ -448,7 +448,7 @@ item.parameter.table("cfa-cam-1-1-2pl.out", 8)
 
 Model 2
 ```{r}
-item.parameter.table("cfa-cam-2-1-2pl.out", 10)
+item.parameter.table("cfa-cam-2-1-2pl.out", 11)
 ```
 
 ```{r}

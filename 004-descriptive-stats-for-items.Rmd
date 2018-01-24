@@ -178,6 +178,7 @@ basil2 %>%
 ```{r}
 basil %>%
   select(starts_with("rcam")) %>%
+  select(-rcamlf4a) %>%
   gather(item, y)   %>%
   arrange(item) %>%
   mutate(foo = TRUE,
@@ -198,6 +199,7 @@ basil %>%
 ```{r}
 basil2 %>%
   select(starts_with("rcam")) %>%
+  select(-rcamlf4a) %>%
   gather(item, y)   %>%
   arrange(item) %>%
   mutate(foo = TRUE,
@@ -220,9 +222,10 @@ basil2 %>%
 
 basil2 %>%
   select(starts_with("rcam")) %>%
+  select(-rcamlf4a) %>%
   corrr::correlate() %>%
   kable(digits = 2,
-        col.names = c("", "rcamlf1a", "rcamlf2a", "rcamlf3a", "rcamlf4a", "rcamlf5a", 
+        col.names = c("", "rcamlf1a", "rcamlf2a", "rcamlf3a", "rcamlf4l", "rcamlf4v", "rcamlf5a", 
                       "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d", "rcamlf9a")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
                 full_width = F, position = "center")
@@ -235,8 +238,9 @@ Correlation between the item and the sum of the dichotomous items.
 ```{r}
 basil2 %>%
   select(starts_with("rcam")) %>%
+  select(-rcamlf4a) %>%
   rowwise() %>%
-  mutate(score = sum(c(rcamlf1a, rcamlf2a, rcamlf3a, rcamlf4a, rcamlf5a, 
+  mutate(score = sum(c(rcamlf1a, rcamlf2a, rcamlf3a, rcamlf4l, rcamlf4v, rcamlf5a, 
                        rcamlf6a, rcamlf7a, rcamlf8a, rcamlf8d, rcamlf9a), na.rm = TRUE)) %>%
   corrr::correlate() %>%
   corrr::focus(score) %>%
@@ -251,6 +255,7 @@ basil2 %>%
 ```{r}
 basil2 %>%
   select(starts_with("rcam")) %>%
+  select(-rcamlf4a) %>%
   psych::alpha(.)
 
 ```

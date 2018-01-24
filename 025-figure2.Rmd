@@ -32,4 +32,11 @@
 plot_test_information
 ggsave("Figure2.png")
 
+
+
+```
+
+```{r}
+plot_test_reliability 
+ggsave("Figure2a.png")
 ```

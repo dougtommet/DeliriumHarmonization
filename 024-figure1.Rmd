@@ -16,7 +16,7 @@ foo.mdas<-  mdas.par.poly %>%
   gather(B, est, 4:6) %>%
   arrange(itemnum, B) %>%
   rename(A = A.mdas) %>%
-  mutate(gr.order = recode(itemnum, "10=1; 5=2; 3=4; 4=5; 2=7; 6=8; 1=11; 7=12; 9=14; 8=13;"),
+  mutate(gr.order = recode(itemnum, "10=1; 5=2; 3=4; 4=5; 2=7; 6=8; 1=10.75; 7=12; 9=14; 8=13;"),
          gr.order = gr.order+.25,
          test = "MDAS",
          itemnum = itemnum+20) 
@@ -25,7 +25,7 @@ foo.cam<-  cam.par.poly %>%
   gather(B, est, 4:5) %>%
   arrange(itemnum, B) %>%
   rename(A = A.cam) %>%
-  mutate(gr.order = recode(itemnum, "10=1; 2=2; 6=4; 1=6; 5=7; 3=8; 4=11; 7=12; 8=15; 9=16;"),
+  mutate(gr.order = recode(itemnum, "11=1; 2=2; 7=4; 1=6; 6=7; 3=8; 4=10.75; 5=11; 8=12; 9=15; 10=16; "),
          gr.order = gr.order+.5,
          test = "CAM",
          itemnum = itemnum+30) 
@@ -61,57 +61,60 @@ xmax <- 12
 pos1 <- -4
 pos2 <- 8.1
 labsize <- 2
-d1.loc <- 10
-d2.loc <- 120
-d3.loc <- 130
-d4.loc <- 170
-d5.loc <- 90
-d6.loc <- 80
-d7.loc <- 150
-d8.loc <- 160
-d9.loc <- 70
-d10.loc <- 20
-d11.loc <- 40
-d12.loc <- 30
-d13.loc <- 100
-m1.loc <- 112.5
-m2.loc <- 72.5
-m3.loc <- 42.5
-m4.loc <- 52.5
-m5.loc <- 22.5
-m6.loc <- 82.5
-m7.loc <- 122.5
-m8.loc <- 132.5
-m9.loc <- 142.5
-m10.loc <- 12.5
-c1.loc <- 65
-c2.loc <- 25
-c3.loc <- 85
-c4.loc <- 115
-c5.loc <- 75
-c6.loc <- 45
-c7.loc <- 125
-c8.loc <- 155
-c9.loc <- 165
-c10.loc <- 15
-sleep.loc <- mean(c(d1.loc, m10.loc, c10.loc))
+d1.loc <- 10      # Sleep
+d2.loc <- 120     # Perceptual disturbance
+d3.loc <- 130     # Delusions
+d4.loc <- 170     # Lability
+d5.loc <- 90      # Language
+d6.loc <- 80      # Thought process
+d7.loc <- 150     # Psychomotor agitation
+d8.loc <- 160     # Psychomotor retardation
+d9.loc <- 70      # Orientation
+d10.loc <- 20     # Attention
+d11.loc <- 40     # Short-term memory
+d12.loc <- 30     # Long-term memory
+d13.loc <- 100    # Visuospatial
+m1.loc <- 110     # Awareness
+m2.loc <- 72.5      # Disorientation
+m3.loc <- 42.5      # Short-term memory
+m4.loc <- 52.5      # Impaired digit span
+m5.loc <- 22.5      # Attention
+m6.loc <- 82.5      # Disorganized thinking
+m7.loc <- 122.5     # Perceptual disturbance
+m8.loc <- 132.5     # Delusions
+m9.loc <- 142.5     # Psychomotor aggitation/retardation
+m10.loc <- 12.5     # Sleep
+c1.loc <- 65      # Acute change
+c2.loc <- 25      # Inattention
+c3.loc <- 85      # Disorganized thinking
+c4.loc <- 112.5     # Level of consciousness (lethargic)
+c5.loc <- 115     # Level of consciousness (vigilant)
+c6.loc <- 75      # Disorientation
+c7.loc <- 45      # Memory impairment
+c8.loc <- 125     # Perceptual disturbance
+c9.loc <- 155     # Psychomotor agitation
+c10.loc <- 165    # Psychomotor retardation
+c11.loc <- 15     # Sleep
+
+sleep.loc <- mean(c(d1.loc, m10.loc, c11.loc))
 attention.loc <- mean(c(d10.loc, m5.loc, c2.loc))
 ltmemory.loc <- mean(c(d12.loc))
-stmemory.loc <- mean(c(d11.loc, m3.loc, c6.loc))
+stmemory.loc <- mean(c(d11.loc, m3.loc, c7.loc))
 digitspan.loc <- mean(c(m4.loc))
 acute.loc <- mean(c(c1.loc))
-orientation.loc <- mean(c(d9.loc, m2.loc, c5.loc))
+orientation.loc <- mean(c(d9.loc, m2.loc, c6.loc))
 disthinking.loc <- mean(c(d6.loc, m6.loc, c3.loc))
 # thoughpro.loc <- mean(c())
 language.loc <- mean(c(d5.loc))
 visiospatial.loc <- mean(c(d13.loc))
-percdis.loc <- mean(c(d2.loc, m7.loc, c7.loc))
+percdis.loc <- mean(c(d2.loc, m7.loc, c8.loc))
 psyaggret.loc <- mean(c(m9.loc))
-psyagg.loc <- mean(c(d7.loc, c8.loc))
-psyret.loc <- mean(c(d8.loc, c9.loc))
+psyagg.loc <- mean(c(d7.loc, c9.loc))
+psyret.loc <- mean(c(d8.loc, c10.loc))
 delusion.loc <- mean(c(d3.loc, m8.loc))
 labaffect.loc <- mean(c(d4.loc))
-awareness.loc <- mean(c(m1.loc, c4.loc))
+awareness.loc <- mean(c(m1.loc, c4.loc, c5.loc))
+
 
 
 plot_thresholds <-  foo.drs %>%
@@ -148,7 +151,7 @@ plot_thresholds <-  foo.drs %>%
     annotate("rect", xmin = xmin, xmax = xmax, ymin = 177, ymax = 187, alpha = .2) +
     annotate("text", x = pos1, y = 5, hjust=0, label = "Item", 
              size = labsize, fontface =2) +
-    annotate("text", x = pos2, y = 5, hjust=0, label = "Feature domain", 
+    annotate("text", x = pos2, y = 5, hjust=0, label = "Rated Item", 
              size = labsize, fontface =2) +
     annotate("text", x = pos1, y = d1.loc,  hjust=0, label = "DRS-R-98 1", 
              size = labsize) +
@@ -202,19 +205,21 @@ plot_thresholds <-  foo.drs %>%
              size = labsize) +
     annotate("text", x = pos1, y = c3.loc, hjust=0, label = "CAM-S 3", 
              size = labsize) +
-    annotate("text", x = pos1, y = c4.loc, hjust=0, label = "CAM-S 4", 
+    annotate("text", x = pos1, y = c4.loc, hjust=0, label = "CAM-S 4 (lethargic)", 
              size = labsize) +
-    annotate("text", x = pos1, y = c5.loc, hjust=0, label = "CAM-S 5", 
+    annotate("text", x = pos1, y = c5.loc, hjust=0, label = "CAM-S 4 (vigilant)", 
              size = labsize) +
-    annotate("text", x = pos1, y = c6.loc, hjust=0, label = "CAM-S 6", 
+    annotate("text", x = pos1, y = c6.loc, hjust=0, label = "CAM-S 5", 
              size = labsize) +
-    annotate("text", x = pos1, y = c7.loc, hjust=0, label = "CAM-S 7", 
+    annotate("text", x = pos1, y = c7.loc, hjust=0, label = "CAM-S 6", 
              size = labsize) +
-    annotate("text", x = pos1, y = c8.loc, hjust=0, label = "CAM-S 8a", 
+    annotate("text", x = pos1, y = c8.loc, hjust=0, label = "CAM-S 7", 
              size = labsize) +
-    annotate("text", x = pos1, y = c9.loc, hjust=0, label = "CAM-S 8d", 
+    annotate("text", x = pos1, y = c9.loc, hjust=0, label = "CAM-S 8a", 
              size = labsize) +
-    annotate("text", x = pos1, y = c10.loc, hjust=0, label = "CAM-S 9", 
+    annotate("text", x = pos1, y = c10.loc, hjust=0, label = "CAM-S 8d", 
+             size = labsize) +
+    annotate("text", x = pos1, y = c11.loc, hjust=0, label = "CAM-S 9", 
              size = labsize) +
     annotate("text", x = pos2, y = sleep.loc, hjust=0, 
              label = "Sleep disturbance", size = labsize) +

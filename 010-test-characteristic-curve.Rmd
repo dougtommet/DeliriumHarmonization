@@ -95,6 +95,7 @@ cam.info.dich.linked <- hoo %>%
          p8 = (exp(my.par[8,1]*(theta-my.par[8,2]))/(1+exp(my.par[8,1]*(theta-my.par[8,2])))),
          p9 = (exp(my.par[9,1]*(theta-my.par[9,2]))/(1+exp(my.par[9,1]*(theta-my.par[9,2])))),
          p10 = (exp(my.par[10,1]*(theta-my.par[10,2]))/(1+exp(my.par[10,1]*(theta-my.par[10,2])))),
+         p11 = (exp(my.par[11,1]*(theta-my.par[11,2]))/(1+exp(my.par[11,1]*(theta-my.par[11,2])))),
          q1 = 1-p1,
          q2 = 1-p2,
          q3 = 1-p3,
@@ -105,6 +106,7 @@ cam.info.dich.linked <- hoo %>%
          q8 = 1-p8,
          q9 = 1-p9,
          q10 = 1-p10,
+         q11 = 1-p11,
          i1 = my.par[1,1]^2*p1*q1,
          i2 = my.par[2,1]^2*p2*q2,
          i3 = my.par[3,1]^2*p3*q3,
@@ -115,8 +117,9 @@ cam.info.dich.linked <- hoo %>%
          i8 = my.par[8,1]^2*p8*q8,
          i9 = my.par[9,1]^2*p9*q9,
          i10 = my.par[10,1]^2*p10*q10,
-         testscore = p1+p2+p3+p4+p5+p6+p7+p8+p9+p10,
-         testinfo = i1+i2+i3+i4+i5+i6+i7+i8+i9+i10)
+         i11 = my.par[11,1]^2*p11*q11,
+         testscore = p1+p2+p3+p4+p5+p6+p7+p8+p9+p10+p11,
+         testinfo = i1+i2+i3+i4+i5+i6+i7+i8+i9+i10+i11)
 ```
 
 ```{r}

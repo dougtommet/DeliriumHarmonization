@@ -318,6 +318,7 @@ camlf.info.poly <- hoo %>%
          p8.0 = 1,
          p9.0 = 1,
          p10.0 = 1,
+         p11.0 = 1,
          p1.1 = (exp(my.par[1,1]*(theta-my.par[1,2]))/(1+exp(my.par[1,1]*(theta-my.par[1,2])))),
          p2.1 = (exp(my.par[2,1]*(theta-my.par[2,2]))/(1+exp(my.par[2,1]*(theta-my.par[2,2])))),
          p3.1 = (exp(my.par[3,1]*(theta-my.par[3,2]))/(1+exp(my.par[3,1]*(theta-my.par[3,2])))),
@@ -328,25 +329,26 @@ camlf.info.poly <- hoo %>%
          p8.1 = (exp(my.par[8,1]*(theta-my.par[8,2]))/(1+exp(my.par[8,1]*(theta-my.par[8,2])))),
          p9.1 = (exp(my.par[9,1]*(theta-my.par[9,2]))/(1+exp(my.par[9,1]*(theta-my.par[9,2])))),
          p10.1 = (exp(my.par[10,1]*(theta-my.par[10,2]))/(1+exp(my.par[10,1]*(theta-my.par[10,2])))),
+         p11.1 = (exp(my.par[11,1]*(theta-my.par[11,2]))/(1+exp(my.par[11,1]*(theta-my.par[11,2])))),
          p1.2 = 0,
          p2.2 = (exp(my.par[2,1]*(theta-my.par[2,3]))/(1+exp(my.par[2,1]*(theta-my.par[2,3])))),
          p3.2 = (exp(my.par[3,1]*(theta-my.par[3,3]))/(1+exp(my.par[3,1]*(theta-my.par[3,3])))),
-         p4.2 = (exp(my.par[4,1]*(theta-my.par[4,3]))/(1+exp(my.par[4,1]*(theta-my.par[4,3])))),
-         p5.2 = (exp(my.par[5,1]*(theta-my.par[5,3]))/(1+exp(my.par[5,1]*(theta-my.par[5,3])))),
+         p4.2 = 0,
+         p5.2 = 0,
          p6.2 = (exp(my.par[6,1]*(theta-my.par[6,3]))/(1+exp(my.par[6,1]*(theta-my.par[6,3])))),
          p7.2 = (exp(my.par[7,1]*(theta-my.par[7,3]))/(1+exp(my.par[7,1]*(theta-my.par[7,3])))),
          p8.2 = (exp(my.par[8,1]*(theta-my.par[8,3]))/(1+exp(my.par[8,1]*(theta-my.par[8,3])))),
          p9.2 = (exp(my.par[9,1]*(theta-my.par[9,3]))/(1+exp(my.par[9,1]*(theta-my.par[9,3])))),
          p10.2 = (exp(my.par[10,1]*(theta-my.par[10,3]))/(1+exp(my.par[10,1]*(theta-my.par[10,3])))),
+         p11.2 = (exp(my.par[11,1]*(theta-my.par[11,3]))/(1+exp(my.par[11,1]*(theta-my.par[11,3])))),
          p2.3 = 0,
          p3.3 = 0,
-         p4.3 = 0,
-         p5.3 = 0,
          p6.3 = 0,
          p7.3 = 0,
          p8.3 = 0,
          p9.3 = 0,
          p10.3 = 0,
+         p11.3 = 0,
          i1 = my.par[1,1]^2 * (  ((p1.0*(1-p1.0)) - (p1.1*(1-p1.1)))^2/(p1.0-p1.1) + 
                                  ((p1.1*(1-p1.1)) - (p1.2*(1-p1.2)))^2/(p1.1-p1.2)),
          i2 = my.par[2,1]^2 * (  ((p2.0*(1-p2.0)) - (p2.1*(1-p2.1)))^2/(p2.0-p2.1) +
@@ -356,11 +358,9 @@ camlf.info.poly <- hoo %>%
                                  ((p3.1*(1-p3.1)) - (p3.2*(1-p3.2)))^2/(p3.1-p3.2) +
                                  ((p3.2*(1-p3.2)) - (p3.3*(1-p3.3)))^2/(p3.2-p3.3)),
          i4 = my.par[4,1]^2 * (  ((p4.0*(1-p4.0)) - (p4.1*(1-p4.1)))^2/(p4.0-p4.1) +
-                                 ((p4.1*(1-p4.1)) - (p4.2*(1-p4.2)))^2/(p4.1-p4.2) +
-                                 ((p4.2*(1-p4.2)) - (p4.3*(1-p4.3)))^2/(p4.2-p4.3)),
+                                 ((p4.1*(1-p4.1)) - (p4.2*(1-p4.2)))^2/(p4.1-p4.2)),
          i5 = my.par[5,1]^2 * (  ((p5.0*(1-p5.0)) - (p5.1*(1-p5.1)))^2/(p5.0-p5.1) +
-                                 ((p5.1*(1-p5.1)) - (p5.2*(1-p5.2)))^2/(p5.1-p5.2) +
-                                 ((p5.2*(1-p5.2)) - (p5.3*(1-p5.3)))^2/(p5.2-p5.3)),
+                                 ((p5.1*(1-p5.1)) - (p5.2*(1-p5.2)))^2/(p5.1-p5.2)),
          i6 = my.par[6,1]^2 * (  ((p6.0*(1-p6.0)) - (p6.1*(1-p6.1)))^2/(p6.0-p6.1) +
                                  ((p6.1*(1-p6.1)) - (p6.2*(1-p6.2)))^2/(p6.1-p6.2) +
                                  ((p6.2*(1-p6.2)) - (p6.3*(1-p6.3)))^2/(p6.2-p6.3)),
@@ -376,16 +376,20 @@ camlf.info.poly <- hoo %>%
          i10 = my.par[10,1]^2 * (  ((p10.0*(1-p10.0)) - (p10.1*(1-p10.1)))^2/(p10.0-p10.1) +
                                    ((p10.1*(1-p10.1)) - (p10.2*(1-p10.2)))^2/(p10.1-p10.2) +
                                    ((p10.2*(1-p10.2)) - (p10.3*(1-p10.3)))^2/(p10.2-p10.3)),
+         i11 = my.par[11,1]^2 * (  ((p11.0*(1-p11.0)) - (p11.1*(1-p11.1)))^2/(p11.0-p11.1) +
+                                   ((p11.1*(1-p11.1)) - (p11.2*(1-p11.2)))^2/(p11.1-p11.2) +
+                                   ((p11.2*(1-p11.2)) - (p11.3*(1-p11.3)))^2/(p11.2-p11.3)),
          es1 = p1.1, 
          es2 = p2.1 + p2.2, 
          es3 = p3.1 + p3.2, 
-         es4 = p4.1 + p4.2, 
-         es5 = p5.1 + p5.2, 
+         es4 = p4.1, 
+         es5 = p5.1, 
          es6 = p6.1 + p6.2, 
          es7 = p7.1 + p7.2, 
          es8 = p8.1 + p8.2, 
          es9 = p9.1 + p9.2, 
-         es10 = p10.1 + p10.2, 
+         es10 = p10.1 + p10.2,
+         es11 = p11.1 + p11.2,
          i1.sens = my.par[1,1]^2 * (  ((p1.0*(1-p1.0)) - (p1.1*(1-p1.1)))^2/(p1.0-p1.1) + 
                                       ((p1.1*(1-p1.1)) - (p1.2*(1-p1.2)))^2/(p1.1-p1.2)),
          i2.sens = my.par[2,1]^2 * (  ((p2.0*(1-p2.0)) - (p2.1*(1-p2.1)))^2/(p2.0-p2.1) +
@@ -393,9 +397,9 @@ camlf.info.poly <- hoo %>%
          i3.sens = my.par[3,1]^2 * (  ((p3.0*(1-p3.0)) - (p3.1*(1-p3.1)))^2/(p3.0-p3.1) +
                                       ((p3.1*(1-p3.1)) - (p3.3*(1-p3.3)))^2/(p3.1-p3.3)),
          i4.sens = my.par[4,1]^2 * (  ((p4.0*(1-p4.0)) - (p4.1*(1-p4.1)))^2/(p4.0-p4.1) +
-                                      ((p4.1*(1-p4.1)) - (p4.3*(1-p4.3)))^2/(p4.1-p4.3)),
+                                      ((p4.1*(1-p4.1)) - (p4.2*(1-p4.2)))^2/(p4.1-p4.2)),
          i5.sens = my.par[5,1]^2 * (  ((p5.0*(1-p5.0)) - (p5.1*(1-p5.1)))^2/(p5.0-p5.1) +
-                                      ((p5.1*(1-p5.1)) - (p5.3*(1-p5.3)))^2/(p5.1-p5.3)),
+                                      ((p5.1*(1-p5.1)) - (p5.2*(1-p5.2)))^2/(p5.1-p5.2)),
          i6.sens = my.par[6,1]^2 * (  ((p6.0*(1-p6.0)) - (p6.1*(1-p6.1)))^2/(p6.0-p6.1) +
                                       ((p6.1*(1-p6.1)) - (p6.3*(1-p6.3)))^2/(p6.1-p6.3)),
          i7.sens = my.par[7,1]^2 * (  ((p7.0*(1-p7.0)) - (p7.1*(1-p7.1)))^2/(p7.0-p7.1) +
@@ -406,10 +410,12 @@ camlf.info.poly <- hoo %>%
                                       ((p9.1*(1-p9.1)) - (p9.3*(1-p9.3)))^2/(p9.1-p9.3)),
          i10.sens = my.par[10,1]^2 * (  ((p10.0*(1-p10.0)) - (p10.1*(1-p10.1)))^2/(p10.0-p10.1) +
                                         ((p10.1*(1-p10.1)) - (p10.3*(1-p10.3)))^2/(p10.1-p10.3)),
-         testscore = es1 + es2 + es3 + es4 + es5 + es6 + es7 + es8 + es9 + es10,
-         info = i1 + i2 + i3 + i4 + i5 + i6 + i7 + i8 + i9 + i10,
+         i11.sens = my.par[11,1]^2 * (  ((p11.0*(1-p11.0)) - (p11.1*(1-p11.1)))^2/(p11.0-p11.1) +
+                                        ((p11.1*(1-p11.1)) - (p11.3*(1-p11.3)))^2/(p11.1-p11.3)),
+         testscore = es1 + es2 + es3 + es4 + es5 + es6 + es7 + es8 + es9 + es10 + es11,
+         info = i1 + i2 + i3 + i4 + i5 + i6 + i7 + i8 + i9 + i10 + i11,
          info.sens = i1.sens + i2.sens + i3.sens + i4.sens + i5.sens + i6.sens + 
-           i7.sens + i8.sens + i9.sens + i10.sens,
+           i7.sens + i8.sens + i9.sens + i10.sens + i11.sens,
          info.diff = info - info.sens,
          sem = info^(-.5),
          sem.sens = info.sens^(-.5))
@@ -426,17 +432,19 @@ camsf.info.poly <- hoo %>%
          p2.0 = 1,
          p3.0 = 1,
          p4.0 = 1,
+         p5.0 = 1,
          p1.1 = (exp(my.par[1,1]*(theta-my.par[1,2]))/(1+exp(my.par[1,1]*(theta-my.par[1,2])))),
          p2.1 = (exp(my.par[2,1]*(theta-my.par[2,2]))/(1+exp(my.par[2,1]*(theta-my.par[2,2])))),
          p3.1 = (exp(my.par[3,1]*(theta-my.par[3,2]))/(1+exp(my.par[3,1]*(theta-my.par[3,2])))),
          p4.1 = (exp(my.par[4,1]*(theta-my.par[4,2]))/(1+exp(my.par[4,1]*(theta-my.par[4,2])))),
+         p5.1 = (exp(my.par[5,1]*(theta-my.par[5,2]))/(1+exp(my.par[5,1]*(theta-my.par[5,2])))),
          p1.2 = 0,
          p2.2 = (exp(my.par[2,1]*(theta-my.par[2,3]))/(1+exp(my.par[2,1]*(theta-my.par[2,3])))),
          p3.2 = (exp(my.par[3,1]*(theta-my.par[3,3]))/(1+exp(my.par[3,1]*(theta-my.par[3,3])))),
-         p4.2 = (exp(my.par[4,1]*(theta-my.par[4,3]))/(1+exp(my.par[4,1]*(theta-my.par[4,3])))),
+         p4.2 = 0,
+         p5.2 = 0,
          p2.3 = 0,
          p3.3 = 0,
-         p4.3 = 0,
          i1 = my.par[1,1]^2 * (  ((p1.0*(1-p1.0)) - (p1.1*(1-p1.1)))^2/(p1.0-p1.1) + 
                                  ((p1.1*(1-p1.1)) - (p1.2*(1-p1.2)))^2/(p1.1-p1.2)),
          i2 = my.par[2,1]^2 * (  ((p2.0*(1-p2.0)) - (p2.1*(1-p2.1)))^2/(p2.0-p2.1) +
@@ -446,12 +454,14 @@ camsf.info.poly <- hoo %>%
                                  ((p3.1*(1-p3.1)) - (p3.2*(1-p3.2)))^2/(p3.1-p3.2) +
                                  ((p3.2*(1-p3.2)) - (p3.3*(1-p3.3)))^2/(p3.2-p3.3)),
          i4 = my.par[4,1]^2 * (  ((p4.0*(1-p4.0)) - (p4.1*(1-p4.1)))^2/(p4.0-p4.1) +
-                                 ((p4.1*(1-p4.1)) - (p4.2*(1-p4.2)))^2/(p4.1-p4.2) +
-                                 ((p4.2*(1-p4.2)) - (p4.3*(1-p4.3)))^2/(p4.2-p4.3)),
+                                 ((p4.1*(1-p4.1)) - (p4.2*(1-p4.2)))^2/(p4.1-p4.2)),
+         i5 = my.par[5,1]^2 * (  ((p5.0*(1-p5.0)) - (p5.1*(1-p5.1)))^2/(p5.0-p5.1) +
+                                 ((p5.1*(1-p5.1)) - (p5.2*(1-p5.2)))^2/(p5.1-p5.2)),
          es1 = p1.1, 
          es2 = p2.1 + p2.2, 
          es3 = p3.1 + p3.2, 
-         es4 = p4.1 + p4.2, 
+         es4 = p4.1, 
+         es5 = p5.1,
          i1.sens = my.par[1,1]^2 * (  ((p1.0*(1-p1.0)) - (p1.1*(1-p1.1)))^2/(p1.0-p1.1) + 
                                       ((p1.1*(1-p1.1)) - (p1.2*(1-p1.2)))^2/(p1.1-p1.2)),
          i2.sens = my.par[2,1]^2 * (  ((p2.0*(1-p2.0)) - (p2.1*(1-p2.1)))^2/(p2.0-p2.1) +
@@ -459,10 +469,12 @@ camsf.info.poly <- hoo %>%
          i3.sens = my.par[3,1]^2 * (  ((p3.0*(1-p3.0)) - (p3.1*(1-p3.1)))^2/(p3.0-p3.1) +
                                       ((p3.1*(1-p3.1)) - (p3.3*(1-p3.3)))^2/(p3.1-p3.3)),
          i4.sens = my.par[4,1]^2 * (  ((p4.0*(1-p4.0)) - (p4.1*(1-p4.1)))^2/(p4.0-p4.1) +
-                                      ((p4.1*(1-p4.1)) - (p4.3*(1-p4.3)))^2/(p4.1-p4.3)),
-         testscore = es1 + es2 + es3 + es4,
-         info = i1 + i2 + i3 + i4,
-         info.sens = i1.sens + i2.sens + i3.sens + i4.sens,
+                                      ((p4.1*(1-p4.1)) - (p4.2*(1-p4.2)))^2/(p4.1-p4.2)),
+         i5.sens = my.par[5,1]^2 * (  ((p5.0*(1-p5.0)) - (p5.1*(1-p5.1)))^2/(p5.0-p5.1) +
+                                      ((p5.1*(1-p5.1)) - (p5.2*(1-p5.2)))^2/(p5.1-p5.2)),
+         testscore = es1 + es2 + es3 + es4 + es5,
+         info = i1 + i2 + i3 + i4 + i5,
+         info.sens = i1.sens + i2.sens + i3.sens + i4.sens + i5.sens,
          info.diff = info - info.sens,
          sem = info^(-.5),
          sem.sens = info.sens^(-.5))
@@ -550,25 +562,27 @@ testrel <- drs.info.poly %>%
               select(theta, info) %>%
               rename(camsfinfo = info), by="theta") %>%
   gather(test, info, 2:5) %>%
-  mutate(rel = 1 - (1/info)) 
-
-
-%>%
+  mutate(rel = 1 - (1/info)) %>%
   select(-info)
 
 
-plot_test_reliability <- ggplot(testrel, aes(theta, rel, group=test, color=test)) +
+plot_test_reliability <- testrel %>%
+  filter(rel>=0) %>%
+  ggplot(aes(theta, rel, group=test, color=test)) +
   geom_line() +
   scale_color_brewer(palette = "Dark2", 
                      name = "Delirium Instrument",
                      breaks = c("drsinfo", "mdasinfo", "camlfinfo", "camsfinfo"),
                      labels = c("DRS-R-98", "MDAS", "CAM-S LF", "CAM-S SF")) + 
-  scale_y_continuous("Reliability") +
-  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1))  +
+  scale_y_continuous("Reliability", breaks=seq(0,1,.2), limits = c(0, 1)) +
+  scale_x_continuous("Delirium Intensity", breaks=seq(-4,8,1), limits=c(-4, 8))  +
   theme_doug() 
 
 plot_test_reliability +
   ggtitle("Test Reliability Curves (Polytomous CFA)")
+
+
+
 ```
 
 

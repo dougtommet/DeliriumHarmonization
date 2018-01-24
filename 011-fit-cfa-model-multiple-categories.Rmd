@@ -196,7 +196,7 @@ item.parameter.table.poly(mdas.par.poly, 3, "MDAS")
 ### CAM-S CFA model with polytomous outcome
 ```{r}
 use.variables.cam <- c("recordid", "studyidnum", "rcamlf2a", "rcamlf3a", "rcamlf5a", "rcamlf6a", 
-                        "rcamlf7a", "rcamlf8a", "rcamlf8d", "rcamlf9a", "rcamlf1a", "rcamlf4a")
+                        "rcamlf7a", "rcamlf8a", "rcamlf8d", "rcamlf9a", "rcamlf1a", "rcamlf4v", "rcamlf4l")
 
 fit.2pl.poly(basil3, 1, outfile = "cfa-cam-link-1.out",  
            instrument = "cam", 
@@ -205,7 +205,7 @@ fit.2pl.poly(basil3, 1, outfile = "cfa-cam-link-1.out",
            st.variable = mplus.variable,
            savefscores = TRUE,
            sleep.item = "rcamlf9a",
-           model.help = c("[rcamlf3a$2*5];", "[rcamlf4a$2*5];"))
+           model.help = c("[rcamlf3a$2*5];"))
 
 
 ```
@@ -220,7 +220,7 @@ item.parameter.table.poly(cam.par.poly, 2, "CAM")
 
 
 ```{r}
-use.variables.camsf <- c("recordid", "studyidnum", "rcamlf2a", "rcamlf3a", "rcamlf1a", "rcamlf4a")
+use.variables.camsf <- c("recordid", "studyidnum", "rcamlf2a", "rcamlf3a", "rcamlf1a", "rcamlf4l", "rcamlf4v")
 
 fit.2pl.poly(basil3, 1, outfile = "cfa-cam-link-1.out",  
            instrument = "camsf", 
@@ -228,7 +228,7 @@ fit.2pl.poly(basil3, 1, outfile = "cfa-cam-link-1.out",
            st.analysis = mplus.analysis.2pl,
            st.variable = mplus.variable,
            savefscores = TRUE,
-           model.help = c("[rcamlf3a$2*5];", "[rcamlf4a$2*5];"))
+           model.help = c("[rcamlf3a$2*5];"))
 
 ```
 

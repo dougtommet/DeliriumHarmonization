@@ -101,7 +101,7 @@ This section contains tables/figures for the appendix.
  
 ```
 
-```{r, child="040-bootstrap-item-parameters.Rmd", eval=TRUE}
+```{r, child="040-bootstrap-item-parameters.Rmd", eval=FALSE}
  
 ```
 
@@ -111,8 +111,8 @@ This section contains analyses that are more exploratory in nature, and could be
  
 ```
 
-# For Rich & Alden
-```{r, child="050-figures-for-RNJ-ALG.Rmd"}
+
+```{r, child="050-figures-for-RNJ-ALG.Rmd", eval=FALSE}
 
 ```
 

@@ -56,7 +56,13 @@ We were interested in whether we could use the items as dichotomous outcomes in 
 
 Added measures of test reliability.  In the descriptive statistics section of the report, added item correlations and Cronbach's alpha.  In the model fitting section of the report, added McDonald's omega.
 
+### Update 1-24-2018: "Level of consciousness" recoding
 
+The handling of the item CAM-S 4 "Altered level of consciousness" in the polytomous model was wrong.  The initial recoding of the item was correct.  The response categories "Stupor" and "Coma" were recoded as "Lethargic", but since there weren't any respones in those categories, there was nothing to recode.  The responses for this item are nominal ("Normal", "Vigilant", "Lethargic") so it's wrong to treat it as ordered categories in the CFA model.  
+
+There are several options were considered to fix the coding.  One is to collapse the response categories so that it becomes "Normal" vs "Abnormal / Everything else".  Another is, since there are few "Vigilant" responses, to recode these to missing or "Normal" and the item becomes "Normal" vs "Lethagic". Another way is to turn the item into two indicators: "Normal" vs "Vigilant" and "Normal" vs "Lethargic".  
+
+Turning the item into two indicators is the approach used in this report.  This approach retains all the information provided in the item.
 
 
 

@@ -108,10 +108,14 @@ getIRTparam <- function(filename, instrument, itemnum) {
 # cam.par.dich <- getIRTparam("cfa-cam-2-1-2pl.out", "cam", c(22, 10, 24, 25, 9, 26, 2, 7, 8, 1))
 
 # Including "thought process abnormalities" in the linking
+# drs.par.dich <- getIRTparam("cfa-drs-2-1-2pl.out", "drs", 1:13)
+# mdas.par.dich <- getIRTparam("cfa-mdas-2-1-2pl.out", "mdas", c(14, 9, 11, 16, 17, 6, 2, 3, 21, 1))
+# cam.par.dich <- getIRTparam("cfa-cam-2-1-2pl.out", "cam", c(22, 10, 6, 25, 9, 11, 2, 7, 8, 1))
+
+# split cam4a - level of consciousness into 2 items
 drs.par.dich <- getIRTparam("cfa-drs-2-1-2pl.out", "drs", 1:13)
 mdas.par.dich <- getIRTparam("cfa-mdas-2-1-2pl.out", "mdas", c(14, 9, 11, 16, 17, 6, 2, 3, 21, 1))
-cam.par.dich <- getIRTparam("cfa-cam-2-1-2pl.out", "cam", c(22, 10, 6, 25, 9, 26, 2, 7, 8, 1))
-
+cam.par.dich <- getIRTparam("cfa-cam-2-1-2pl.out", "cam", c(22, 10, 6, 25, 26,  9, 11, 2, 7, 8, 1))
 
 
 
@@ -316,7 +320,7 @@ item.parameter.table3(mdas.par.dich, "mdas")
 
 
 ```{r}
-comitems <- c(1, 2, 6, 7, 8, 9, 10)
+comitems <- c(1, 2, 6, 7, 8, 9, 10, 11)
 cam.par.dich <- linkingFunction(drs.par.dich, cam.par.dich, comitems, "drs", "cam")
 
 
