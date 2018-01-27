@@ -1,7 +1,7 @@
 
 ### Figure 2
 
-```{r}
+```{r, eval=FALSE}
 
 # testinfo <- drs.info.poly %>%
 #   select(theta, info) %>%
@@ -36,7 +36,43 @@ ggsave("Figure2.png")
 
 ```
 
-```{r}
+
+```{r, eval=FALSE}
 plot_test_reliability 
 ggsave("Figure2a.png")
 ```
+
+```{r}
+## Adding a rug plot to the Information/Reliability plots
+## Data for rug plots
+
+fscores.drs <- getSavedata_Data("cfa-drs-3-1.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  rename(DRS = f)
+
+fscores.mdas <- getSavedata_Data("cfa-mdas-3-1.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  rename(MDAS = f)
+
+fscores.cam <- getSavedata_Data("cfa-cam-3-1.out") %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  rename(CAM = f)
+
+fscores <- fscores.drs %>%
+  left_join(fscores.mdas, by="recordid") %>%
+  left_join(fscores.cam, by="recordid") %>%
+  gather(test, fscore, 2:4) 
+
+plot_test_information +
+  geom_rug(data = fscores, aes(x=fscore), inherit.aes = F, alpha=0.1)
+ggsave("Figure2.png")
+
+plot_test_reliability +
+  geom_rug(data = fscores, aes(x=fscore), inherit.aes = F, alpha=0.1)
+ggsave("Figure2a.png")
+
+```
+

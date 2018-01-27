@@ -11,7 +11,7 @@ myScatterPlot <- function(df, x, y, cor.text,
   
   if(points==TRUE) {
     plot <- plot +
-      geom_point() +
+      geom_point(size= 0.25, alpha = 0.4) +
       annotate("text", x = xtext, y = ytext, hjust = 0, label = cor.text)
   }
   plot
