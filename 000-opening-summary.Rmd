@@ -58,11 +58,22 @@ Added measures of test reliability.  In the descriptive statistics section of th
 
 ### Update 1-24-2018: "Level of consciousness" recoding
 
-The handling of the item CAM-S 4 "Altered level of consciousness" in the polytomous model was wrong.  The initial recoding of the item was correct.  The response categories "Stupor" and "Coma" were recoded as "Lethargic", but since there weren't any respones in those categories, there was nothing to recode.  The responses for this item are nominal ("Normal", "Vigilant", "Lethargic") so it's wrong to treat it as ordered categories in the CFA model.  
+The handling of the item CAM-S 4 "Altered level of consciousness" in the polytomous model was wrong.  The initial recoding of the item was correct.  The response categories "Stupor" and "Coma" were recoded as "Lethargic", but since there weren't any responses in those categories, there was nothing to recode.  The responses for this item are nominal ("Normal", "Vigilant", "Lethargic") so it's wrong to treat it as ordered categories in the CFA model.  
 
-There are several options were considered to fix the coding.  One is to collapse the response categories so that it becomes "Normal" vs "Abnormal / Everything else".  Another is, since there are few "Vigilant" responses, to recode these to missing or "Normal" and the item becomes "Normal" vs "Lethagic". Another way is to turn the item into two indicators: "Normal" vs "Vigilant" and "Normal" vs "Lethargic".  
+There are several options were considered to fix the coding.  One is to collapse the response categories so that it becomes "Normal" vs "Abnormal / Everything else".  Another is, since there are few "Vigilant" responses, to recode these to missing or "Normal" and the item becomes "Normal" vs "Lethargic". Another way is to turn the item into two indicators: "Normal" vs "Vigilant" and "Normal" vs "Lethargic".  
 
 Turning the item into two indicators is the approach used in this report.  This approach retains all the information provided in the item.
+
+
+### Update 1-29-2017: Figure aesthitics 
+
+* Figure 1: Removed the item number from the left hand column.  Added an solid line above the rugplot.  Labeled the rugplot. Created a new version of the figure, removing the left hand column and putting it into a legend.
+
+* Figure 2: Added a rugplot to the Information and Reliability plots
+
+* Figure 3: Made the dots smaller and more transparent
+
+* Figure 4: Added a rugplot to the test characteristic curve plot
 
 
 
