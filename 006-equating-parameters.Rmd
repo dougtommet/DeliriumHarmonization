@@ -3,7 +3,7 @@ Using the SNSequate package to equate item parameters.
 
 
 ```{r}
-# drs.par.dich <- readModels("cfa-drs-2-1-2pl.out")$parameters$unstandardized
+# drs.par.dich <- readModels("cfa-drs-2-1-2pl.out", quiet = TRUE)$parameters$unstandardized
 # 
 # drs.par.dich <- drs.par.dich %>%
 #       filter(paramHeader=="F.BY" | 
@@ -26,7 +26,7 @@ Using the SNSequate package to equate item parameters.
 #   select(item, itemnum, A.drs, B.drs, C.drs)
 #       
 # 
-# mdas.par.dich <- readModels("cfa-mdas-2-1-2pl.out")$parameters$unstandardized
+# mdas.par.dich <- readModels("cfa-mdas-2-1-2pl.out", quiet = TRUE)$parameters$unstandardized
 # 
 # mdas.par.dich <- mdas.par.dich %>%
 #       filter(paramHeader=="F.BY" | 
@@ -49,7 +49,7 @@ Using the SNSequate package to equate item parameters.
 # mdas.par.dich$itemnum <- c(14, 9, 11, 16, 17, 18, 2, 3, 21, 1)
 # 
 # 
-# cam.par.dich <- readModels("cfa-cam-2-1-2pl.out")$parameters$unstandardized
+# cam.par.dich <- readModels("cfa-cam-2-1-2pl.out", quiet = TRUE)$parameters$unstandardized
 # 
 # cam.par.dich <- cam.par.dich %>%
 #       filter(paramHeader=="F.BY" | 
@@ -74,7 +74,7 @@ Using the SNSequate package to equate item parameters.
                      
 
 getIRTparam <- function(filename, instrument, itemnum) {
-  par.dich <- readModels(filename)$parameters$unstandardized
+  par.dich <- readModels(filename, quiet = TRUE)$parameters$unstandardized
 
   par.dich <- par.dich %>%
     filter(paramHeader=="F.BY" | 
@@ -201,7 +201,7 @@ item.parameter.table3 <- function(df, instrument.name){
     kable(caption = paste("Comparision between original and linked item parameters for", instrument.name),
           digits = 2,
           col.names = c("Item", "A (original)", "B (original)", "A (linked)", "B (linked)")) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "left")
   
 }
 
@@ -269,8 +269,7 @@ fit.2pl.linked <- function(x, y, df1, instrument, use.variables1, use.variables2
     rdata = x)
   cfa.link.fit <- mplusModeler(cfa.link.body, 
                                modelout = paste0("cfa-", instrument, "-link-", y,".inp"),
-                               run = TRUE,
-                               hashfilename = FALSE)
+                               run = TRUE, hashfilename = FALSE, writeData = "always")
 
   
   

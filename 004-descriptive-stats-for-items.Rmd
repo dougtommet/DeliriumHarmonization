@@ -20,7 +20,7 @@ basil %>%
   kable(digits = 2, 
         col.names = c("Item", "0", "1", "2", "3", "Missing")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 
 
 ```
@@ -42,7 +42,7 @@ basil2 %>%
   kable(digits = 2, 
         col.names = c("Item", "0", "1", "Missing")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 #### Item correlations
@@ -56,7 +56,7 @@ basil2 %>%
         col.names = c("", "rdrs01", "rdrs02", "rdrs03", "rdrs04", "rdrs05", "rdrs06", "rdrs07", 
                        "rdrs08", "rdrs09", "rdrs10", "rdrs11", "rdrs12", "rdrs13")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 #### Item - total score correlation
@@ -74,7 +74,7 @@ basil2 %>%
   kable(digits = 2,
         col.names = c("", "total score")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 #### Cronbach's alpha
@@ -107,7 +107,7 @@ basil %>%
   kable(digits = 2, 
         col.names = c("Item", "0", "1", "2", "3", "Missing")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 #### Dichotomized item category frequencies (%)
@@ -127,7 +127,7 @@ basil2 %>%
   kable(digits = 2, 
         col.names = c("Item", "0", "1", "Missing")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 #### Item correlations
@@ -141,7 +141,7 @@ basil2 %>%
         col.names = c("", "rmdas01", "rmdas02", "rmdas03", "rmdas04", "rmdas05", 
                       "rmdas06", "rmdas07", "rmdas08", "rmdas09", "rmdas10")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 #### Item - total score correlation
@@ -159,7 +159,7 @@ basil2 %>%
   kable(digits = 2,
         col.names = c("", "total score")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 #### Cronbach's alpha
@@ -191,7 +191,7 @@ basil %>%
   kable(digits = 2, 
         col.names = c("Item", "0", "1", "2", "Missing")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 #### Dichotomized item category frequency (%)
@@ -212,7 +212,7 @@ basil2 %>%
   kable(digits = 2, 
         col.names = c("Item", "0", "1", "Missing")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 
 ```
 
@@ -228,7 +228,7 @@ basil2 %>%
         col.names = c("", "rcamlf1a", "rcamlf2a", "rcamlf3a", "rcamlf4l", "rcamlf4v", "rcamlf5a", 
                       "rcamlf6a", "rcamlf7a", "rcamlf8a", "rcamlf8d", "rcamlf9a")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 #### Item - total score correlation
@@ -247,7 +247,7 @@ basil2 %>%
   kable(digits = 2,
         col.names = c("", "total score")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 #### Cronbach's alpha

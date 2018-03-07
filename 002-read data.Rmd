@@ -8,19 +8,49 @@ The data comes from */BASIL/POSTED/DATA/DERIVED/clean/current/*.  On 9-17-2017, 
 ```{r}
 # dataprocessing <- "R:/POSTED/DATA/DERIVED/clean/processing/"
 # dataprocessing <- "/Users/douglastommet/Documents/dwork/BASIL/POSTED/DATA/DERIVED/clean/processing/"
+
+### the analyses/reports up to 20180209 used data from this folder
 dataprocessing <- "/Users/douglastommet/Documents/dwork/BASIL/Projects/DeliriumHarmonization/POSTED/DATA/DERIVED/clean/current/"
+filedate <- "-20170917"
+
+inhosp.stata <- "BASIL-Hospital-Patient-Data-Analysis-File"
+inhosp.filename <- str_c(inhosp.stata, filedate, ".dta")
+patientinterview.stata <- "BASIL-Patient-Interview-Data-Analysis-File"
+patientinterview.filename <- str_c(patientinterview.stata, filedate, ".dta")
+medical.stata <- "BASIL-Medical-Record-Data-Analysis-File"
+medical.filename <- str_c(medical.stata, filedate, ".dta")
+
+
+# ### 20180220 - Some high severity responses have been reviewed and modified.  The changes havent made their way to the clean data folder yet.  So going to read in the data from the processing folder and update the clean data.
+# dataprocessing2 <- "/Users/douglastommet/Documents/dwork/BASIL/POSTED/DATA/DERIVED/clean/processing/"
+# filedate2 <- NULL
+# inhosp2.stata <- "BASIL-Hospital-Patient-Data-Analysis-File"
+# inhosp2.filename <- str_c(inhosp2.stata, filedate2, ".dta")
+# inhosp2 <- read_dta(str_c(dataprocessing2, inhosp2.filename))
+# inhosp2 <- inhosp2 %>%
+#   arrange(studyid, cvpg3a) %>%
+#   select(studyid, cvpg3a, starts_with("mdas"), starts_with("drs"), starts_with("camlf"))
+  
 
 # This data file contains the delirium severity assessments
-inhosp <- read_dta(paste0(dataprocessing, "BASIL-Hospital-Patient-Data-Analysis-File-20170917.dta"))
+inhosp <- read_dta(str_c(dataprocessing, inhosp.filename))
+inhosp <- inhosp %>%
+  arrange(studyid, cvpg3a)
+
+### Only a few cases are changed in the updated data, and it doesn't effect results
+# inhosp <- inhosp %>%
+#   select(-starts_with("mdas"), -starts_with("drs"), -starts_with("camlf")) %>%
+#   bind_cols(inhosp2) 
 
 # This data file contains the vds variables for table 1
-patientinterview <- read_dta(paste0(dataprocessing, "BASIL-Patient-Interview-Data-Analysis-File-20170917.dta")) %>%
+patientinterview <- read_dta(str_c(dataprocessing, patientinterview.filename)) %>%
   filter(timefr==0) %>%
   select(studyid, timefr, starts_with("vd")) %>%
   select(-vdcamseveritylf, -vdcamseveritysf, -vdmdas, -vddrs)
 
 # This data file contains additional variables for table 1
-medical <- read_dta(paste0(dataprocessing, "BASIL-Medical-Record-Data-Analysis-File-20170917.dta")) %>%
+# Need version 1.1.0 of haven
+medical <- read_dta(str_c(dataprocessing, medical.filename)) %>%
   select(studyid, vddementia, vdsurgical)
 
 basil <- inhosp %>%

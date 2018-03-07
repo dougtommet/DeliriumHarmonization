@@ -1,17 +1,18 @@
 
 
 ```{r}
-fscores.drs <- getSavedata_Data("cfa-drs-2-1-2pl.out") %>%
+
+fscores.drs <- readModels("cfa-drs-2-1-2pl.out")[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(f.drs = f)
 
-fscores.mdas <- getSavedata_Data("cfa-mdas-link-1.out") %>%
+fscores.mdas <- readModels("cfa-mdas-link-1.out")[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(f.mdas = f)
 
-fscores.cam <- getSavedata_Data("cfa-cam-link-1.out") %>%
+fscores.cam <- readModels("cfa-cam-link-1.out")[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(f.cam = f)

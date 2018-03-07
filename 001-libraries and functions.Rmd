@@ -53,7 +53,7 @@ maketable <- function(p, d) {
     left_join(goo, by = "item") %>%
     kable(digits = 0) %>%
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                  full_width = F, position = "center")
+                  full_width = F, position = "left")
 
 }
 
@@ -71,7 +71,7 @@ itemtable <- function(d) {
 }
 
 item.parameter.table <- function(filename, nitems) {
-  param <- readModels(filename)$parameters$unstandardized
+  param <- readModels(filename, quiet = TRUE)$parameters$unstandardized
   mc.param <- param %>%
     filter(paramHeader=="F.BY" | 
            paramHeader=="Thresholds") %>%
@@ -89,7 +89,7 @@ item.parameter.table <- function(filename, nitems) {
     kable(col.names = c("Item", "Slope", "Threshold"), 
           digits=c(0, 2, 2)) %>%
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                  full_width = F, position = "center")
+                  full_width = F, position = "left")
 }
 
 ```
@@ -97,7 +97,7 @@ item.parameter.table <- function(filename, nitems) {
 
 ```{r}
 item.parameter.df.poly <- function(filename, maxThresh, instrument.name) {
-  param <- readModels(filename)$parameters$unstandardized
+  param <- readModels(filename, quiet = TRUE)$parameters$unstandardized
   
   mc.param <- param %>%
     filter(paramHeader=="F.BY" | 
@@ -138,7 +138,7 @@ item.parameter.table.poly <- function(df, maxThresh, instrument.name) {
           col.names = c("Item", "A", paste0("B", 1:maxThresh)),
           caption = paste("Item parameters for", instrument.name, "with", outcome.type, "outcomes")) %>% 
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 }
 
 ```
@@ -146,7 +146,7 @@ item.parameter.table.poly <- function(df, maxThresh, instrument.name) {
 ```{r}
 # Calculate McDonald's omega statistic
 myomega <- function(filename) {
-  param <- readModels(filename)$parameters$stdyx.standardized
+  param <- readModels(filename, quiet = TRUE)$parameters$stdyx.standardized
   mc.param <- param %>%
     filter(paramHeader=="F.BY") %>%
     select(param, est) %>%

@@ -97,6 +97,10 @@ This section contains tables/figures for the manuscript.
 
 # For the appendix
 This section contains tables/figures for the appendix.
+```{r, child="060-table4.Rmd"}
+
+```
+
 ```{r, child="029-figure5.Rmd"}
  
 ```
@@ -115,5 +119,6 @@ This section contains analyses that are more exploratory in nature, and could be
 ```{r, child="050-figures-for-RNJ-ALG.Rmd", eval=FALSE}
 
 ```
+
 
 

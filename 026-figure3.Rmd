@@ -21,25 +21,25 @@ myScatterPlot <- function(df, x, y, cor.text,
 ### Figure 3
 
 ```{r}
-fscores.poly.drs <- getSavedata_Data("cfa-drs-3-1.out") %>%
+fscores.poly.drs <- readModels("cfa-drs-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
   rename(f.poly.drs = f,
          f_se.poly.drs = f_se)
 
-fscores.poly.mdas <- getSavedata_Data("cfa-mdas-3-1.out") %>%
+fscores.poly.mdas <- readModels("cfa-mdas-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
   rename(f.poly.mdas = f,
          f_se.poly.mdas = f_se)
 
-fscores.poly.camlf <- getSavedata_Data("cfa-cam-3-1.out") %>%
+fscores.poly.camlf <- readModels("cfa-cam-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
   rename(f.poly.camlf = f,
          f_se.poly.camlf = f_se)
 
-fscores.poly.camsf <- getSavedata_Data("cfa-camsf-3-1.out") %>%
+fscores.poly.camsf <- readModels("cfa-camsf-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f, f_se) %>%
   rename(f.poly.camsf = f,

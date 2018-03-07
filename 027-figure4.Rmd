@@ -41,17 +41,17 @@ ggsave("Figure4.png")
 ## Adding a rug plot to the Test characteristic plots
 ## Data for rug plots
 
-fscores.drs <- getSavedata_Data("cfa-drs-3-1.out") %>%
+fscores.drs <- readModels("cfa-drs-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(DRS = f)
 
-fscores.mdas <- getSavedata_Data("cfa-mdas-3-1.out") %>%
+fscores.mdas <- readModels("cfa-mdas-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(MDAS = f)
 
-fscores.cam <- getSavedata_Data("cfa-cam-3-1.out") %>%
+fscores.cam <- readModels("cfa-cam-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(CAM = f)

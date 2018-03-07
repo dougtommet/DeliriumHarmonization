@@ -67,7 +67,7 @@ fit.2pl.poly <- function(x, y, outfile, instrument, use.variables,
   nitems.model <- length(instrument.variables)
 
 
-  param <- readModels(paste0(outfile))$parameters$unstandardized
+  param <- readModels(paste0(outfile), quiet = TRUE)$parameters$unstandardized
   mc.param <- param %>%
     filter(paramHeader=="F.BY" | 
            paramHeader=="Thresholds" |

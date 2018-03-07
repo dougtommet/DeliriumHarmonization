@@ -32,7 +32,7 @@ testscore %>%
   kable(digits = c(0, 1, 1, 1), 
         col.names= c("CAM-S LF", "MDAS", "DRS-R-98", "CAM-S SF"), 
         caption = "CAM-S LF to MDAS, DRS-R-98, CAM-S SF") %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "left")
 ```
 
 
@@ -50,7 +50,7 @@ testscore %>%
   kable(digits = c(0, 1, 1, 1), 
         col.names = c("MDAS", "CAM-S LF", "DRS-R-98", "CAM-S SF"), 
         caption = "MDAS to CAM-S LF, DRS-R-98 and CAM-S SF") %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "left")
 ```
 
 #### Table A1c: DRS-R-98 table
@@ -67,7 +67,7 @@ testscore %>%
   kable(digits = c(0, 1, 1, 1), 
         col.names = c("DRS-R-98", "CAM-S LF", "MDAS", "CAM-S SF"), 
         caption = "DRS-R-98 to CAM-S LF, MDAS and CAM-S SF") %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "left")
 ```
 
 #### Table A1d: CAM-S SF table
@@ -84,7 +84,7 @@ testscore %>%
   kable(digits = c(0, 1, 1, 1), 
         col.names= c("CAM-S SF", "MDAS", "DRS-R-98", "CAM-S LF"), 
         caption = "CAM-S SF to MDAS, DRS-R-98, CAM-S LF") %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "center")
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "left")
 ```
 
 ### Figures A1: ~~Nomogram~~ Crosswalk figures for CAM-S LF

@@ -37,7 +37,7 @@ basil %>%
   select(var, N, mean, sd, n, per) %>%
   kable(digits=1, col.names=c("Variable", "N", "Mean", "SD", "Count", "Percent")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
   
 
  

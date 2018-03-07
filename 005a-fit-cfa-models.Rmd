@@ -33,11 +33,10 @@ fit.2pl <- function(x, y, instrument, modeltype, use.variables1, use.variables2,
     rdata = x
   )
   cfa.1.fit <- mplusModeler(cfa.1.body, 
-                                modelout = paste0("cfa-", instrument, "-1-", y, "-", modeltype, ".inp"), 
-                            run = TRUE,
-                            hashfilename = FALSE)
+                            modelout = paste0("cfa-", instrument, "-1-", y, "-", modeltype, ".inp"), 
+                            run = TRUE, hashfilename = FALSE, writeData = "always")
   
-  param <- readModels(paste0("cfa-", instrument, "-1-", y, "-", modeltype, ".out"))$parameters$unstandardized
+  param <- readModels(paste0("cfa-", instrument, "-1-", y, "-", modeltype, ".out"), quiet = TRUE)$parameters$unstandardized
   mc.param <- param %>%
     filter(paramHeader=="F.BY" | 
            paramHeader=="Thresholds" |
@@ -89,9 +88,8 @@ fit.2pl <- function(x, y, instrument, modeltype, use.variables1, use.variables2,
     usevariables = c(use.variables1, use.variables2),
     rdata = x)
   cfa.2.fit <- mplusModeler(cfa.2.body, 
-                                 modelout = paste0("cfa-", instrument, "-2-", y, "-", modeltype,".inp"), 
-                            run = TRUE,
-                            hashfilename = FALSE)
+                            modelout = paste0("cfa-", instrument, "-2-", y, "-", modeltype,".inp"), 
+                            run = TRUE, hashfilename = FALSE, writeData = "always")
   
 }
 
@@ -125,7 +123,8 @@ fit.3pl <- function(x, y, instrument, use.variables1, use.variables2, st.analysi
     rdata = x
   )
   cfa.1.fit <- mplusModeler(cfa.1.body, 
-                              modelout = paste0("cfa-", instrument, "-1-", y,"-3pl.inp"), run = TRUE)
+                            modelout = paste0("cfa-", instrument, "-1-", y,"-3pl.inp"), 
+                            run = TRUE, hashfilename = FALSE, writeData = "always")
 
   param <- extractModelParameters(paste0("cfa-", instrument, "-1-", y,"-3pl.out"))$unstandardized
   mc.param <- param %>%
@@ -181,7 +180,8 @@ fit.3pl <- function(x, y, instrument, use.variables1, use.variables2, st.analysi
     usevariables = c(use.variables1, use.variables2),
     rdata = x)
   cfa.2.fit <- mplusModeler(cfa.2.body,
-                               modelout = paste0("cfa-", instrument, "-2-", y,"-3pl.inp"), run = TRUE)
+                            modelout = paste0("cfa-", instrument, "-2-", y,"-3pl.inp"), 
+                            run = TRUE, hashfilename = FALSE, writeData = "always")
   
   
   
@@ -336,20 +336,20 @@ The core set of items are:
 #### Fit statistics
 Model 1
 ```{r}
-readModels("cfa-drs-1-1-wlsmv.out")$summaries %>%
+readModels("cfa-drs-1-1-wlsmv.out", quiet = TRUE)$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
   kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
 ```
 
 Model 2
 ```{r}
-readModels("cfa-drs-2-1-wlsmv.out")$summaries %>%
+readModels("cfa-drs-2-1-wlsmv.out", quiet = TRUE)$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
   kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
   
 
 ```
@@ -378,22 +378,22 @@ The McDonald's omega statistic for the DRS is `r  omega.drs`.
 #### Fit statistics
 Model 1
 ```{r}
-readModels("cfa-mdas-1-1-wlsmv.out")$summaries %>%
+readModels("cfa-mdas-1-1-wlsmv.out", quiet = TRUE)$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
   kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
   
 
 ```
 
 Model 2
 ```{r}
-readModels("cfa-mdas-2-1-wlsmv.out")$summaries %>%
+readModels("cfa-mdas-2-1-wlsmv.out", quiet = TRUE)$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
   kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
   
 
 ```
@@ -419,22 +419,22 @@ The McDonald's omega statistic for the MDAS is `r  omega.mdas`.
 #### Fit statistics
 Model 1
 ```{r}
-readModels("cfa-cam-1-1-wlsmv.out")$summaries %>%
+readModels("cfa-cam-1-1-wlsmv.out", quiet = TRUE)$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
   kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
   
 
 ```
 
 Model 2
 ```{r}
-readModels("cfa-cam-2-1-wlsmv.out")$summaries %>%
+readModels("cfa-cam-2-1-wlsmv.out", quiet = TRUE)$summaries %>%
   select(Observations, CFI, RMSEA_Estimate) %>%
   kable(digits=2, col.names = c("N", "CFI", "RMSEA")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = F, position = "center")
+                full_width = F, position = "left")
   
 
 ```

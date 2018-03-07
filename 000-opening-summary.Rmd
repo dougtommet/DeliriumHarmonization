@@ -4,7 +4,7 @@ The goal of this paper is to describe the level of agreement and a harmonized sc
 
 Note: In writing the paper, use the term "features" instead of "signs/symptoms".
 
-## Summary of Results So Far
+## Summary of Results
 ### IRT Models (dichotomous outcomes) estimated for all three instruments: CAM-S, DRS-R-98, MDAS
 
 The instrument item responses were dichotomized into "none" vs "any" symptom.

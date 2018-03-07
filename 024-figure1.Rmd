@@ -296,17 +296,17 @@ foo.cam<-  cam.par.poly %>%
 
 ## Data for rug plots
 ## (using geom_point instead of geom_rug so that the instruments can be on their own line.)
-fscores.drs <- getSavedata_Data("cfa-drs-3-1.out") %>%
+fscores.drs <- readModels("cfa-drs-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(DRS = f)
 
-fscores.mdas <- getSavedata_Data("cfa-mdas-3-1.out") %>%
+fscores.mdas <- readModels("cfa-mdas-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(MDAS = f)
 
-fscores.cam <- getSavedata_Data("cfa-cam-3-1.out") %>%
+fscores.cam <- readModels("cfa-cam-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(CAM = f)
@@ -571,17 +571,17 @@ foo.cam<-  cam.par.poly %>%
 
 ## Data for rug plots
 ## (using geom_point instead of geom_rug so that the instruments can be on their own line.)
-fscores.drs <- getSavedata_Data("cfa-drs-3-1.out") %>%
+fscores.drs <- readModels("cfa-drs-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(DRS = f)
 
-fscores.mdas <- getSavedata_Data("cfa-mdas-3-1.out") %>%
+fscores.mdas <- readModels("cfa-mdas-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(MDAS = f)
 
-fscores.cam <- getSavedata_Data("cfa-cam-3-1.out") %>%
+fscores.cam <- readModels("cfa-cam-3-1.out", quiet = TRUE)[["savedata"]] %>%
   setNames(tolower(names(.))) %>%
   select(recordid, f) %>%
   rename(CAM = f)
