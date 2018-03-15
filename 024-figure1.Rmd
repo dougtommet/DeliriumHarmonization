@@ -725,6 +725,10 @@ plot_thresholds <-  foo.drs %>%
              label = "Impaired Digit Span", size=labsize) +
     annotate("text", x = pos2, y = awareness.loc, hjust=0, 
              label = "Abnormal level of consciousness", size = labsize) +
+    annotate("text", x = 2.75, y = c4.loc, hjust=0, 
+             label = "(Lethargic)", size = 1.5) +
+    annotate("text", x = 4.35, y = c5.loc, hjust=0, 
+             label = "(Vigilant)", size = 1.5) +
     annotate("text", x = pos2, y = disthinking.loc, hjust=0, 
              label = "Disorganized thinking / \n Thought process abnormality", size = labsize) +
     annotate("text", x = pos2, y = acute.loc, hjust=0, 
