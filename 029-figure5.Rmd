@@ -20,7 +20,7 @@ testscore <- drs.info.poly %>%
 
 #### Table A1a: CAM-S LF table
 ```{r}
-testscore %>%
+cams.lf.table <- testscore %>%
   mutate(goo.camlf = round(camlfscore)) %>%
   group_by(goo.camlf) %>%
   mutate(hoo.camlf = abs(camlfscore-goo.camlf),
@@ -28,8 +28,10 @@ testscore %>%
   filter(hoo.camlf==ioo.camlf) %>%
   select(-hoo.camlf, -ioo.camlf, -camlfscore, -theta) %>%
   mutate(score = goo.camlf) %>%
-  select(goo.camlf, mdasscore, drsscore, camsfscore) %>%
-  kable(digits = c(0, 1, 1, 1), 
+  select(goo.camlf, mdasscore, drsscore, camsfscore)
+
+cams.lf.table %>%  
+    kable(digits = c(0, 1, 1, 1), 
         col.names= c("CAM-S LF", "MDAS", "DRS-R-98", "CAM-S SF"), 
         caption = "CAM-S LF to MDAS, DRS-R-98, CAM-S SF") %>%
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "left")
@@ -38,7 +40,7 @@ testscore %>%
 
 #### Table A1b: MDAS table
 ```{r}
-testscore %>%
+mdas.table <- testscore %>%
   mutate(goo.mdas = round(mdasscore)) %>%
   group_by(goo.mdas) %>%
   mutate(hoo.mdas = abs(mdasscore-goo.mdas),
@@ -46,7 +48,9 @@ testscore %>%
   filter(hoo.mdas==ioo.mdas) %>%
   select(-hoo.mdas, -ioo.mdas, -mdasscore, -theta) %>%
   mutate(score = goo.mdas) %>%
-  select(goo.mdas, camlfscore, drsscore, camsfscore) %>% 
+  select(goo.mdas, camlfscore, drsscore, camsfscore) 
+
+mdas.table %>% 
   kable(digits = c(0, 1, 1, 1), 
         col.names = c("MDAS", "CAM-S LF", "DRS-R-98", "CAM-S SF"), 
         caption = "MDAS to CAM-S LF, DRS-R-98 and CAM-S SF") %>%
@@ -55,7 +59,7 @@ testscore %>%
 
 #### Table A1c: DRS-R-98 table
 ```{r}
-testscore %>%
+drs.table <- testscore %>%
   mutate(goo.drs = round(drsscore)) %>%
   group_by(goo.drs) %>%
   mutate(hoo.drs = abs(drsscore-goo.drs),
@@ -63,7 +67,9 @@ testscore %>%
   filter(hoo.drs==ioo.drs) %>%
   select(-hoo.drs, -ioo.drs, -drsscore, -theta) %>%
   mutate(score = goo.drs) %>%
-  select(goo.drs, camlfscore, mdasscore, camsfscore) %>%
+  select(goo.drs, camlfscore, mdasscore, camsfscore) 
+
+drs.table %>%
   kable(digits = c(0, 1, 1, 1), 
         col.names = c("DRS-R-98", "CAM-S LF", "MDAS", "CAM-S SF"), 
         caption = "DRS-R-98 to CAM-S LF, MDAS and CAM-S SF") %>%
@@ -72,7 +78,7 @@ testscore %>%
 
 #### Table A1d: CAM-S SF table
 ```{r}
-testscore %>%
+cams.sf.table <- testscore %>%
   mutate(goo.camsf = round(camsfscore)) %>%
   group_by(goo.camsf) %>%
   mutate(hoo.camsf = abs(camsfscore-goo.camsf),
@@ -80,11 +86,43 @@ testscore %>%
   filter(hoo.camsf==ioo.camsf) %>%
   select(-hoo.camsf, -ioo.camsf, -camsfscore, -theta) %>%
   mutate(score = goo.camsf) %>%
-  select(goo.camsf, mdasscore, drsscore, camlfscore) %>%
+  select(goo.camsf, mdasscore, drsscore, camlfscore) 
+
+cams.sf.table %>%
   kable(digits = c(0, 1, 1, 1), 
         col.names= c("CAM-S SF", "MDAS", "DRS-R-98", "CAM-S LF"), 
         caption = "CAM-S SF to MDAS, DRS-R-98, CAM-S LF") %>%
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, position = "left")
+```
+
+
+```{r}
+## Writing csv file for shiny app
+
+cams.lf.table2 <- cams.lf.table %>%
+  mutate(instrument = 1) %>%
+  rename(camlfscore = goo.camlf)
+
+mdas.table2 <- mdas.table %>%
+  mutate(instrument = 2) %>%
+  rename(mdasscore = goo.mdas)
+
+drs.table2 <- drs.table %>%
+  mutate(instrument = 3) %>%
+  rename(drsscore = goo.drs)
+
+cams.sf.table2 <- cams.sf.table %>%
+  mutate(instrument = 4) %>%
+  rename(camsfscore = goo.camsf)
+
+shiny.table <- cams.lf.table2 %>%
+  bind_rows(mdas.table2) %>%
+  bind_rows(drs.table2) %>%
+  bind_rows(cams.sf.table2)
+
+ 
+write_csv(shiny.table, path = "shiny.table.csv")
+
 ```
 
 ### Figures A1: ~~Nomogram~~ Crosswalk figures for CAM-S LF

@@ -16,6 +16,7 @@ library(GGally)
 library(kableExtra)
 library(purrr)
 # library(corrr)
+library(readr)
 ```
 ```{r}
 source("ggplot-theme.r")

@@ -262,10 +262,11 @@ ggsave("Figure1.png", height = 20, units="cm")
 
 ```
 
-```{r, fig.height=10}
-# Removed the item number from the label
-# Reversed the direction of the y-axis to original direction but kept the item ordering.  
-# Added a line for a x-axis above the rug plot
+```{r}
+## Things common to both versions of the plot:
+## Getting the data for the thresholds and factor scores (rugplot)
+## Setting the locations for where text is to be plotted
+
 
 ## Data for thresholds  
 foo.drs<-  drs.par.poly %>%
@@ -382,6 +383,18 @@ delusion.loc <- mean(c(d3.loc, m8.loc))
 labaffect.loc <- mean(c(d4.loc))
 awareness.loc <- mean(c(m1.loc, c4.loc, c5.loc))
 rug.loc <- mean(c(r1.loc, r2.loc, r3.loc))
+
+
+```
+
+
+```{r, fig.height=10}
+
+# First version of plot:
+
+# Removed the item number from the label
+# Reversed the direction of the y-axis to original direction but kept the item ordering.  
+# Added a line for a x-axis above the rug plot
 
 plot_thresholds <-  foo.drs %>%
   bind_rows(foo.mdas) %>%
@@ -538,125 +551,12 @@ ggsave("Figure1.png", height = 20, units="cm")
 ```
 
 ```{r, fig.height=10}
-# Removed the item number from the label
 # Reversed the direction of the y-axis to original direction but kept the item ordering.  
 # Added a line for a x-axis above the rug plot
 
-## Data for thresholds  
-foo.drs<-  drs.par.poly %>%
-  gather(B, est, 4:6) %>%
-  arrange(itemnum, B) %>%
-  rename(A = A.drs) %>%
-  mutate(gr.order = recode(itemnum, "1=17; 10=16; 12=15; 11=14; 9=11; 6=10; 5=9; 13=8; 2=6; 7=3; 8=2; 3=5; 4=1;"),
-         test = "DRS") 
-
-foo.mdas<-  mdas.par.poly %>%
-  gather(B, est, 4:6) %>%
-  arrange(itemnum, B) %>%
-  rename(A = A.mdas) %>%
-  mutate(gr.order = recode(itemnum, "10=17; 5=16; 3=14; 4=13; 2=11; 6=10; 1=7.25; 7=6; 9=4; 8=5;"),
-         gr.order = gr.order-.25,
-         test = "MDAS",
-         itemnum = itemnum+20) 
-
-foo.cam<-  cam.par.poly %>%
-  gather(B, est, 4:5) %>%
-  arrange(itemnum, B) %>%
-  rename(A = A.cam) %>%
-  mutate(gr.order = recode(itemnum, "11=17; 2=16; 7=14; 1=12; 6=11; 3=10; 4=7.25; 5=7; 8=6; 9=3; 10=2; "),
-         gr.order = gr.order-.5,
-         test = "CAM",
-         itemnum = itemnum+30) 
-
-
-## Data for rug plots
-## (using geom_point instead of geom_rug so that the instruments can be on their own line.)
-fscores.drs <- readModels("cfa-drs-3-1.out", quiet = TRUE)[["savedata"]] %>%
-  setNames(tolower(names(.))) %>%
-  select(recordid, f) %>%
-  rename(DRS = f)
-
-fscores.mdas <- readModels("cfa-mdas-3-1.out", quiet = TRUE)[["savedata"]] %>%
-  setNames(tolower(names(.))) %>%
-  select(recordid, f) %>%
-  rename(MDAS = f)
-
-fscores.cam <- readModels("cfa-cam-3-1.out", quiet = TRUE)[["savedata"]] %>%
-  setNames(tolower(names(.))) %>%
-  select(recordid, f) %>%
-  rename(CAM = f)
-
-r1.loc <- -5
-r2.loc <- -7.5
-r3.loc <- -10
-
-fscores <- fscores.drs %>%
-  left_join(fscores.mdas, by="recordid") %>%
-  left_join(fscores.cam, by="recordid") %>%
-  gather(test, fscore, 2:4) %>%
-  mutate(fscore.y = ifelse(test=="DRS", r1.loc,
-                    ifelse(test=="MDAS", r2.loc, r3.loc)))
-
-## locals for plotting locations
-xmin <- -2.5
-xmax <- 12
-pos1 <- -4
-pos2 <- 8.1
-labsize <- 2
-d1.loc <- 170      # Sleep
-d2.loc <- 60     # Perceptual disturbance
-d3.loc <- 50     # Delusions
-d4.loc <- 10     # Lability
-d5.loc <- 90      # Language
-d6.loc <- 100      # Thought process
-d7.loc <- 30     # Psychomotor agitation
-d8.loc <- 20     # Psychomotor retardation
-d9.loc <- 110      # Orientation
-d10.loc <- 160     # Attention
-d11.loc <- 140     # Short-term memory
-d12.loc <- 150     # Long-term memory
-d13.loc <- 80    # Visuospatial
-m1.loc <- 70     # Awareness
-m2.loc <- 107.5      # Disorientation
-m3.loc <- 137.5      # Short-term memory
-m4.loc <- 127.5      # Impaired digit span
-m5.loc <- 157.5      # Attention
-m6.loc <- 97.5      # Disorganized thinking
-m7.loc <- 57.5     # Perceptual disturbance
-m8.loc <- 47.5     # Delusions
-m9.loc <- 37.5     # Psychomotor aggitation/retardation
-m10.loc <- 167.5     # Sleep
-c1.loc <- 115      # Acute change
-c2.loc <- 155      # Inattention
-c3.loc <- 95      # Disorganized thinking
-c4.loc <- 67.5     # Level of consciousness (lethargic)
-c5.loc <- 65     # Level of consciousness (vigilant)
-c6.loc <- 105      # Disorientation
-c7.loc <- 135      # Memory impairment
-c8.loc <- 55     # Perceptual disturbance
-c9.loc <- 25     # Psychomotor agitation
-c10.loc <- 15    # Psychomotor retardation
-c11.loc <- 165     # Sleep
-
-sleep.loc <- mean(c(d1.loc, m10.loc, c11.loc))
-attention.loc <- mean(c(d10.loc, m5.loc, c2.loc))
-ltmemory.loc <- mean(c(d12.loc))
-stmemory.loc <- mean(c(d11.loc, m3.loc, c7.loc))
-digitspan.loc <- mean(c(m4.loc))
-acute.loc <- mean(c(c1.loc))
-orientation.loc <- mean(c(d9.loc, m2.loc, c6.loc))
-disthinking.loc <- mean(c(d6.loc, m6.loc, c3.loc))
-# thoughpro.loc <- mean(c())
-language.loc <- mean(c(d5.loc))
-visiospatial.loc <- mean(c(d13.loc))
-percdis.loc <- mean(c(d2.loc, m7.loc, c8.loc))
-psyaggret.loc <- mean(c(m9.loc))
-psyagg.loc <- mean(c(d7.loc, c9.loc))
-psyret.loc <- mean(c(d8.loc, c10.loc))
-delusion.loc <- mean(c(d3.loc, m8.loc))
-labaffect.loc <- mean(c(d4.loc))
-awareness.loc <- mean(c(m1.loc, c4.loc, c5.loc))
-rug.loc <- mean(c(r1.loc, r2.loc, r3.loc))
+# Second version of plot:
+# removed the instrument label text from the plot, replaced with a legend at the bottom
+# added text for cam LOC - lethargic, vigilant
 
 plot_thresholds <-  foo.drs %>%
   bind_rows(foo.mdas) %>%
