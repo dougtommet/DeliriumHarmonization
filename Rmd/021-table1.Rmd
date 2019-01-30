@@ -1,0 +1,116 @@
+
+### Table 1
+
+```{r}
+# basil %>%
+#   group_by(studyid) %>%
+#   slice(1) %>%
+#   ungroup() %>%
+#   summarise(N_age = sum(!is.na(vdage)),
+#             N_female = sum(!is.na(vdfemale)),
+#             N_nonwhite = sum(!is.na(vdnonwhite)),
+#             N_married = sum(!is.na(vdmarried)),
+#             N_livesalone = sum(!is.na(vdlivesalone)),
+#             N_educ = sum(!is.na(vdeduc_r)),
+#             N_adlany = sum(!is.na(vdadlany)),
+#             N_dementia = sum(!is.na(vddementia)),
+#             N_surgical = sum(!is.na(vdsurgical)),
+#             N_camdeliriumever = sum(!is.na(vdcamdeliriumever)),
+#             mean_age = mean(vdage), sd_age = sd(vdage),
+#             per_female = 100*mean(vdfemale), 
+#             per_nonwhite = 100*mean(vdnonwhite),
+#             per_married = 100*mean(vdmarried, na.rm=T),
+#             per_livesalone = 100*mean(vdlivesalone, na.rm=T),
+#             mean_educ = mean(vdeduc_r, na.rm=T), sd_educ = sd(vdeduc_r, na.rm=T), 
+#             per_adlany = 100*mean(vdadlany, na.rm=T),
+#             per_dementia = 100*mean(vddementia, na.rm=T),
+#             per_surgical = 100*mean(vdsurgical, na.rm=T),
+#             per_camdeliriumever = 100*mean(vdcamdeliriumever, na.rm=T),
+#             n_female = sum(vdfemale==1, na.rm=T),
+#             n_nonwhite = sum(vdnonwhite==1, na.rm=T),
+#             n_married = sum(vdmarried==1, na.rm=T),
+#             n_livesalone = sum(vdlivesalone==1, na.rm=T),
+#             n_adlany = sum(vdadlany==1, na.rm=T),
+#             n_dementia = sum(vddementia==1, na.rm=T),
+#             n_surgical = sum(vdsurgical==1, na.rm=T),
+#             n_camdeliriumever = sum(vdcamdeliriumever==1, na.rm=T)) %>%
+#   gather(Name, Value) %>%
+#   separate(Name, c("stat", "var"), "_") %>%
+#   spread(stat, Value) %>%
+#   select(var, N, mean, sd, n, per) %>%
+#   kable(digits=1, col.names=c("Variable", "N", "Mean", "SD", "Count", "Percent")) %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+#                 full_width = F, position = "left")
+#   
+
+table1.patientinterview <- patientinterview %>%
+  summarise(N_age = sum(!is.na(vdage)),
+            N_female = sum(!is.na(vdfemale)),
+            N_nonwhite = sum(!is.na(vdnonwhite)),
+            N_married = sum(!is.na(vdmarried)),
+            N_livesalone = sum(!is.na(vdlivesalone)),
+            N_livesnh = sum(!is.na(vdlivesatnh)),
+            N_educ = sum(!is.na(vdeduc_r)),
+            N_adlany = sum(!is.na(vdadlany)),
+            N_camdeliriumever = sum(!is.na(vdcamdeliriumever)),
+            mean_age = mean(vdage), sd_age = sd(vdage),
+            per_female = 100*mean(vdfemale), 
+            per_nonwhite = 100*mean(vdnonwhite),
+            per_married = 100*mean(vdmarried, na.rm=T),
+            per_livesalone = 100*mean(vdlivesalone, na.rm=T),
+            per_livesnh = 100*mean(vdlivesatnh, na.rm=T),
+            mean_educ = mean(vdeduc_r, na.rm=T), sd_educ = sd(vdeduc_r, na.rm=T), 
+            per_adlany = 100*mean(vdadlany, na.rm=T),
+            per_camdeliriumever = 100*mean(vdcamdeliriumever, na.rm=T),
+            n_female = sum(vdfemale==1, na.rm=T),
+            n_nonwhite = sum(vdnonwhite==1, na.rm=T),
+            n_married = sum(vdmarried==1, na.rm=T),
+            n_livesalone = sum(vdlivesalone==1, na.rm=T),
+            n_livesnh = sum(vdlivesatnh, na.rm=T),
+            n_adlany = sum(vdadlany==1, na.rm=T),
+            n_camdeliriumever = sum(vdcamdeliriumever==1, na.rm=T)) %>%
+  gather(Name, Value) %>%
+  separate(Name, c("stat", "var"), "_") %>%
+  spread(stat, Value) %>%
+  select(var, N, mean, sd, n, per)
+
+
+table1.medical <- medical %>%
+  summarise(N_cci = sum(!is.na(vdcci)),
+            N_dementia = sum(!is.na(vddementia)),
+            N_surgical = sum(!is.na(vdsurgical)),
+            mean_cci = mean(vdcci, na.rm=T), sd_cci = sd(vdcci, na.rm=T),
+            per_dementia = 100*mean(vddementia, na.rm=T),
+            per_surgical = 100*mean(vdsurgical, na.rm=T),
+            n_dementia = sum(vddementia==1, na.rm=T),
+            n_surgical = sum(vdsurgical==1, na.rm=T)) %>%
+  gather(Name, Value) %>%
+  separate(Name, c("stat", "var"), "_") %>%
+  spread(stat, Value) %>%
+  select(var, N, mean, sd, n, per)
+
+table1.order <- tribble(~var, ~order, ~label,
+                        "age",              1, "Age (years)",
+                        "female",           2, "Female",
+                        "nonwhite",         3, "Non-white race",
+                        "educ",             4, "Years of education",
+                        "married",          5, "Married",
+                        "livesalone",       6, "Lives alone",
+                        "livesnh",          7, "Lives in nursing home",
+                        "dementia",         8, "Dementia",
+                        "cci",              9, "Charlson comorbidity score",
+                        "surgical",        10, "Surgical patient",
+                        "camdeliriumever", 11, "CAM delirium (ever)",
+                        "adlany",          12, "ADL (any impairment)"
+)
+table1 <- table1.patientinterview %>%
+  bind_rows(table1.medical) %>%
+  left_join(table1.order, by = "var") %>%
+  arrange(order) 
+
+table1 %>%
+  select(label, N, mean, sd, n, per) %>%
+  kable(digits=1, col.names=c("Variable", "N", "Mean", "SD", "Count", "Percent")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "left")
+```

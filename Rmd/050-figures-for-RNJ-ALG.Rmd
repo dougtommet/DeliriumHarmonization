@@ -1,0 +1,39 @@
+
+# For Rich & Alden
+
+These are some additional plots I came up with and thought you would be interested.  I don't think they should be used  in the paper because noone besides us would be interested in them and they would probably confuse reviewers.  
+
+The dashed lines are the delirium intensity corresponding to the instruments' max observed score.
+
+
+```{r}
+
+plot_test_characteristic_curve +
+  geom_segment(aes(x=-4.00, y=28, xend=3.96, yend=28), color = "#7570b3", linetype=2) +
+  geom_segment(aes(x= 3.96, y=28, xend=3.96, yend=0),  color = "#7570b3", linetype=2) +
+  geom_segment(aes(x=-4.00, y=22, xend=4.11, yend=22), color = "#e7298a", linetype=2) +
+  geom_segment(aes(x= 4.11, y=22, xend=4.11, yend=0),  color = "#e7298a", linetype=2) +
+  geom_segment(aes(x=-4.00, y=6,  xend=2.68, yend=6),  color = "#d95f02", linetype=2) +
+  geom_segment(aes(x= 2.68, y=6,  xend=2.68, yend=0),  color = "#d95f02", linetype=2) +
+  geom_segment(aes(x=-4.00, y=14, xend=3.32, yend=14), color = "#1b9e77", linetype=2) +
+  geom_segment(aes(x= 3.32, y=14, xend=3.32, yend=0),  color = "#1b9e77", linetype=2)
+
+```
+
+```{r}
+plot_test_information +
+  geom_segment(aes(x= 3.96, y=11, xend=3.96, yend=0),  color = "#7570b3", linetype=2) +
+  geom_segment(aes(x= 4.11, y=11, xend=4.11, yend=0),  color = "#e7298a", linetype=2) +
+  geom_segment(aes(x= 2.68, y=11, xend=2.68, yend=0),  color = "#d95f02", linetype=2) +
+  geom_segment(aes(x= 3.32, y=11, xend=3.32, yend=0),  color = "#1b9e77", linetype=2)
+
+```
+
+```{r, fig.height=10}
+plot_thresholds +
+  geom_segment(aes(x= 3.96, y=170, xend=3.96, yend=0),  color = "#7570b3", linetype=2) +
+  geom_segment(aes(x= 4.11, y=170, xend=4.11, yend=0),  color = "#e7298a", linetype=2) +
+  geom_segment(aes(x= 2.68, y=170,  xend=2.68, yend=0),  color = "#d95f02", linetype=2) +
+  geom_segment(aes(x= 3.32, y=170, xend=3.32, yend=0),  color = "#1b9e77", linetype=2)
+
+```

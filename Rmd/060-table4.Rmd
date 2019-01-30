@@ -1,0 +1,56 @@
+
+### Tables of item parameters 
+
+Parameters are unstandardized factor loading and thresholds from the final mplus output.  Considered adding standard errors to the table, but because in this final model we are estimating the thresholds for the more severe categories, all the other parameters have been constrained to previous estimates, so it would be difficult and may not make sense to include standard errors.
+
+```{r}
+
+cam.cfa <- readModels(here("mplus_output", "cfa-cam-3-1.out"), quiet = TRUE)
+drs.cfa <- readModels(here("mplus_output", "cfa-drs-3-1.out"), quiet = TRUE)
+mdas.cfa <- readModels(here("mplus_output", "cfa-mdas-3-1.out"), quiet = TRUE)
+
+
+get.item.parameters <- function(mplusout) {
+  mplusout[["parameters"]][["unstandardized"]] %>%
+    filter(paramHeader=="F.BY" | paramHeader=="Thresholds") %>%
+    mutate(ritem = tolower(param),
+          param = ifelse(paramHeader=="F.BY", "FL", "T")) %>%
+    separate(ritem, into = c("ritem", "thresh"), sep = "\\$") %>%
+    mutate(thresh = ifelse(is.na(thresh), "", thresh),
+          param2 = str_c(param, thresh),
+          item = str_sub(ritem, 2)) %>%
+    select(item, param2, est) %>%
+    spread(key = param2, value = est) %>%
+    as_tibble()
+}
+cam.item.parameters <- get.item.parameters(cam.cfa)
+drs.item.parameters <- get.item.parameters(drs.cfa)
+mdas.item.parameters <- get.item.parameters(mdas.cfa)
+
+```
+
+#### CAM-S long form
+```{r}
+cam.item.parameters %>%
+  kable(col.names = c("Item", "Factor loading", "Threshold 1", "Threshold 2")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "left")
+```
+
+#### DRS-R-98
+```{r}
+drs.item.parameters %>%
+  kable(col.names = c("Item", "Factor loading", "Threshold 1", "Threshold 2", "Threshold 3")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "left")
+```
+
+#### MDAS
+```{r}
+mdas.item.parameters %>%
+  kable(col.names = c("Item", "Factor loading", "Threshold 1", "Threshold 2", "Threshold 3")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F, position = "left")
+
+```
+

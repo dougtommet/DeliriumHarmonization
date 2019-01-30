@@ -1,0 +1,43 @@
+
+
+```{r}
+
+fscores.drs <- readModels(here("mplus_output", "cfa-drs-2-1-2pl.out"), quiet=TRUE)[["savedata"]] %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  as_tibble() %>%
+  rename(f.drs = f)
+
+fscores.mdas <- readModels(here("mplus_output", "cfa-mdas-link-1.out"), quiet=TRUE)[["savedata"]] %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  as_tibble() %>%
+  rename(f.mdas = f)
+
+fscores.cam <- readModels(here("mplus_output", "cfa-cam-link-1.out"), quiet=TRUE)[["savedata"]] %>%
+  setNames(tolower(names(.))) %>%
+  select(recordid, f) %>%
+  as_tibble() %>%
+  rename(f.cam = f)
+
+fscores <- fscores.drs %>%
+  left_join(fscores.mdas, by="recordid") %>%
+  left_join(fscores.cam, by="recordid")
+
+fscores %>%
+  gather(test, fscore, 2:4) %>%
+  ggplot(aes(fscore, group=test, color=test)) +
+    geom_density(adjust=2) +
+    scale_color_brewer(palette = "Dark2", 
+                      name = "Delirium Scale",
+                      breaks = c("f.drs", "f.mdas", "f.cam"),
+                      labels = c("DRS", "MDAS", "CAM-S")) + 
+  ylab("Density") +
+  scale_x_continuous("Delirium Intensity", limits = c(-4, 8), breaks=seq(-4,8,1)) +
+  ggtitle("Distribution of estimated delirium level (Dichotomous CFA)") +
+  theme_doug()
+
+
+
+
+```
